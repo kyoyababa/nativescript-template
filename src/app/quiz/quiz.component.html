@@ -2,13 +2,14 @@
 
 <FlexboxLayout flexDirection="column">
   <StackLayout>
-    <Label textWrap="true" text="{{getQuizText()}}"></Label>
+    <Label textWrap="true" text="{{quizText}}"></Label>
   </StackLayout>
-  <StackLayout>
-    <Button text="Move to List!" (tap)="goToList()"></Button>
+  <StackLayout *ngFor="let answer of answerSelections">
+    <Button text="{{answer?.capitalJp}}"></Button>
+    <!-- <Button text="Move to List!" (tap)="goToList()"></Button>
     <Button text="Move to List!!" (tap)="goToList()"></Button>
     <Button text="Move to List!!!" (tap)="goToList()"></Button>
-    <Button text="Move to List!!!!" (tap)="goToList()"></Button>
+    <Button text="Move to List!!!!" (tap)="goToList()"></Button> -->
   </StackLayout>
 </FlexboxLayout>
   <!-- <DatePicker (loaded)="onPickerLoaded($event)" (dateChange)="onDateChanged($event)"

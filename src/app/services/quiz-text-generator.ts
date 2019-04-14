@@ -1,3 +1,5 @@
+// import { Injectable } from '@angular/core';
+
 export type Country = {
   countryCode: string;
   nameJp: string;
@@ -13,8 +15,9 @@ export type Country = {
   lon: string; // 0.0000000
 }
 
-export class QuizTextGenerator {
-  countryToCapital(country: Country) {
-    return `「${country.nameJpS}」の首都はどこ？`;
-  }
+// @Injectable()
+// export class QuizTextGenerator {
+export function countryToCapital(country: Country): string {
+  return `「${country.nameJpS}」の首都はどこ？`;
 }
+// }

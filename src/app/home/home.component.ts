@@ -4,8 +4,8 @@ import { Label } from "tns-core-modules/ui/label";
 
 import { Router } from "@angular/router";
 import { Page } from "tns-core-modules/ui/page";
-import { action, confirm, prompt, PromptOptions, PromptResult, inputType } from "tns-core-modules/ui/dialogs";
-import { takePicture, requestPermissions, isAvailable } from "nativescript-camera";
+// import { action, confirm, prompt, PromptOptions, PromptResult, inputType } from "tns-core-modules/ui/dialogs";
+// import { takePicture, requestPermissions, isAvailable } from "nativescript-camera";
 
 
 @Component({
@@ -80,20 +80,20 @@ export class HomeComponent implements OnInit {
     //     console.log(result);
     // });
 
-    let options: PromptOptions = {
-      title: "Hey There",
-      defaultText: " Enter your mood ",
-      message: "How you doin'",
-      inputType: inputType.text,
-      okButtonText: "OK",
-      cancelButtonText: "Cancel",
-      neutralButtonText: "Neutral",
-      cancelable: true
-    };
-
-    prompt(options).then((result: PromptResult) => {
-      console.log("Hello, " + result.text);
-    });
+    // let options: PromptOptions = {
+    //   title: "Hey There",
+    //   defaultText: " Enter your mood ",
+    //   message: "How you doin'",
+    //   inputType: inputType.text,
+    //   okButtonText: "OK",
+    //   cancelButtonText: "Cancel",
+    //   neutralButtonText: "Neutral",
+    //   cancelable: true
+    // };
+    //
+    // prompt(options).then((result: PromptResult) => {
+    //   console.log("Hello, " + result.text);
+    // });
 
     // let options = {
     //     title: "Race selection",
@@ -225,29 +225,29 @@ export class HomeComponent implements OnInit {
   }
 
   onTakePhoto() {
-    let isCameraAvailable = isAvailable();
-    console.log(isCameraAvailable)
-
-    let options = {
-      // width: this.width,
-      // height: this.height,
-      width: 300,
-      height: 300,
-      // keepAspectRatio: this.keepAspectRatio,
-      // saveToGallery: this.saveToGallery
-      keepAspectRatio: true,
-      saveToGallery: true
-    };
-
-    console.dir(this.page)
-
-    takePicture(options).then(imageAsset => {
-        console.log(imageAsset)
-        // this.imageTaken = imageAsset;
-        // console.log("Size: " + imageAsset.options.width + "x" + imageAsset.options.height);
-      }).catch(err => {
-      console.log(err);
-    });
+    // let isCameraAvailable = isAvailable();
+    // console.log(isCameraAvailable)
+    //
+    // let options = {
+    //   // width: this.width,
+    //   // height: this.height,
+    //   width: 300,
+    //   height: 300,
+    //   // keepAspectRatio: this.keepAspectRatio,
+    //   // saveToGallery: this.saveToGallery
+    //   keepAspectRatio: true,
+    //   saveToGallery: true
+    // };
+    //
+    // console.dir(this.page)
+    //
+    // takePicture(options).then(imageAsset => {
+    //     console.log(imageAsset)
+    //     // this.imageTaken = imageAsset;
+    //     // console.log("Size: " + imageAsset.options.width + "x" + imageAsset.options.height);
+    //   }).catch(err => {
+    //   console.log(err);
+    // });
   }
 
   showActionBar() {

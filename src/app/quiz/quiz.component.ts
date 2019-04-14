@@ -1,14 +1,16 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
-import { WebView, LoadEventData } from "tns-core-modules/ui/web-view";
-import { Label } from "tns-core-modules/ui/label";
+// import { WebView, LoadEventData } from "tns-core-modules/ui/web-view";
+// import { Label } from "tns-core-modules/ui/label";
 
-import { Router } from "@angular/router";
-import { Page } from "tns-core-modules/ui/page";
-import { action, confirm, prompt, PromptOptions, PromptResult, inputType } from "tns-core-modules/ui/dialogs";
-import { takePicture, requestPermissions, isAvailable } from "nativescript-camera";
+// import { Router } from "@angular/router";
+// import { Page } from "tns-core-modules/ui/page";
+// import { action, confirm, prompt, PromptOptions, PromptResult, inputType } from "tns-core-modules/ui/dialogs";
+// import { takePicture, requestPermissions, isAvailable } from "nativescript-camera";
 
-import { DatabaseHandler } from '../database/database.handler';
-import { QuizTextGenerator } from '../services/quiz-text-generator';
+import { Country } from '../services/quiz-text-generator';
+import * as DatabaseHandler from '../database/database.handler';
+import * as QuizTextGenerator from '../services/quiz-text-generator';
+import * as QuizAnswerGenerator from '../services/quiz-answer-generator';
 
 
 @Component({
@@ -18,6 +20,9 @@ import { QuizTextGenerator } from '../services/quiz-text-generator';
 })
 export class QuizComponent implements OnInit {
   currentQuizNumber = 1;
+  private country: Country | undefined;
+  quizText: string | undefined;
+  answerSelections: Array<Country> = Array(4);
   // email = "nativescriptrocks@progress.com";
   // isLoggingIn = true;
   // htmlString = '<span><h1>HtmlView demo in <font color="blue">NativeScript</font> App</h1></span>';
@@ -30,14 +35,16 @@ export class QuizComponent implements OnInit {
   // public isWebViewLoded = false;
 
   constructor(
-    private databaseHandler: DatabaseHandler,
-    private quizTextGenerator: QuizTextGenerator
+    // private databaseHandler: DatabaseHandler,
+    // private quizTextGenerator: QuizTextGenerator,
+    // private quizAnswerGenerator: QuizAnswerGenerator
     // private router: Router,
     // private page: Page
   ) {
   }
 
   ngOnInit() {
+    this.setQuizAndAnswerSelections();
     // this.page.actionBarHidden = true;
   }
 
@@ -62,14 +69,25 @@ export class QuizComponent implements OnInit {
     // });
   }
 
-  getActionBarTitle() {
+  private setQuizAndAnswerSelections(): void {
+    const country = DatabaseHandler.getRandomCountry();
+    this.quizText = QuizTextGenerator.countryToCapital(country);
+    this.answerSelections = DatabaseHandler.fisherYatesShuffle(QuizAnswerGenerator.countryToCapital(country));
+  }
+
+  getActionBarTitle(): string {
     return `Q.${this.currentQuizNumber}`;
   }
 
-  getQuizText() {
-    const country = this.databaseHandler.getRandomCountry();
-    return this.quizTextGenerator.countryToCapital(country);
-  }
+  // getQuizText(): string {
+  //   if (!this.country) return '';
+  //   return QuizTextGenerator.countryToCapital(this.country);
+  // }
+  //
+  // getAnswerSelectionsTexts(): Array<any> {
+  //   if (!this.country) return Array(4);
+  //   return QuizAnswerGenerator.countryToCapital(this.country);
+  // }
 
   // action() {
   //   // const options = {
