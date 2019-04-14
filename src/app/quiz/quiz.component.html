@@ -1,0 +1,76 @@
+<ActionBar title="{{getActionBarTitle()}}"></ActionBar>
+
+<FlexboxLayout flexDirection="column">
+  <StackLayout>
+    <Label textWrap="true" text="{{getQuizText()}}"></Label>
+  </StackLayout>
+  <StackLayout>
+    <Button text="Move to List!" (tap)="goToList()"></Button>
+    <Button text="Move to List!!" (tap)="goToList()"></Button>
+    <Button text="Move to List!!!" (tap)="goToList()"></Button>
+    <Button text="Move to List!!!!" (tap)="goToList()"></Button>
+  </StackLayout>
+</FlexboxLayout>
+  <!-- <DatePicker (loaded)="onPickerLoaded($event)" (dateChange)="onDateChanged($event)"
+  (dayChange)="onDayChanged($event)" (monthChange)="onMonthChanged($event)" (yearChange)="onYearChanged($event)" verticalAlignment="center"></DatePicker> -->
+  <!--  -->
+  <!-- <Button text="Move to List!" class="btn" (tap)="goToList()"></Button> -->
+
+  <!-- <ActivityIndicator row="1" #activityIndicator busy="false" (busyChange)="onBusyChanged($event)" width="100" height="100" class="activity-indicator"></ActivityIndicator> -->
+
+  <!-- <Button text="Action" class="btn" (tap)="action()"></Button> -->
+
+  <!-- <HtmlView [html]="htmlString" ></HtmlView> -->
+
+  <!-- <GridLayout>
+    <WebView row="1" #myWebView [src]="webViewSrc"></WebView>
+  </GridLayout> -->
+  <!-- <Label *ngIf="!isWebViewLoded" row="2" #labelResult></Label> -->
+
+
+
+  <!-- <TabView id="tabViewContainer">
+      <StackLayout *tabItem="{title: 'First Tab', iconSource: 'res://icon'}">
+          <StackLayout>
+              <Label text="First Tab" textWrap="true" class="m-15 h2 text-left" color="blue"></Label>
+          </StackLayout>
+      </StackLayout>
+      <StackLayout *tabItem="{title: 'Second Tab', iconSource: 'res://icon'}">
+          <StackLayout>
+              <Label text="Second Tab" textWrap="true" class="m-15 h2 text-left" color="blue"></Label>
+          </StackLayout>
+      </StackLayout>
+  </TabView> -->
+
+  <!-- <GridLayout rows="auto auto" columns="* *" class="m-5">
+      <Label class="h3 m-15" [text]="'OFF'" textWrap="true" row="0" col="0"></Label>
+      <Switch class="m-15" checked="false" (checkedChange)="onFirstChecked($event)" row="0" col="1"></Switch>
+  </GridLayout> -->
+
+  <!-- <Button text="Take Photo!" class="btn btn-primary btn-active" (tap)="onTakePhoto()" flexGrow="1"></Button> -->
+
+  <!-- <Button text="Sign up for Groceries" class="btn" (tap)="showActionBar()"></Button> -->
+
+  <!-- <FlexboxLayout>
+    <StackLayout class="form">
+      <Label class="h1" text="Hello World!"></Label>
+
+      <Image src="~/app/home/images/AB@3x.png"></Image>
+      <Image src="~/app/images/AB@4x.png"></Image>
+
+      <TextField
+        hint="Email Address" keyboardType="email"
+        autocorrect="false" autocapitalizationType="none"
+        [(ngModel)]="email" class="input input-border">
+      </TextField>
+
+      <TextField hint="Password" secure="true"
+        class="input input-border"></TextField>
+
+      <Button text="Sign in" class="btn btn-primary" (tap)="submit()"></Button>
+
+      <Button text="Sign up for Groceries" class="btn"></Button>
+
+      <Button text="Move to List" class="btn" (tap)="goToList()"></Button>
+    </StackLayout>
+  </FlexboxLayout> -->

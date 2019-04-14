@@ -8,18 +8,18 @@ import { ListRoutingModule } from "./list-routing.module";
 import { ListComponent } from "./list.component";
 
 @NgModule({
-    imports: [
-        NativeScriptCommonModule,
-        NativeScriptFormsModule,
-        ListRoutingModule,
-        NativeScriptUIListViewModule,
-        NativeScriptUICalendarModule
-    ],
-    declarations: [
-        ListComponent
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA
-    ]
+  imports: [
+    NativeScriptCommonModule,
+    NativeScriptFormsModule,
+    ListRoutingModule,
+    NativeScriptUIListViewModule,
+    NativeScriptUICalendarModule
+  ],
+  declarations: [
+    ListComponent
+  ],
+  schemas: [
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class ListModule { }

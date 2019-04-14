@@ -1,31 +1,37 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
-// import { WebView, LoadEventData } from "tns-core-modules/ui/web-view";
-// import { Label } from "tns-core-modules/ui/label";
+import { WebView, LoadEventData } from "tns-core-modules/ui/web-view";
+import { Label } from "tns-core-modules/ui/label";
 
 import { Router } from "@angular/router";
 import { Page } from "tns-core-modules/ui/page";
-// import { action, confirm, prompt, PromptOptions, PromptResult, inputType } from "tns-core-modules/ui/dialogs";
-// import { takePicture, requestPermissions, isAvailable } from "nativescript-camera";
+import { action, confirm, prompt, PromptOptions, PromptResult, inputType } from "tns-core-modules/ui/dialogs";
+import { takePicture, requestPermissions, isAvailable } from "nativescript-camera";
+
+import { DatabaseHandler } from '../database/database.handler';
+import { QuizTextGenerator } from '../services/quiz-text-generator';
 
 
 @Component({
-  selector: "quiz",
+  selector: "app-quiz",
   templateUrl: './app/quiz/quiz.component.html',
   styleUrls: ['./app/quiz/quiz.component.css']
 })
 export class QuizComponent implements OnInit {
+  currentQuizNumber = 1;
   // email = "nativescriptrocks@progress.com";
   // isLoggingIn = true;
   // htmlString = '<span><h1>HtmlView demo in <font color="blue">NativeScript</font> App</h1></span>';
-
+  //
   // public webViewSrc: string = "https://docs.nativescript.org/";
   // public enabled: boolean = false;
-  // @ViewChild("myWebView") webViewRef: ElementRef;
-  // @ViewChild("labelResult") labelResultRef: ElementRef;
+  // @ViewChild("myWebView") webViewRef: ElementRef | undefined;
+  // @ViewChild("labelResult") labelResultRef: ElementRef | undefined;
 
   // public isWebViewLoded = false;
 
   constructor(
+    private databaseHandler: DatabaseHandler,
+    private quizTextGenerator: QuizTextGenerator
     // private router: Router,
     // private page: Page
   ) {
@@ -35,25 +41,36 @@ export class QuizComponent implements OnInit {
     // this.page.actionBarHidden = true;
   }
 
-  // ngAfterViewInit() {
-  //   let webview: WebView = this.webViewRef.nativeElement;
-  //   let label: Label = this.labelResultRef.nativeElement;
-  //   label.text = "WebView is still loading...";
-  //
-  //   webview.on(WebView.loadFinishedEvent, function (args: LoadEventData) {
-  //     let message;
-  //     if (!args.error) {
-  //       message = "WebView finished loading of " + args.url;
-  //       this.isWebViewLoded = true;
-  //     } else {
-  //       message = "Error loading " + args.url + ": " + args.error;
-  //     }
-  //
-  //     label.text = message;
-  //     console.log("WebView message - " + message);
-  //   });
-  // }
-  //
+  ngAfterViewInit() {
+    // if (!this.webViewRef || !this.labelResultRef) return;
+    //
+    // let webview: WebView = this.webViewRef.nativeElement;
+    // let label: Label = this.labelResultRef.nativeElement;
+    // label.text = "WebView is still loading...";
+    //
+    // webview.on(WebView.loadFinishedEvent, (args: any) => {
+    //   let message;
+    //   if (!args.error) {
+    //     message = "WebView finished loading of " + args.url;
+    //     this.isWebViewLoded = true;
+    //   } else {
+    //     message = "Error loading " + args.url + ": " + args.error;
+    //   }
+    //
+    //   label.text = message;
+    //   console.log("WebView message - " + message);
+    // });
+  }
+
+  getActionBarTitle() {
+    return `Q.${this.currentQuizNumber}`;
+  }
+
+  getQuizText() {
+    const country = this.databaseHandler.getRandomCountry();
+    return this.quizTextGenerator.countryToCapital(country);
+  }
+
   // action() {
   //   // const options = {
   //   //   title: "Race selection",
@@ -103,7 +120,7 @@ export class QuizComponent implements OnInit {
   //   //     console.log("Race chosen!");
   //   // });
   // }
-  //
+
   // toggle() {
   //   // this.page.hasActionBar =
   //   // hasActionBar: true
@@ -221,7 +238,7 @@ export class QuizComponent implements OnInit {
   //   // effectiveBorderBottomWidth: 0
   //   // effectiveBorderLeftWidth: 0
   // }
-  //
+
   // onTakePhoto() {
   //   let isCameraAvailable = isAvailable();
   //   console.log(isCameraAvailable)
@@ -247,7 +264,7 @@ export class QuizComponent implements OnInit {
   //     console.log(err);
   //   });
   // }
-  //
+
   // showActionBar() {
   //   this.page.actionBarHidden = !this.page.actionBarHidden;
   // }

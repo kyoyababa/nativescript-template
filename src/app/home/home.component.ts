@@ -20,8 +20,8 @@ export class HomeComponent implements OnInit {
 
   public webViewSrc: string = "https://docs.nativescript.org/";
   public enabled: boolean = false;
-  @ViewChild("myWebView") webViewRef: ElementRef;
-  @ViewChild("labelResult") labelResultRef: ElementRef;
+  @ViewChild("myWebView") webViewRef: ElementRef | undefined;
+  @ViewChild("labelResult") labelResultRef: ElementRef | undefined;
 
   public isWebViewLoded = false;
 
@@ -36,11 +36,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    if (!this.webViewRef || !this.labelResultRef) return;
+
     let webview: WebView = this.webViewRef.nativeElement;
     let label: Label = this.labelResultRef.nativeElement;
     label.text = "WebView is still loading...";
 
-    webview.on(WebView.loadFinishedEvent, function (args: LoadEventData) {
+    webview.on(WebView.loadFinishedEvent, (args: any) => {
       let message;
       if (!args.error) {
         message = "WebView finished loading of " + args.url;

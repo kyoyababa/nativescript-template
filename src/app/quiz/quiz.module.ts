@@ -2,6 +2,8 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
+import { DatabaseHandler } from "../database/database.handler";
+import { QuizTextGenerator } from "../services/quiz-text-generator";
 import { QuizRoutingModule } from "./quiz-routing.module";
 import { QuizComponent } from "./quiz.component";
 
@@ -11,6 +13,10 @@ import { QuizComponent } from "./quiz.component";
     NativeScriptFormsModule,
     QuizRoutingModule
   ],
+  providers: [
+    DatabaseHandler,
+    QuizTextGenerator
+  ],
   declarations: [
     QuizComponent
   ],
@@ -18,4 +24,4 @@ import { QuizComponent } from "./quiz.component";
     NO_ERRORS_SCHEMA
   ]
 })
-export class HomeModule { }
+export class QuizModule { }
