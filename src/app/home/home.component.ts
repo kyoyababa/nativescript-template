@@ -36,23 +36,23 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-       let webview: WebView = this.webViewRef.nativeElement;
-       let label: Label = this.labelResultRef.nativeElement;
-       label.text = "WebView is still loading...";
+    let webview: WebView = this.webViewRef.nativeElement;
+    let label: Label = this.labelResultRef.nativeElement;
+    label.text = "WebView is still loading...";
 
-       webview.on(WebView.loadFinishedEvent, function (args: LoadEventData) {
-           let message;
-           if (!args.error) {
-               message = "WebView finished loading of " + args.url;
-               this.isWebViewLoded = true;
-           } else {
-               message = "Error loading " + args.url + ": " + args.error;
-           }
+    webview.on(WebView.loadFinishedEvent, function (args: LoadEventData) {
+      let message;
+      if (!args.error) {
+        message = "WebView finished loading of " + args.url;
+        this.isWebViewLoded = true;
+      } else {
+        message = "Error loading " + args.url + ": " + args.error;
+      }
 
-           label.text = message;
-           console.log("WebView message - " + message);
-       });
-   }
+      label.text = message;
+      console.log("WebView message - " + message);
+    });
+  }
 
   action() {
     // const options = {
@@ -79,18 +79,18 @@ export class HomeComponent implements OnInit {
     // });
 
     let options: PromptOptions = {
-        title: "Hey There",
-        defaultText: " Enter your mood ",
-        message: "How you doin'",
-        inputType: inputType.text,
-        okButtonText: "OK",
-        cancelButtonText: "Cancel",
-        neutralButtonText: "Neutral",
-        cancelable: true
+      title: "Hey There",
+      defaultText: " Enter your mood ",
+      message: "How you doin'",
+      inputType: inputType.text,
+      okButtonText: "OK",
+      cancelButtonText: "Cancel",
+      neutralButtonText: "Neutral",
+      cancelable: true
     };
 
     prompt(options).then((result: PromptResult) => {
-        console.log("Hello, " + result.text);
+      console.log("Hello, " + result.text);
     });
 
     // let options = {
@@ -239,14 +239,13 @@ export class HomeComponent implements OnInit {
 
     console.dir(this.page)
 
-    takePicture(options)
-      .then(imageAsset => {
+    takePicture(options).then(imageAsset => {
         console.log(imageAsset)
         // this.imageTaken = imageAsset;
         // console.log("Size: " + imageAsset.options.width + "x" + imageAsset.options.height);
       }).catch(err => {
-        console.log(err);
-      });
+      console.log(err);
+    });
   }
 
   showActionBar() {

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 
 export class User {
-  email: string;
-  password: string;
+  email: string | undefined;
+  password: string | undefined;
 }
 
 @Injectable()
