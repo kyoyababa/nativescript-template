@@ -1,6 +1,5 @@
 import * as QuizTextGenerator from './quiz-text-generator';
 
-// const quizTextGenerator = new QuizTextGenerator();
 
 describe('countryToCapital', () => {
   describe('日本のデータが渡されたとき、', () => {

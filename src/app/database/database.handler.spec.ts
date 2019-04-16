@@ -1,6 +1,5 @@
 import * as DatabaseHandler from './database.handler';
 
-// const databaseHelper = new DatabaseHandler();
 
 describe('getRandomCountry', () => {
   describe('300回実行したとき', () => {
