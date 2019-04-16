@@ -4,7 +4,21 @@
   <StackLayout>
     <Label textWrap="true" text="{{quizText}}"></Label>
   </StackLayout>
+
+  <FlexboxLayout>
+    <StackLayout *ngFor="let answer of answers">
+      <Label *ngIf="answer.correct" text="correct"></Label>
+      <Label *ngIf="!answer.correct" text="incorrect"></Label>
+    </StackLayout>
+  </FlexboxLayout>
+
   <StackLayout *ngFor="let answer of answerSelections">
-    <Button text="{{answer?.capitalJp}}"></Button>
+    <Button text="{{answer?.capitalJp}}" (tap)="judgement(answer)"></Button>
   </StackLayout>
+
+  <AbsoluteLayout *ngIf="isAnswerSelected">
+    <Label *ngIf="isCorrect()" text="correct"></Label>
+    <Label *ngIf="!isCorrect()" text="incorrect"></Label>
+    <Button text="go to next" (tap)="goToNext()"></Button>
+  </AbsoluteLayout>
 </FlexboxLayout>

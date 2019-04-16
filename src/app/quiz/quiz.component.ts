@@ -16,6 +16,9 @@ export class QuizComponent implements OnInit {
   private country: Country | undefined;
   quizText: string | undefined;
   answerSelections: Array<Country> = Array(4);
+  isAnswerSelected = false;
+  selectedAnswer: any = null;
+  answers = [];
 
   constructor(
   ) {
@@ -37,5 +40,22 @@ export class QuizComponent implements OnInit {
 
   getActionBarTitle(): string {
     return `Q.${this.currentQuizNumber}`;
+  }
+
+  judgement(answer: Country): void {
+    this.isAnswerSelected = true;
+    this.selectedAnswer = answer;
+  }
+
+  isCorrect(): boolean {
+    return this.selectedAnswer && this.selectedAnswer.isCorrect;
+  }
+
+  goToNext(): void {
+    this.answers.push({ correct: this.isCorrect() });
+    this.isAnswerSelected = false;
+    this.selectedAnswer = null;
+    this.setQuizAndAnswerSelections();
+    this.currentQuizNumber++;
   }
 }

@@ -14,9 +14,9 @@ export function getSimilarCountries(country: Country): Array<Country> {
 }
 
 export function fisherYatesShuffle(array: Array<any>): Array<any> {
-  const n = array.length;
+  let n = array.length;
   let t: any;
-  let i: any;
+  let i: number;
 
   while (n) {
     i = Math.floor(Math.random() * n--);
