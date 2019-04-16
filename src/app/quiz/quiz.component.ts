@@ -32,10 +32,22 @@ export class QuizComponent implements OnInit {
   }
 
   private setQuizAndAnswerSelections(): void {
+    const quizPatterns = ['countryToCapital', 'capitalToCountry'];
+
     const correctCountry = DatabaseHandler.getRandomCountry();
-    const wrongCountries = DatabaseHandler.getSimilarCountries(correctCountry)
-    this.quizText = QuizTextGenerator.countryToCapital(correctCountry);
-    this.answerSelections = DatabaseHandler.fisherYatesShuffle(QuizAnswerGenerator.countryToCapital(correctCountry, wrongCountries));
+    const wrongCountries = DatabaseHandler.getSimilarCountries(correctCountry);
+
+    const selectedQuizPattern = Math.floor(Math.random() * quizPatterns.length);
+
+    if (quizPatterns[selectedQuizPattern] === 'countryToCapital') {
+      this.quizText = QuizTextGenerator.countryToCapital(correctCountry);
+    } else if (quizPatterns[selectedQuizPattern] === 'capitalToCountry') {
+      this.quizText = QuizTextGenerator.capitalToCountry(correctCountry);
+    } else {
+      throw new Error();
+    }
+
+    this.answerSelections = DatabaseHandler.fisherYatesShuffle(QuizAnswerGenerator.setAnswers(correctCountry, wrongCountries));
   }
 
   getActionBarTitle(): string {

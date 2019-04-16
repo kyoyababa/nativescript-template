@@ -1,13 +1,11 @@
 import { Country } from './quiz-text-generator';
 
 
-export function countryToCapital(country: Country, similarCountries: Array<Country>) {
-  const correctAnswer = country.capitalJp;
-
+export function setAnswers(correctAnswer: Country, wrongAnswers: Array<Country>) {
   return [
-    { ...country, isCorrect: true },
-    { ...similarCountries[0], isCorrect: false },
-    { ...similarCountries[1], isCorrect: false },
-    { ...similarCountries[2], isCorrect: false },
+    { ...correctAnswer, isCorrect: true },
+    { ...wrongAnswers[0], isCorrect: false },
+    { ...wrongAnswers[1], isCorrect: false },
+    { ...wrongAnswers[2], isCorrect: false },
   ];
 }

@@ -16,3 +16,7 @@ export type Country = {
 export function countryToCapital(country: Country): string {
   return `「${country.nameJpS}」の首都はどこ？`;
 }
+
+export function capitalToCountry(country: Country): string {
+  return `首都を「${country.capitalJp}」におく国はどこ？`;
+}

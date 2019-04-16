@@ -1,7 +1,7 @@
 import * as QuizAnswerGenerator from './quiz-answer-generator';
 
 
-describe('countryToCapital', () => {
+describe('setAnswers', () => {
   describe('日本が正解のとき', () => {
     const correctData = {"nameJp":"日本国","nameJpS":"日本","countryCode":"JP","regionCode":"Asia","capitalJp":"東京","secondCapitalJp":"大阪","isIsland":"true","lat":"35.689568","lon":"139.691717","landLocked":"","nameJpB":"","nameJpBAbbr":""};
     const wrongData = [
@@ -9,7 +9,7 @@ describe('countryToCapital', () => {
       {"nameJp":"アフガニスタン・イスラム共和国","nameJpS":"アフガニスタン","countryCode":"AF","regionCode":"Asia","capitalJp":"カブール","secondCapitalJp":"カンダハール","isIsland":"false","lat":"34.528455","lon":"69.1717029","landLocked":"Single","nameJpB":"亜加業坦","nameJpBAbbr":""},
       {"nameJp":"アブハジア自治共和国","nameJpS":"アブハジア","countryCode":"AB","regionCode":"Asia","capitalJp":"スフミ","secondCapitalJp":"","isIsland":"false","lat":"43.003333","lon":"41.015278","landLocked":"","nameJpB":"","nameJpBAbbr":""}
     ]
-    const actual = QuizAnswerGenerator.countryToCapital(correctData, wrongData);
+    const actual = QuizAnswerGenerator.setAnswers(correctData, wrongData);
 
     it('1つ目に日本が返され、isCorrectがtrueになっていること', () => {
       expect(actual[0].nameJpS).toBe('日本');
