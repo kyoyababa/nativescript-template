@@ -20,3 +20,11 @@ export function countryToCapital(country: Country): string {
 export function capitalToCountry(country: Country): string {
   return `首都を「${country.capitalJp}」におく国はどこ？`;
 }
+
+export function countryToFlag(country: Country): string {
+  return `「${country.nameJpS}」の国旗はどれ？`;
+}
+
+export function flagToCountry(country: Country): string {
+  return `この国旗はどの国のもの？`;
+}

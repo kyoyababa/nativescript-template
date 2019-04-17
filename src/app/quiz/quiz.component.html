@@ -3,6 +3,7 @@
 <FlexboxLayout flexDirection="column">
   <StackLayout>
     <Label textWrap="true" text="{{quizText}}"></Label>
+    <Image *ngIf="quizImage" [src]="quizImage"></Image>
   </StackLayout>
 
   <FlexboxLayout>
@@ -15,6 +16,10 @@
   <StackLayout *ngFor="let answer of answerSelections">
     <Button text="{{answer?.capitalJp}}" (tap)="judgement(answer)"></Button>
   </StackLayout>
+
+  <FlexboxLayout flexWrap="wrap" *ngFor="let answer of answerImageSelections">
+    <Image width="50" [src]="getFlagUrl(answer)" (tap)="judgement(answer)"></Image>
+  </FlexboxLayout>
 
   <AbsoluteLayout *ngIf="isAnswerSelected">
     <Label *ngIf="isCorrect()" text="correct"></Label>

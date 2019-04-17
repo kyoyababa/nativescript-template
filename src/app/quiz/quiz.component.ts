@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 
+import * as QuizService from './quiz.service';
 import { Country } from '../services/quiz-text-generator';
 import * as DatabaseHandler from '../database/database.handler';
 import * as QuizTextGenerator from '../services/quiz-text-generator';
@@ -15,7 +16,9 @@ export class QuizComponent implements OnInit {
   currentQuizNumber = 1;
   private country: Country | undefined;
   quizText: string | undefined;
+  quizImage = '';
   answerSelections: Array<Country> = Array(4);
+  answerImageSelections: Array<Country> = Array(4);
   isAnswerSelected = false;
   selectedAnswer: any = null;
   answers = [];
@@ -32,26 +35,39 @@ export class QuizComponent implements OnInit {
   }
 
   private setQuizAndAnswerSelections(): void {
-    const quizPatterns = ['countryToCapital', 'capitalToCountry'];
-
+    const selectedQuizPattern = QuizService.selectedQuizPattern;
     const correctCountry = DatabaseHandler.getRandomCountry();
     const wrongCountries = DatabaseHandler.getSimilarCountries(correctCountry);
 
-    const selectedQuizPattern = Math.floor(Math.random() * quizPatterns.length);
+    switch (selectedQuizPattern) {
+      case 'countryToCapital':
+        this.quizText = QuizTextGenerator.countryToCapital(correctCountry);
+        this.answerSelections = DatabaseHandler.fisherYatesShuffle(QuizAnswerGenerator.setAnswers(correctCountry, wrongCountries));
+        break;
 
-    if (quizPatterns[selectedQuizPattern] === 'countryToCapital') {
-      this.quizText = QuizTextGenerator.countryToCapital(correctCountry);
-    } else if (quizPatterns[selectedQuizPattern] === 'capitalToCountry') {
-      this.quizText = QuizTextGenerator.capitalToCountry(correctCountry);
-    } else {
-      throw new Error();
+      case 'capitalToCountry':
+        this.quizText = QuizTextGenerator.capitalToCountry(correctCountry);
+        this.answerSelections = DatabaseHandler.fisherYatesShuffle(QuizAnswerGenerator.setAnswers(correctCountry, wrongCountries));
+        break;
+
+      case 'countryToFlag':
+        this.quizText = QuizTextGenerator.countryToFlag(correctCountry);
+        this.answerImageSelections = DatabaseHandler.fisherYatesShuffle(QuizAnswerGenerator.setAnswers(correctCountry, wrongCountries));
+        break;
+
+      case 'flagToCountry':
+        this.quizText = QuizTextGenerator.flagToCountry(correctCountry);
+        this.quizImage = QuizService.getQuizImage(correctCountry);
+        break;
     }
-
-    this.answerSelections = DatabaseHandler.fisherYatesShuffle(QuizAnswerGenerator.setAnswers(correctCountry, wrongCountries));
   }
 
   getActionBarTitle(): string {
     return `Q.${this.currentQuizNumber}`;
+  }
+
+  getFlagUrl(answer: Country): string {
+    return QuizService.getQuizImage(answer);
   }
 
   judgement(answer: Country): void {
