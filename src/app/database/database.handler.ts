@@ -1,14 +1,29 @@
-import { COUNTRIES } from './countries';
-import { Country } from '../services/quiz-text-generator';
+import * as I from '../models/quiz.d';
+import { countries } from './countries';
+const COUNTRIES = <Array<I.Country>>countries;
 
 
-export function getRandomCountry(): Country {
-  return COUNTRIES[Math.floor(Math.random() * COUNTRIES.length)];
+export function getRandomCountry(isLandLocked?: boolean): I.Country {
+  return getRandom(COUNTRIES);
 }
 
-export function getSimilarCountries(country: Country): Array<Country> {
+export function getRandomLockedCountry(): I.Country {
+  const landLockedCountries = COUNTRIES.filter(c => {
+    return c.landLocked === 'Single' || c.landLocked === 'Double';
+  });
+  return getRandom(landLockedCountries);
+}
+
+export function getSimilarCountries(country: I.Country): Array<I.Country> {
   const sameRegionCountries = COUNTRIES.filter(c => {
     return c.countryCode !== country.countryCode && c.regionCode === country.regionCode;
+  });
+  return fisherYatesShuffle(sameRegionCountries).splice(0, 3);
+}
+
+export function getSimilarUnlockedCountries(country: I.Country): Array<I.Country> {;
+  const sameRegionCountries = getSimilarCountries(country).filter(c => {
+    return c.landLocked !== 'Single' && c.landLocked !== 'Double';
   });
   return fisherYatesShuffle(sameRegionCountries).splice(0, 3);
 }
@@ -26,4 +41,9 @@ export function fisherYatesShuffle(array: Array<any>): Array<any> {
   }
 
   return array;
+}
+
+export function getRandom(array: Array<any>): any {
+  if (!array || !array.length) return;
+  return array[Math.floor(Math.random() * array.length)];
 }

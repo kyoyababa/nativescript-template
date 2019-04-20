@@ -1,4 +1,4 @@
-export const COUNTRIES = [
+export const countries = [
 {"nameJp":"アイスランド共和国","nameJpS":"アイスランド","countryCode":"IS","regionCode":"Europe","capitalJp":"レイキャビク","secondCapitalJp":"アークレイリ","isIsland":"true","lat":"64.135338","lon":"-21.89521","landLocked":"","nameJpB":"氷州","nameJpBAbbr":"氷"},
 {"nameJp":"アイルランド","nameJpS":"アイルランド","countryCode":"IE","regionCode":"Europe","capitalJp":"ダブリン","secondCapitalJp":"コーク","isIsland":"true","lat":"53.3498053","lon":"-6.2603097","landLocked":"","nameJpB":"愛蘭","nameJpBAbbr":"愛"},
 {"nameJp":"アゼルバイジャン共和国","nameJpS":"アゼルバイジャン","countryCode":"AZ","regionCode":"Asia","capitalJp":"バクー","secondCapitalJp":"ギャンジャ","isIsland":"false","lat":"40.4349504","lon":"49.8676232","landLocked":"","nameJpB":"亜塞爾拝然","nameJpBAbbr":""},

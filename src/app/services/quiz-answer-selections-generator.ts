@@ -1,7 +1,6 @@
-import { Country } from './quiz-text-generator';
+import * as I from '../models/quiz.d';
 
-
-export function setAnswers(correctAnswer: Country, wrongAnswers: Array<Country>) {
+export function getAnswerSelections(correctAnswer: I.Country, wrongAnswers: Array<I.Country>): Array<I.AnswerOfCountry> {
   return [
     { ...correctAnswer, isCorrect: true },
     { ...wrongAnswers[0], isCorrect: false },
