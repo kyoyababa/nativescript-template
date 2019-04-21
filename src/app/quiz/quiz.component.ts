@@ -15,6 +15,7 @@ import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selectio
 export class QuizComponent implements OnInit {
   currentQuizNumber = 1;
   selectedQuizPattern: I.AnswerSelection;
+  answerSelectionPattern: 'TEXT' | 'IMAGE' | undefined;
   quizText: string | undefined;
   quizImage = '';
   answerSelections: Array<I.Country> = Array(4);
@@ -35,10 +36,12 @@ export class QuizComponent implements OnInit {
 
   private setQuizAndAnswerSelections(): void {
     this.selectedQuizPattern = QuizService.selectedQuizPattern();
-    const { quizText, quizImage, answerSelections } = QuizService.getQuizTextAndAnswerSelections(this.selectedQuizPattern);
-    this.quizText = quizText;
-    this.quizImage = quizImage;
-    this.answerSelections = DatabaseHandler.fisherYatesShuffle(answerSelections);
+    const quizModel = QuizService.getQuizTextAndAnswerSelections(this.selectedQuizPattern);
+
+    this.answerSelectionPattern = quizModel.answerSelectionPattern;
+    this.quizText = quizModel.quizText;
+    this.quizImage = quizModel.quizImage;
+    this.answerSelections = DatabaseHandler.fisherYatesShuffle(quizModel.answerSelections);
   }
 
   getActionBarTitle(): string {
@@ -49,12 +52,8 @@ export class QuizComponent implements OnInit {
     return QuizService.getAnswerText(answer, this.selectedQuizPattern);
   }
 
-  shouldShowTextAnswers() {
-    return this.selectedQuizPattern !== 'countryToFlag';
-  }
-
-  shouldShowImageAnswers() {
-    return this.selectedQuizPattern === 'countryToFlag';
+  shouldShowAnswerSelectionsPattern(answerSelectionPattern: 'TEXT' | 'IMAGE') {
+    return this.answerSelectionPattern === answerSelectionPattern;
   }
 
   judgement(answer: I.AnswerOfCountry): void {

@@ -13,13 +13,13 @@
     </StackLayout>
   </FlexboxLayout>
 
-  <StackLayout *ngIf="shouldShowTextAnswers()">
+  <StackLayout *ngIf="shouldShowAnswerSelectionsPattern('TEXT')">
     <StackLayout *ngFor="let answer of answerSelections">
       <Button text="{{getAnswerText(answer)}}" (tap)="judgement(answer)"></Button>
     </StackLayout>
   </StackLayout>
 
-  <StackLayout *ngIf="shouldShowImageAnswers()">
+  <StackLayout *ngIf="shouldShowAnswerSelectionsPattern('IMAGE')">
     <FlexboxLayout flexDirection="row" flexWrap="wrap" *ngFor="let answer of answerSelections">
       <Image width="50" [src]="getAnswerText(answer)" (tap)="judgement(answer)"></Image>
     </FlexboxLayout>

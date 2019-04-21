@@ -6,133 +6,111 @@ import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selectio
 
 export function selectedQuizPattern(): I.AnswerSelection {
   const quizPatterns: Array<I.AnswerSelection> = [
-    'countryToCapital',
-    'capitalToCountry',
-    'countryToFlag',
-    'flagToCountry',
-    'isLandLocked'
+    'COUNTRY_TO_CAPITAL',
+    'CAPITAL_TO_COUNTRY',
+    'COUNTRY_TO_FLAG',
+    'FLAG_TO_COUNTRY',
+    'IS_LAND_LOCKED',
+    'IS_LAND_LOCKED_SUB',
+    'IS_LAND_LOCKED_DOUBLE',
+    'COUNTRY_TO_KANJI_ABBR',
+    'KANJI_ABBR_TO_COUNTRY',
+    'COUNTRY_NAME_SUFFIX'
   ];
 
   return DatabaseHandler.getRandom(quizPatterns);
 }
 
-export function getQuizTextAndAnswerSelections(selectedQuizPattern: I.AnswerSelection): any {
-  let correctCountry: I.Country;
-  let wrongCountries: Array<I.Country>;
-
+function getCorrectAnswer(selectedQuizPattern: I.AnswerSelection): I.Country {
   switch (selectedQuizPattern) {
-    case 'countryToCapital':
-      correctCountry = DatabaseHandler.getRandomCountry();
-      wrongCountries = DatabaseHandler.getSimilarCountries(correctCountry);
-      return {
-        quizText: QuizTextGenerator.countryToCapital(correctCountry),
-        quizImage: null,
-        answerSelections: QuizAnswerSelectionsGenerator.getAnswerSelections(correctCountry, wrongCountries)
-      };
+    case 'COUNTRY_TO_CAPITAL':
+    case 'CAPITAL_TO_COUNTRY':
+    case 'COUNTRY_TO_FLAG':
+    case 'FLAG_TO_COUNTRY':
+      return DatabaseHandler.getRandomCountry();
 
-    case 'capitalToCountry':
-      correctCountry = DatabaseHandler.getRandomCountry();
-      wrongCountries = DatabaseHandler.getSimilarCountries(correctCountry);
-      return {
-        quizText: QuizTextGenerator.capitalToCountry(correctCountry),
-        quizImage: null,
-        answerSelections: QuizAnswerSelectionsGenerator.getAnswerSelections(correctCountry, wrongCountries)
-      };
+    case 'IS_LAND_LOCKED':
+      return DatabaseHandler.getRandomLockedCountry();
 
-    case 'countryToFlag':
-      correctCountry = DatabaseHandler.getRandomCountry();
-      wrongCountries = DatabaseHandler.getSimilarCountries(correctCountry);
-      return {
-        quizText: QuizTextGenerator.countryToFlag(correctCountry),
-        quizImage: null,
-        answerSelections: QuizAnswerSelectionsGenerator.getAnswerSelections(correctCountry, wrongCountries)
-      };
+    case 'IS_LAND_LOCKED_SUB':
+      return DatabaseHandler.getRandomLockedSubCountry();
 
-    case 'flagToCountry':
-      correctCountry = DatabaseHandler.getRandomCountry();
-      wrongCountries = DatabaseHandler.getSimilarCountries(correctCountry);
-      return {
-        quizText: QuizTextGenerator.flagToCountry(),
-        quizImage: this.getQuizImage(correctCountry),
-        answerSelections: QuizAnswerSelectionsGenerator.getAnswerSelections(correctCountry, wrongCountries)
-      };
+    case 'IS_LAND_LOCKED_DOUBLE':
+      return DatabaseHandler.getRandomLockedDoubleCountry();
 
-    case 'isLandLocked':
-      correctCountry = DatabaseHandler.getRandomLockedCountry();
-      wrongCountries = DatabaseHandler.getSimilarUnlockedCountries(correctCountry);
-      return {
-        quizText: QuizTextGenerator.isLandLocked(),
-        quizImage: null,
-        answerSelections: QuizAnswerSelectionsGenerator.getAnswerSelections(correctCountry, wrongCountries)
-      };
+    case 'COUNTRY_TO_KANJI_ABBR':
+    case 'KANJI_ABBR_TO_COUNTRY':
+      return DatabaseHandler.getRandomKanjiAbbribiatableCountry();
 
-    // case 'IsLandLockedSub': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `次のうち、国境線の５％未満しか海岸線に接していない「準内陸国」はどれ？`;
-    //   answerReference = _target.nameJp;
-    // } break;
-    //
-    // case 'IsLandLockedDouble': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `次のうち、自身が内陸国で、さらに国境を接するすべての国も内陸国である「二重内陸国」はどれ？`;
-    //   answerReference = _target.nameJp;
-    // } break;
-    //
-    // case 'CountryToKanji': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `次のうち、「${_target.nameJpS}」を漢字で表したものはどれ？`;
-    //   answerReference = _target.nameJp;
-    // } break;
-    //
-    // case 'CountryToKanjiAbbr': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `次のうち、「${_target.nameJp}」を漢字一文字で表したものはどれ？`;
-    //   answerReference = _target.nameJp;
-    // } break;
-    //
-    // case 'KanjiToCountry': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `次のうち、漢字で「${_target.nameJpB}」と表す国はどれ？`;
-    //   answerReference = _target.nameJpB;
-    // } break;
-    //
-    // case 'KanjiAbbrToCountry': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `次のうち、漢字一文字で「${_target.nameJpBAbbr}」と表す国はどれ？`;
-    //   answerReference = _target.nameJpBAbbr;
-    // } break;
-    //
-    // case 'CountryNameSuffix': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `「${_target.nameJpS}」の正式名称はどれ？`;
-    //   answerReference = _target.nameJpS;
-    // } break;
-    //
-    // case 'CodeToName': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `ISO 3166-1 の国名コードで ${_target.countryCode} と表す国は？`;
-    //   answerReference = _target.countryCode;
-    // } break;
-    //
-    // case 'NameToCode': {
-    //   const _target: IQuizes.Capital = Object.assign({}, target);
-    //   quizText = `${_target.nameJpS}の ISO 3166-1 の国名コードは？`;
-    //   answerReference = _target.nameJpS;
-    // } break;
+    case 'COUNTRY_NAME_SUFFIX':
+      return DatabaseHandler.getRandomSuffixableCountry();
   }
 }
 
-export function getQuizImage(country: I.Country): string {
+export function getWrongAnswerSelections(selectedQuizPattern: I.AnswerSelection, correctAnswer: I.Country): Array<I.Country> {
+  switch (selectedQuizPattern) {
+    case 'COUNTRY_TO_CAPITAL':
+    case 'CAPITAL_TO_COUNTRY':
+    case 'COUNTRY_TO_FLAG':
+    case 'FLAG_TO_COUNTRY':
+      return DatabaseHandler.getSimilarCountries(correctAnswer);
+
+    case 'IS_LAND_LOCKED':
+      return DatabaseHandler.getSimilarUnlockedCountries(correctAnswer);
+
+    case 'IS_LAND_LOCKED_SUB':
+      return DatabaseHandler.getSimilarUnlockedsubCountries(correctAnswer);
+
+    case 'IS_LAND_LOCKED_DOUBLE':
+      return DatabaseHandler.getSimilarUnlockeddoubleCountries(correctAnswer);
+
+    case 'COUNTRY_TO_KANJI_ABBR':
+    case 'KANJI_ABBR_TO_COUNTRY':
+      return DatabaseHandler.getSimilarKanjiAbbrCountries(correctAnswer);
+
+    case 'COUNTRY_NAME_SUFFIX':
+      return [];
+  }
+}
+
+function getQuizImageSrc(country: I.Country): string {
   return `~/app/images/flags/${country.countryCode}@3x.png`;
 }
 
-export function getAnswerText(answer: I.AnswerOfCountry, selectedQuizPattern: I.AnswerSelection): any {
+export function getAnswerText(answer: I.AnswerOfCountry, selectedQuizPattern: I.AnswerSelection): string {
   switch(selectedQuizPattern) {
-    case 'countryToCapital': return answer.capitalJp;
-    case 'capitalToCountry': return answer.nameJpS;
-    case 'countryToFlag': return this.getQuizImage(answer);;
-    case 'flagToCountry': return answer.nameJpS;
-    case 'isLandLocked': return answer.nameJpS;
-    default: return '';
+    case 'COUNTRY_TO_CAPITAL':
+      return answer.capitalJp;
+
+    case 'CAPITAL_TO_COUNTRY':
+    case 'FLAG_TO_COUNTRY':
+    case 'IS_LAND_LOCKED':
+    case 'IS_LAND_LOCKED_SUB':
+    case 'IS_LAND_LOCKED_DOUBLE':
+    case 'KANJI_ABBR_TO_COUNTRY':
+      return answer.nameJpS;
+
+    case 'COUNTRY_TO_FLAG':
+      return getQuizImageSrc(answer);
+
+    case 'COUNTRY_TO_KANJI_ABBR':
+      return answer.nameJpBAbbr;
+
+    case 'COUNTRY_NAME_SUFFIX':
+      return answer.nameJp;
+  }
+}
+
+export function getQuizTextAndAnswerSelections(selectedQuizPattern: I.AnswerSelection): I.QuizModel {
+  const correctAnswer = getCorrectAnswer(selectedQuizPattern);
+  const wrongAnswers = getWrongAnswerSelections(selectedQuizPattern, correctAnswer);
+  const answerSelectionPattern = selectedQuizPattern === 'COUNTRY_TO_FLAG' ? 'IMAGE' : 'TEXT';
+  const quizImage = selectedQuizPattern === 'FLAG_TO_COUNTRY' ? this.getQuizImageSrc(correctAnswer) : null;
+
+  return {
+    answerSelectionPattern,
+    quizText: QuizTextGenerator.getQuizText(selectedQuizPattern, correctAnswer),
+    quizImage,
+    answerSelections: QuizAnswerSelectionsGenerator.getAnswerSelections(correctAnswer, wrongAnswers)
   }
 }
