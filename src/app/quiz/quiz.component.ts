@@ -14,13 +14,13 @@ import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selectio
 })
 export class QuizComponent implements OnInit {
   currentQuizNumber = 1;
-  selectedQuizPattern: I.AnswerSelection;
+  selectedQuizPattern: I.AnswerSelection | undefined;
   answerSelectionPattern: 'TEXT' | 'IMAGE' | undefined;
   quizText: string | undefined;
   quizImage = '';
   answerSelections: Array<I.Country> = Array(4);
   isAnswerSelected = false;
-  selectedAnswer: I.AnswerOfCountry = null;
+  selectedAnswer: I.AnswerOfCountry | null = null;
   answers: Array<I.AnswerHistory> = [];
 
   constructor(
@@ -39,17 +39,27 @@ export class QuizComponent implements OnInit {
     const quizModel = QuizService.getQuizTextAndAnswerSelections(this.selectedQuizPattern);
 
     this.answerSelectionPattern = quizModel.answerSelectionPattern;
-    this.quizText = quizModel.quizText;
-    this.quizImage = quizModel.quizImage;
+    this.quizImage = <string>quizModel.quizImage;
     this.answerSelections = DatabaseHandler.fisherYatesShuffle(quizModel.answerSelections);
+
+    this.animateQuizText(quizModel.quizText);
   }
 
   getActionBarTitle(): string {
     return `Q.${this.currentQuizNumber}`;
   }
 
+  private animateQuizText(quizText: string): void {
+    let currentQuizTextLength = 0;
+    setInterval(() => {
+      this.quizText = quizText.slice(0, currentQuizTextLength);
+      if (currentQuizTextLength === quizText.length) return;
+      currentQuizTextLength++;
+    }, 100);
+  }
+
   getAnswerText(answer: I.AnswerOfCountry): string {
-    return QuizService.getAnswerText(answer, this.selectedQuizPattern);
+    return QuizService.getAnswerText(answer, <I.AnswerSelection>this.selectedQuizPattern);
   }
 
   shouldShowAnswerSelectionsPattern(answerSelectionPattern: 'TEXT' | 'IMAGE') {
@@ -64,7 +74,7 @@ export class QuizComponent implements OnInit {
   }
 
   isCorrect(): boolean {
-    return this.selectedAnswer && this.selectedAnswer.isCorrect;
+    return Boolean(this.selectedAnswer && this.selectedAnswer.isCorrect);
   }
 
   goToNext(): void {

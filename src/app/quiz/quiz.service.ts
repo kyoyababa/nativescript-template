@@ -105,12 +105,12 @@ export function getQuizTextAndAnswerSelections(selectedQuizPattern: I.AnswerSele
   const correctAnswer = getCorrectAnswer(selectedQuizPattern);
   const wrongAnswers = getWrongAnswerSelections(selectedQuizPattern, correctAnswer);
   const answerSelectionPattern = selectedQuizPattern === 'COUNTRY_TO_FLAG' ? 'IMAGE' : 'TEXT';
-  const quizImage = selectedQuizPattern === 'FLAG_TO_COUNTRY' ? this.getQuizImageSrc(correctAnswer) : null;
+  const quizImage = selectedQuizPattern === 'FLAG_TO_COUNTRY' ? getQuizImageSrc(correctAnswer) : '';
 
   return {
-    answerSelectionPattern,
+    answerSelectionPattern: answerSelectionPattern,
     quizText: QuizTextGenerator.getQuizText(selectedQuizPattern, correctAnswer),
-    quizImage,
+    quizImage: quizImage,
     answerSelections: QuizAnswerSelectionsGenerator.getAnswerSelections(correctAnswer, wrongAnswers)
   }
 }
