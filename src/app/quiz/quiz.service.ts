@@ -49,11 +49,13 @@ function getCorrectAnswer(selectedQuizPattern: I.AnswerSelection): I.Country {
 
 export function getWrongAnswerSelections(selectedQuizPattern: I.AnswerSelection, correctAnswer: I.Country): Array<I.Country> {
   switch (selectedQuizPattern) {
-    case 'COUNTRY_TO_CAPITAL':
-    case 'CAPITAL_TO_COUNTRY':
     case 'COUNTRY_TO_FLAG':
     case 'FLAG_TO_COUNTRY':
       return DatabaseHandler.getSimilarCountries(correctAnswer);
+
+    case 'COUNTRY_TO_CAPITAL':
+    case 'CAPITAL_TO_COUNTRY':
+      return DatabaseHandler.getSimilarCapitalCountries(correctAnswer);
 
     case 'IS_LAND_LOCKED':
       return DatabaseHandler.getSimilarUnlockedCountries(correctAnswer);

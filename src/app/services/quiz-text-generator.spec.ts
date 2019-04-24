@@ -30,9 +30,9 @@ describe('capitalToCountry', () => {
   });
 
   describe('アメリカのデータが渡されたとき、', () => {
-    it('首都を「ワシントンD. C.」におく国はどこ？ と返されること', () => {
+    it('首都を「ワシントンD.C.」におく国はどこ？ と返されること', () => {
       const actual = QuizTextGenerator.capitalToCountry(usa);
-      expect(actual).toBe('首都を「ワシントンD. C.」におく国はどこ？');
+      expect(actual).toBe('首都を「ワシントンD.C.」におく国はどこ？');
     });
   });
 });

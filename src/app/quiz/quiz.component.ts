@@ -14,9 +14,9 @@ import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selectio
 })
 export class QuizComponent implements OnInit {
   currentQuizNumber = 1;
-  selectedQuizPattern: I.AnswerSelection | undefined;
-  answerSelectionPattern: 'TEXT' | 'IMAGE' | undefined;
-  quizText: string | undefined;
+  selectedQuizPattern: I.AnswerSelection | null = null;
+  answerSelectionPattern: 'TEXT' | 'IMAGE' | null = null;
+  quizText = '';
   quizImage = '';
   answerSelections: Array<I.Country> = Array(4);
   isAnswerSelected = false;
@@ -79,9 +79,18 @@ export class QuizComponent implements OnInit {
 
   goToNext(): void {
     this.answers.push({ correct: this.isCorrect() });
+    this.resetModels();
+    // this.setQuizAndAnswerSelections();
+  }
+
+  private resetModels(): void {
     this.isAnswerSelected = false;
+    this.selectedQuizPattern = null;
+    this.answerSelectionPattern = null;
+    this.quizText = '';
+    this.quizImage = '';
+    this.answerSelections = [];
     this.selectedAnswer = null;
-    this.setQuizAndAnswerSelections();
     this.currentQuizNumber++;
   }
 }
