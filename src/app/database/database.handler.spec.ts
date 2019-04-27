@@ -2,7 +2,7 @@ import * as DatabaseHandler from './database.handler';
 
 
 for (let i = 0; i < 100; i++) {
-  describe('getRandomCountry', () => {
+  xdescribe('getRandomCountry', () => {
     describe('100回実行したとき', () => {
       it('ランダムな国データが返されること', () => {
         const actual = DatabaseHandler.getRandomCountry();
@@ -11,7 +11,7 @@ for (let i = 0; i < 100; i++) {
     });
   });
 
-  describe('getRandomLockedCountry', () => {
+  xdescribe('getRandomLockedCountry', () => {
     describe('100回実行したとき', () => {
       const actual = DatabaseHandler.getRandomLockedCountry();
 
@@ -26,7 +26,7 @@ for (let i = 0; i < 100; i++) {
     });
   });
 
-  describe('getRandomLockedSubCountry', () => {
+  xdescribe('getRandomLockedSubCountry', () => {
     describe('100回実行したとき', () => {
       const actual = DatabaseHandler.getRandomLockedSubCountry();
 
@@ -35,13 +35,12 @@ for (let i = 0; i < 100; i++) {
       });
 
       it('返された国データが準内陸国であること', () => {
-        const isLandLockedSub = actual.landLocked === 'Sub';
-        expect(isLandLockedSub).toBeTruthy();
+        expect(actual.landLocked).toBe('Sub');
       });
     });
   });
 
-  describe('getRandomLockedDoubleCountry', () => {
+  xdescribe('getRandomLockedDoubleCountry', () => {
     describe('100回実行したとき', () => {
       const actual = DatabaseHandler.getRandomLockedDoubleCountry();
 
@@ -50,13 +49,12 @@ for (let i = 0; i < 100; i++) {
       });
 
       it('返された国データが二重内陸国であること', () => {
-        const isLandLockedDouble = actual.landLocked === 'Double';
-        expect(isLandLockedDouble).toBeTruthy();
+        expect(actual.landLocked).toBe('Double');
       });
     });
   });
 
-  describe('getRandomKanjiAbbribiatableCountry', () => {
+  xdescribe('getRandomKanjiAbbribiatableCountry', () => {
     describe('100回実行したとき', () => {
       const actual = DatabaseHandler.getRandomKanjiAbbribiatableCountry();
 
@@ -65,15 +63,14 @@ for (let i = 0; i < 100; i++) {
       });
 
       it('返された国データの漢字略称が存在すること', () => {
-        const isKanjiAbbribiatable = actual.nameJpBAbbr !== '';
-        expect(isKanjiAbbribiatable).toBeTruthy();
+        expect(actual.nameJpBAbbr).not.toBe('');
       });
     });
   });
 }
 
 DatabaseHandler.COUNTRIES.forEach(c => {
-  fdescribe(`${c.nameJp} のデータに対して`, () => {
+  xdescribe(`${c.nameJp} のデータに対して`, () => {
     describe('getSimilarCountries を実行したとき', () => {
       const actual = DatabaseHandler.getSimilarCountries(c);
 
@@ -134,8 +131,7 @@ DatabaseHandler.COUNTRIES.forEach(c => {
         });
 
         it(`landLockedが"Sub"ではない国が返されていること`, () => {
-          const isLandLockedSub = a.landLocked === 'Sub';
-          expect(isLandLockedSub).toBeFalsy();
+          expect(a.landLocked).not.toBe('Sub');
         });
       });
     });
@@ -153,8 +149,7 @@ DatabaseHandler.COUNTRIES.forEach(c => {
         });
 
         it(`landLockedが"Double"ではない国が返されていること`, () => {
-          const isLandLockedDouble = a.landLocked === 'Double';
-          expect(isLandLockedDouble).toBeFalsy();
+          expect(a.landLocked).not.toBe('Double');
         });
       });
     });
@@ -172,7 +167,8 @@ DatabaseHandler.COUNTRIES.forEach(c => {
         });
 
         it(`nameJpBAbbr が "${c.nameJpBAbbr}" ではない国が返されていること`, () => {
-          expect(a.nameJpBAbbr).not.toBe(c.nameJpBAbbr);
+          const isExpectedNameJpBAbbe = a.nameJpBAbbr !== c.nameJpBAbbr && a.nameJpBAbbr !== '';
+          expect(isExpectedNameJpBAbbe).toBeTruthy();
         });
       });
     });

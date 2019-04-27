@@ -11,8 +11,8 @@ import { AppComponent } from "./app.component";
   ],
   imports: [
     NativeScriptModule,
-    AppRoutingModule,
-    NativeScriptFormsModule
+    NativeScriptFormsModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent

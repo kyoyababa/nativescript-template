@@ -55,7 +55,6 @@ describe('countryToFlag', () => {
 
 describe('countryToKanjiAbbr', () => {
   // 日本は略称記号を持たないため値として渡されることはない
-
   describe('アメリカのデータが渡されたとき、', () => {
     it('次のうち、「アメリカ」を漢字一文字で表したものはどれ？ と返されること', () => {
       const actual = QuizTextGenerator.countryToKanjiAbbr(usa);
@@ -66,7 +65,6 @@ describe('countryToKanjiAbbr', () => {
 
 describe('kanjiAbbrToCountry', () => {
   // 日本は略称記号を持たないため値として渡されることはない
-
   describe('アメリカのデータが渡されたとき、', () => {
     it('次のうち、漢字一文字で「米」と表す国はどれ？ と返されること', () => {
       const actual = QuizTextGenerator.kanjiAbbrToCountry(usa);

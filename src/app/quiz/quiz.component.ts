@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
+import { Observable } from 'rxjs';
 
 import * as QuizService from './quiz.service';
 import * as I from '../models/quiz.d';
@@ -50,12 +51,13 @@ export class QuizComponent implements OnInit {
   }
 
   private animateQuizText(quizText: string): void {
-    let currentQuizTextLength = 0;
-    setInterval(() => {
-      this.quizText = quizText.slice(0, currentQuizTextLength);
-      if (currentQuizTextLength === quizText.length) return;
-      currentQuizTextLength++;
-    }, 100);
+    this.quizText = quizText;
+    // let currentQuizTextLength = 0;
+    // setInterval(() => {
+    //   this.quizText = quizText.slice(0, currentQuizTextLength);
+    //   if (currentQuizTextLength === quizText.length) return;
+    //   currentQuizTextLength++;
+    // }, 100);
   }
 
   getAnswerText(answer: I.AnswerOfCountry): string {
@@ -79,18 +81,18 @@ export class QuizComponent implements OnInit {
 
   goToNext(): void {
     this.answers.push({ correct: this.isCorrect() });
-    this.resetModels();
-    // this.setQuizAndAnswerSelections();
+    this.resetModelsAndStartNextQuiz();
   }
 
-  private resetModels(): void {
-    this.isAnswerSelected = false;
+  private resetModelsAndStartNextQuiz(): void {
+    this.currentQuizNumber++;
     this.selectedQuizPattern = null;
     this.answerSelectionPattern = null;
     this.quizText = '';
     this.quizImage = '';
-    this.answerSelections = [];
+    this.answerSelections = Array(4);
+    this.isAnswerSelected = false;
     this.selectedAnswer = null;
-    this.currentQuizNumber++;
+    this.setQuizAndAnswerSelections();
   }
 }
