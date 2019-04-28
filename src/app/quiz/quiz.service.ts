@@ -4,7 +4,7 @@ import * as QuizTextGenerator from '../services/quiz-text-generator';
 import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selections-generator';
 
 
-export function selectedQuizPattern(): I.AnswerSelection {
+export function selectQuizPattern(): I.AnswerSelection {
   const quizPatterns: Array<I.AnswerSelection> = [
     'COUNTRY_TO_CAPITAL',
     'CAPITAL_TO_COUNTRY',
@@ -71,7 +71,7 @@ export function getWrongAnswerSelections(selectedQuizPattern: I.AnswerSelection,
       return DatabaseHandler.getSimilarKanjiAbbrCountries(correctAnswer);
 
     case 'COUNTRY_NAME_SUFFIX':
-      return [];
+      return DatabaseHandler.getDummySuffixCountries(correctAnswer);
   }
 }
 

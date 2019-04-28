@@ -98,7 +98,7 @@ module.exports = function(config) {
 
 
     client: {
-      clearContext: true // leave Jasmine Spec Runner output visible in browser
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
 
 

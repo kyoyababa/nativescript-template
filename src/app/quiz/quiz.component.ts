@@ -36,7 +36,7 @@ export class QuizComponent implements OnInit {
   }
 
   private setQuizAndAnswerSelections(): void {
-    this.selectedQuizPattern = QuizService.selectedQuizPattern();
+    this.selectedQuizPattern = QuizService.selectQuizPattern();
     const quizModel = QuizService.getQuizTextAndAnswerSelections(this.selectedQuizPattern);
 
     this.answerSelectionPattern = quizModel.answerSelectionPattern;

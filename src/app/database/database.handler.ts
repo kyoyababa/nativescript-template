@@ -32,7 +32,27 @@ export function getRandomKanjiAbbribiatableCountry(): I.Country {
 }
 
 export function getRandomSuffixableCountry(): any {
-
+  const focusedSuffixes = [
+    '',
+    '国',
+    '王国',
+    '公国',
+    '大公国',
+    '共和国',
+    '自治共和国',
+    '連合共和国',
+    '連邦共和国',
+    '人民共和国',
+    '連邦',
+    '連合',
+    '諸島',
+    '独立国',
+    '合衆国',
+  ];
+  const focusedCountries = COUNTRIES.filter(c => {
+    return focusedSuffixes.some(s => c.nameJp.replace(c.nameJpS, '') === s);
+  });
+  return getRandom(focusedCountries);
 }
 
 export function getSimilarCountries(country: I.Country): Array<I.Country> {
@@ -79,6 +99,33 @@ export function getSimilarKanjiAbbrCountries(country: I.Country): Array<I.Countr
     return c.nameJpBAbbr !== '' && !isDuplicateChar;
   });
   return fisherYatesShuffle(sameRegionCountries).splice(0, 3);
+}
+
+export function getDummySuffixCountries(country: I.Country): Array<I.Country> {
+  const correctSuffix = country.nameJp.replace(country.nameJpS, '');
+  const focusedSuffixPatterns = [
+    '国',
+    '王国',
+    '公国',
+    '大公国',
+    '共和国',
+    '自治共和国',
+    '連合共和国',
+    '連邦共和国',
+    '人民共和国',
+    '連邦',
+    '連合',
+    '諸島',
+    '独立国',
+    '合衆国',
+  ].filter(s => s !== correctSuffix);
+  const dummySuffixPatterns = fisherYatesShuffle(focusedSuffixPatterns).splice(0, 3);
+
+  return [
+    { ...country, nameJp: country.nameJpS + dummySuffixPatterns[0] },
+    { ...country, nameJp: country.nameJpS + dummySuffixPatterns[1] },
+    { ...country, nameJp: country.nameJpS + dummySuffixPatterns[2] },
+  ];
 }
 
 export function fisherYatesShuffle(array: Array<any>): Array<any> {
