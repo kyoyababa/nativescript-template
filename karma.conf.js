@@ -1,5 +1,13 @@
 module.exports = function(config) {
   config.set({
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('karma-webpack')
+    ],
+
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -86,15 +94,6 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity,
-
-
-    plugins: [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'),
-      require('karma-coverage-istanbul-reporter'),
-      require('karma-webpack')
-    ],
 
 
     client: {
