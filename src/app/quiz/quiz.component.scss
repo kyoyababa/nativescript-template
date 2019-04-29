@@ -1,0 +1,45 @@
+.display {
+  display: block;
+  height: 200;
+}
+
+.controller {
+
+}
+
+StackLayout.answerSelections {
+  > StackLayout {
+    padding: 0 10;
+
+    + StackLayout {
+      margin-top: 10;
+    }
+  }
+
+  Button {
+    display: inline-block;
+    padding: 10;
+    border-radius: 10;
+    background-color: #5478CC;
+    color: #FFFFFF;
+    font-size: 20;
+    font-weight: bold;
+  }
+}
+
+FlexboxLayout.answerSelections {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  > StackLayout {
+    padding: 10;
+  }
+
+  Image {
+    width: 130;
+    height: 110;
+    border-radius: 10;
+    background-color: #5478CC;
+  }
+}

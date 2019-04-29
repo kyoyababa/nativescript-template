@@ -1,33 +1,37 @@
 <ActionBar title="{{getActionBarTitle()}}"></ActionBar>
 
 <FlexboxLayout flexDirection="column">
-  <StackLayout>
-    <Label textWrap="true" text="{{quizText}}"></Label>
-    <Image *ngIf="quizImage" [src]="quizImage"></Image>
-  </StackLayout>
-
-  <FlexboxLayout>
-    <StackLayout *ngFor="let answer of answers">
-      <Label *ngIf="answer.correct" text="correct"></Label>
-      <Label *ngIf="!answer.correct" text="incorrect"></Label>
+  <StackLayout class="display">
+    <StackLayout>
+      <Label textWrap="true" text="{{quizText}}"></Label>
+      <Image *ngIf="quizImage" [src]="quizImage"></Image>
     </StackLayout>
-  </FlexboxLayout>
 
-  <StackLayout *ngIf="shouldShowAnswerSelectionsPattern('TEXT')">
-    <StackLayout *ngFor="let answer of answerSelections">
-      <Button text="{{getAnswerText(answer)}}" (tap)="judgement(answer)"></Button>
-    </StackLayout>
-  </StackLayout>
-
-  <StackLayout *ngIf="shouldShowAnswerSelectionsPattern('IMAGE')">
-    <FlexboxLayout flexDirection="row" flexWrap="wrap" *ngFor="let answer of answerSelections">
-      <Image width="50" [src]="getAnswerText(answer)" (tap)="judgement(answer)"></Image>
+    <FlexboxLayout>
+      <StackLayout *ngFor="let answer of answers">
+        <Label *ngIf="answer.correct" text="correct"></Label>
+        <Label *ngIf="!answer.correct" text="incorrect"></Label>
+      </StackLayout>
     </FlexboxLayout>
   </StackLayout>
 
-  <AbsoluteLayout *ngIf="isAnswerSelected">
-    <Label *ngIf="isCorrect()" text="correct"></Label>
-    <Label *ngIf="!isCorrect()" text="incorrect"></Label>
-    <Button text="go to next" (tap)="goToNext()"></Button>
-  </AbsoluteLayout>
+  <StackLayout class="controller">
+    <StackLayout class="answerSelections" *ngIf="shouldShowAnswerSelectionsPattern('TEXT')">
+      <StackLayout *ngFor="let answer of answerSelections">
+        <Button text="{{getAnswerText(answer)}}" (tap)="judgement(answer)"></Button>
+      </StackLayout>
+    </StackLayout>
+
+    <FlexboxLayout class="answerSelections" *ngIf="shouldShowAnswerSelectionsPattern('IMAGE')">
+      <StackLayout *ngFor="let answer of answerSelections">
+        <Image [src]="getAnswerText(answer)" (tap)="judgement(answer)"></Image>
+      </StackLayout>
+    </FlexboxLayout>
+
+    <AbsoluteLayout *ngIf="isAnswerSelected">
+      <Label *ngIf="isCorrect()" text="correct"></Label>
+      <Label *ngIf="!isCorrect()" text="incorrect"></Label>
+      <Button text="go to next" (tap)="goToNext()"></Button>
+    </AbsoluteLayout>
+  </StackLayout>
 </FlexboxLayout>
