@@ -51,13 +51,22 @@ export class QuizComponent implements OnInit {
   }
 
   private animateQuizText(quizText: string): void {
-    this.quizText = quizText;
-    // let currentQuizTextLength = 0;
-    // setInterval(() => {
-    //   this.quizText = quizText.slice(0, currentQuizTextLength);
-    //   if (currentQuizTextLength === quizText.length) return;
-    //   currentQuizTextLength++;
-    // }, 100);
+    let currentQuizTextLength = 0;
+
+    const animation = setInterval(() => {
+      this.quizText = quizText.slice(0, currentQuizTextLength);
+
+      if (currentQuizTextLength === quizText.length) {
+        clearInterval(animation);
+      }
+
+      if (this.isAnswerSelected) {
+        clearInterval(animation);
+        this.quizText = quizText;
+      }
+
+      currentQuizTextLength++;
+    }, 100);
   }
 
   getAnswerText(answer: I.AnswerOfCountry): string {
