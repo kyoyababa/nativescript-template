@@ -1,6 +1,6 @@
 // describe('test-describe', () => {
 //   it('test-it', () => {
-//     expect(true).toBeTruthy();
-//     expect(true).toBeFalsy();
+//     expect(true).toBe(true);
+//     expect(true).toBe(false);
 //   });
 // });

@@ -8,6 +8,7 @@ import * as DatabaseHandler from './database.handler';
 //         it('ランダムな国データが返されること', () => {
 //           const actual = DatabaseHandler.getRandomCountry();
 //           expect(actual.nameJpS).toBeDefined();
+//           expect(actual.nameJpS).not.toBe('');
 //         });
 //       });
 //     });
@@ -18,11 +19,12 @@ import * as DatabaseHandler from './database.handler';
 //
 //         it('ランダムな国データが返されること', () => {
 //           expect(actual.nameJpS).toBeDefined();
+//           expect(actual.nameJpS).not.toBe('');
 //         });
 //
 //         it('返された国データが内陸国であること', () => {
 //           const isLandLocked = actual.landLocked === 'Single' || actual.landLocked === 'Double';
-//           expect(isLandLocked).toBeTruthy();
+//           expect(isLandLocked).toBe(true);
 //         });
 //       });
 //     });
@@ -33,6 +35,7 @@ import * as DatabaseHandler from './database.handler';
 //
 //         it('ランダムな国データが返されること', () => {
 //           expect(actual.nameJpS).toBeDefined();
+//           expect(actual.nameJpS).not.toBe('');
 //         });
 //
 //         it('返された国データが準内陸国であること', () => {
@@ -47,6 +50,7 @@ import * as DatabaseHandler from './database.handler';
 //
 //         it('ランダムな国データが返されること', () => {
 //           expect(actual.nameJpS).toBeDefined();
+//           expect(actual.nameJpS).not.toBe('');
 //         });
 //
 //         it('返された国データが二重内陸国であること', () => {
@@ -61,9 +65,11 @@ import * as DatabaseHandler from './database.handler';
 //
 //         it('ランダムな国データが返されること', () => {
 //           expect(actual.nameJpS).toBeDefined();
+//           expect(actual.nameJpS).not.toBe('');
 //         });
 //
 //         it('返された国データの漢字略称が存在すること', () => {
+//           expect(actual.nameJpBAbbr).toBeDefined();
 //           expect(actual.nameJpBAbbr).not.toBe('');
 //         });
 //       });
@@ -75,9 +81,12 @@ import * as DatabaseHandler from './database.handler';
 //
 //         it('ランダムな国データが返されること', () => {
 //           expect(actual.nameJpS).toBeDefined();
+//           expect(actual.nameJpS).not.toBe('');
 //         });
 //
 //         it('返された国データの正式名称と略称が異なること', () => {
+//           expect(actual.nameJp).not.toBe('');
+//           // TODO
 //           expect(actual.nameJp).not.toBe(actual.nameJpS);
 //         });
 //
@@ -101,7 +110,7 @@ import * as DatabaseHandler from './database.handler';
 //           ];
 //           const suffixPatterns = focusedSuffixes.map(s => actual.nameJpS + s);
 //           const isValidCountry = suffixPatterns.some(p => p === actual.nameJp);
-//           expect(isValidCountry).toBeTruthy();
+//           expect(isValidCountry).toBe(true);
 //         });
 //       });
 //     });
@@ -119,7 +128,8 @@ import * as DatabaseHandler from './database.handler';
 //         });
 //
 //         it(`${c.nameJpS}とは異なる国が返されていること`, () => {
-//           expect(a.countryCode).not.toBe(c.countryCode);
+//           const isValidCountryCode = typeof a.countryCode !== 'undefined' && a.countryCode !== '' && a.countryCode !== c.countryCode;
+//           expect(isValidCountryCode).toBe(true);
 //         });
 //       });
 //     });
@@ -133,11 +143,16 @@ import * as DatabaseHandler from './database.handler';
 //         });
 //
 //         it(`${c.capitalJp}とは異なる首都の国が返されていること`, () => {
-//           expect(a.capitalJp).not.toBe(c.capitalJp);
+//           const isValidCapitalJp = typeof a.capitalJp !== 'undefined' && a.capitalJp !== '' && a.capitalJp !== c.capitalJp;
+//           expect(isValidCapitalJp).toBe(true);
 //         });
 //       })
 //     });
-//
+//   });
+// });
+
+// DatabaseHandler.COUNTRIES.filter(c => c.landLocked === 'Single' || c.landLocked === 'Double').forEach(c => {
+//   describe(`${c.nameJp} のデータに対して`, () => {
 //     describe('getSimilarUnlockedCountries を実行したとき', () => {
 //       const actual = DatabaseHandler.getSimilarUnlockedCountries(c);
 //
@@ -147,16 +162,21 @@ import * as DatabaseHandler from './database.handler';
 //         });
 //
 //         it(`${c.nameJpS}とは異なる国が返されていること`, () => {
-//           expect(a.countryCode).not.toBe(c.countryCode);
+//           const isValidCountryCode = typeof a.countryCode !== 'undefined' && a.countryCode !== '' && a.countryCode !== c.countryCode;
+//           expect(isValidCountryCode).toBe(true);
 //         });
 //
 //         it(`landLockedが"Single"でも"Double"でもない国が返されていること`, () => {
 //           const isLandLocked = a.landLocked === 'Single' || a.landLocked === 'Double';
-//           expect(isLandLocked).toBeFalsy();
+//           expect(isLandLocked).toBe(false);
 //         });
 //       });
 //     });
-//
+//   });
+// });
+
+// DatabaseHandler.COUNTRIES.filter(c => c.landLocked === 'Sub').forEach(c => {
+//   describe(`${c.nameJp} のデータに対して`, () => {
 //     describe('getSimilarUnlockedsubCountries を実行したとき', () => {
 //       const actual = DatabaseHandler.getSimilarUnlockedsubCountries(c);
 //
@@ -166,7 +186,8 @@ import * as DatabaseHandler from './database.handler';
 //         });
 //
 //         it(`${c.nameJpS}とは異なる国が返されていること`, () => {
-//           expect(a.countryCode).not.toBe(c.countryCode);
+//           const isValidCountryCode = typeof a.countryCode !== 'undefined' && a.countryCode !== '' && a.countryCode !== c.countryCode;
+//           expect(isValidCountryCode).toBe(true);
 //         });
 //
 //         it(`landLockedが"Sub"ではない国が返されていること`, () => {
@@ -174,7 +195,11 @@ import * as DatabaseHandler from './database.handler';
 //         });
 //       });
 //     });
-//
+//   });
+// });
+
+// DatabaseHandler.COUNTRIES.filter(c => c.landLocked === 'Double').forEach(c => {
+//   describe(`${c.nameJp} のデータに対して`, () => {
 //     describe('getSimilarUnlockeddoubleCountries を実行したとき', () => {
 //       const actual = DatabaseHandler.getSimilarUnlockeddoubleCountries(c);
 //
@@ -184,7 +209,8 @@ import * as DatabaseHandler from './database.handler';
 //         });
 //
 //         it(`${c.nameJpS}とは異なる国が返されていること`, () => {
-//           expect(a.countryCode).not.toBe(c.countryCode);
+//           const isValidCountryCode = typeof a.countryCode !== 'undefined' && a.countryCode !== '' && a.countryCode !== c.countryCode;
+//           expect(isValidCountryCode).toBe(true);
 //         });
 //
 //         it(`landLockedが"Double"ではない国が返されていること`, () => {
@@ -192,26 +218,49 @@ import * as DatabaseHandler from './database.handler';
 //         });
 //       });
 //     });
-//
+//   });
+// });
+
+// DatabaseHandler.COUNTRIES.filter(c => c.nameJpBAbbr !== '').forEach(c => {
+//   describe(`${c.nameJp} のデータに対して`, () => {
 //     describe('getSimilarKanjiAbbrCountries を実行したとき', () => {
 //       const actual = DatabaseHandler.getSimilarKanjiAbbrCountries(c);
 //
 //       actual.forEach(a => {
-//         it(`任意の${c.regionCode}リージョンの国が返されること`, () => {
-//           expect(a.regionCode).toBe(c.regionCode);
-//         });
-//
 //         it(`${c.nameJpS}とは異なる国が返されていること`, () => {
-//           expect(a.countryCode).not.toBe(c.countryCode);
+//           const isValidCountryCode = typeof a.countryCode !== 'undefined' && a.countryCode !== '' && a.countryCode !== c.countryCode;
+//           expect(isValidCountryCode).toBe(true);
 //         });
 //
 //         it(`nameJpBAbbr が "${c.nameJpBAbbr}" ではない国が返されていること`, () => {
 //           const isExpectedNameJpBAbbe = a.nameJpBAbbr !== c.nameJpBAbbr && a.nameJpBAbbr !== '';
-//           expect(isExpectedNameJpBAbbe).toBeTruthy();
+//           expect(isExpectedNameJpBAbbe).toBe(true);
 //         });
 //       });
 //     });
-//
+//   });
+// });
+
+// const focusedSuffixes = [
+//   '国',
+//   '王国',
+//   '公国',
+//   '大公国',
+//   '共和国',
+//   '自治共和国',
+//   '連合共和国',
+//   '連邦共和国',
+//   '人民共和国',
+//   '連邦',
+//   '連合',
+//   '諸島',
+//   '独立国',
+//   '合衆国',
+// ];
+// DatabaseHandler.COUNTRIES.filter(c => {
+//   return focusedSuffixes.some(s => c.nameJp.replace(c.nameJpS, '') === s);
+// }).filter(c => c.nameJpBAbbr !== '').forEach(c => {
+//   describe(`${c.nameJp} のデータに対して`, () => {
 //     describe('getDummySuffixCountryNames を実行したとき', () => {
 //       const actual = DatabaseHandler.getDummySuffixCountries(c);
 //
@@ -231,6 +280,8 @@ import * as DatabaseHandler from './database.handler';
 //         });
 //
 //         it(`nameJp に ${c.nameJp} と異なる値が入っていること`, () => {
+//           expect(a.nameJp).toBeDefined();
+//           expect(a.nameJp).not.toBe('');
 //           expect(a.nameJp).not.toBe(c.nameJp);
 //         });
 //
@@ -253,7 +304,7 @@ import * as DatabaseHandler from './database.handler';
 //           ];
 //           const suffixPatterns = focusedSuffixes.map(s => a.nameJpS + s);
 //           const isValidCountry = suffixPatterns.some(p => p === a.nameJp);
-//           expect(isValidCountry).toBeTruthy();
+//           expect(isValidCountry).toBe(true);
 //         });
 //       });
 //     });

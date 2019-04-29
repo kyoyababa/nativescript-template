@@ -47,7 +47,7 @@ function getCorrectAnswer(selectedQuizPattern: I.AnswerSelection): I.Country {
   }
 }
 
-export function getWrongAnswerSelections(selectedQuizPattern: I.AnswerSelection, correctAnswer: I.Country): Array<I.Country> {
+function getWrongAnswerSelections(selectedQuizPattern: I.AnswerSelection, correctAnswer: I.Country): Array<I.Country> {
   switch (selectedQuizPattern) {
     case 'COUNTRY_TO_FLAG':
     case 'FLAG_TO_COUNTRY':
