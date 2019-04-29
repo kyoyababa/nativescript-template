@@ -1,10 +1,41 @@
 .display {
   display: block;
   height: 200;
-}
 
-.controller {
+  .question {
+    position: relative;
+    height: 200;
+    padding: 10;
+    background-color: lighten(desaturate(#5478CC, 100%), 30%);
 
+    Label {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    Image {
+      width: 120;
+    }
+
+    .answers {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      .answer-true {
+        color: red;
+      }
+
+      .answer-false {
+        color: green;
+      }
+    }
+  }
+
+  + * {
+    margin-top: 10;
+  }
 }
 
 StackLayout.answerSelections {
@@ -32,14 +63,11 @@ FlexboxLayout.answerSelections {
   justify-content: center;
   align-items: center;
 
-  > StackLayout {
-    padding: 10;
-  }
-
   Image {
     width: 130;
     height: 110;
+    margin: 10;
     border-radius: 10;
-    background-color: #5478CC;
+    background-color: lighten(#5478CC, 15%);
   }
 }

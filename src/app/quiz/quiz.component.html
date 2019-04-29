@@ -2,20 +2,22 @@
 
 <FlexboxLayout flexDirection="column">
   <StackLayout class="display">
-    <StackLayout>
+    <StackLayout class="question">
       <Label textWrap="true" text="{{quizText}}"></Label>
       <Image *ngIf="quizImage" [src]="quizImage"></Image>
-    </StackLayout>
 
-    <FlexboxLayout>
-      <StackLayout *ngFor="let answer of answers">
-        <Label *ngIf="answer.correct" text="correct"></Label>
-        <Label *ngIf="!answer.correct" text="incorrect"></Label>
-      </StackLayout>
-    </FlexboxLayout>
+      <AbsoluteLayout class="answers">
+        <FlexboxLayout>
+          <StackLayout *ngFor="let answer of answers">
+            <Label *ngIf="answer.correct" class="answer-correct" text="○"></Label>
+            <Label *ngIf="!answer.correct" class="answer-incorrect" text="×"></Label>
+          </StackLayout>
+        </FlexboxLayout>
+      </AbsoluteLayout>
+    </StackLayout>
   </StackLayout>
 
-  <StackLayout class="controller">
+  <StackLayout>
     <StackLayout class="answerSelections" *ngIf="shouldShowAnswerSelectionsPattern('TEXT')">
       <StackLayout *ngFor="let answer of answerSelections">
         <Button text="{{getAnswerText(answer)}}" (tap)="judgement(answer)"></Button>
@@ -28,7 +30,7 @@
       </StackLayout>
     </FlexboxLayout>
 
-    <AbsoluteLayout *ngIf="isAnswerSelected">
+    <AbsoluteLayout class="controller" *ngIf="isAnswerSelected">
       <Label *ngIf="isCorrect()" text="correct"></Label>
       <Label *ngIf="!isCorrect()" text="incorrect"></Label>
       <Button text="go to next" (tap)="goToNext()"></Button>
