@@ -7,7 +7,9 @@ import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selectio
 export function selectQuizPattern(): I.AnswerSelection {
   const quizPatterns: Array<I.AnswerSelection> = [
     'COUNTRY_TO_CAPITAL',
+    'COUNTRY_TO_SECOND_CAPITAL',
     'CAPITAL_TO_COUNTRY',
+    'SECOND_CAPITAL_TO_COUNTRY',
     'COUNTRY_TO_FLAG',
     'FLAG_TO_COUNTRY',
     'IS_LAND_LOCKED',
@@ -28,6 +30,10 @@ function getCorrectAnswer(selectedQuizPattern: I.AnswerSelection): I.Country {
     case 'COUNTRY_TO_FLAG':
     case 'FLAG_TO_COUNTRY':
       return DatabaseHandler.getRandomCountry();
+
+    case 'COUNTRY_TO_SECOND_CAPITAL':
+    case 'SECOND_CAPITAL_TO_COUNTRY':
+      return DatabaseHandler.getRandomSecondCapitalCountry();
 
     case 'IS_LAND_LOCKED':
       return DatabaseHandler.getRandomLockedCountry();
@@ -57,6 +63,10 @@ function getWrongAnswerSelections(selectedQuizPattern: I.AnswerSelection, correc
     case 'CAPITAL_TO_COUNTRY':
       return DatabaseHandler.getSimilarCapitalCountries(correctAnswer);
 
+    case 'COUNTRY_TO_SECOND_CAPITAL':
+    case 'SECOND_CAPITAL_TO_COUNTRY':
+      return DatabaseHandler.getSimilarSecondCapitalCountries(correctAnswer);
+
     case 'IS_LAND_LOCKED':
       return DatabaseHandler.getSimilarUnlockedCountries(correctAnswer);
 
@@ -85,12 +95,16 @@ export function getAnswerText(answer: I.AnswerOfCountry, selectedQuizPattern: I.
       return answer.capitalJp;
 
     case 'CAPITAL_TO_COUNTRY':
+    case 'SECOND_CAPITAL_TO_COUNTRY':
     case 'FLAG_TO_COUNTRY':
     case 'IS_LAND_LOCKED':
     case 'IS_LAND_LOCKED_SUB':
     case 'IS_LAND_LOCKED_DOUBLE':
     case 'KANJI_ABBR_TO_COUNTRY':
       return answer.nameJpS;
+
+    case 'COUNTRY_TO_SECOND_CAPITAL':
+      return answer.secondCapitalJp;
 
     case 'COUNTRY_TO_FLAG':
       return getQuizImageSrc(answer);

@@ -30,6 +30,8 @@ export interface AnswerHistory {
 
 export type AnswerSelection = 'COUNTRY_TO_CAPITAL'
                             | 'CAPITAL_TO_COUNTRY'
+                            | 'COUNTRY_TO_SECOND_CAPITAL'
+                            | 'SECOND_CAPITAL_TO_COUNTRY'
                             | 'COUNTRY_TO_FLAG'
                             | 'FLAG_TO_COUNTRY'
                             | 'IS_LAND_LOCKED'

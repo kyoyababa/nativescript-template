@@ -7,6 +7,11 @@ export function getRandomCountry(isLandLocked?: boolean): I.Country {
   return getRandom(COUNTRIES);
 }
 
+export function getRandomSecondCapitalCountry(): I.Country {
+  const secondCapitalCountries = COUNTRIES.filter(c => c.secondCapitalJp !== '');
+  return getRandom(secondCapitalCountries);
+}
+
 export function getRandomLockedCountry(): I.Country {
   const isLandLocked = (c: I.Country) => c.landLocked === 'Single' || c.landLocked === 'Double';
   const landLockedCountries = COUNTRIES.filter(c => isLandLocked(c));
@@ -66,6 +71,13 @@ export function getSimilarCapitalCountries(country: I.Country): Array<I.Country>
   const sameRegionCountries = getSimilarCountries(country).filter(c => {
     const isDuplicateChar = knownDuplicates.some(d => d === country.capitalJp) && knownDuplicates.some(d => d === c.capitalJp);
     return c.capitalJp !== '' && !isDuplicateChar;
+  });
+  return fisherYatesShuffle(sameRegionCountries);
+}
+
+export function getSimilarSecondCapitalCountries(country: I.Country): Array<I.Country> {
+  const sameRegionCountries = COUNTRIES.filter(c => {
+    return c.countryCode !== country.countryCode && c.regionCode === country.regionCode && c.secondCapitalJp;
   });
   return fisherYatesShuffle(sameRegionCountries);
 }

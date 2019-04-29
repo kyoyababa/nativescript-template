@@ -8,6 +8,14 @@ export function capitalToCountry(country: I.Country): string {
   return `首都を「${country.capitalJp}」におく国はどこ？`;
 }
 
+export function countryToSecondCapital(country: I.Country): string {
+  return `「${country.nameJpS}」の第二首都と呼ばれる都市はどこ？`;
+}
+
+export function secondCapitalToCountry(country: I.Country): string {
+  return `「${country.secondCapitalJp}」が第二首都と呼ばれる国はどこ？`;
+}
+
 export function countryToFlag(country: I.Country): string {
   return `「${country.nameJpS}」の国旗はどれ？`;
 }
@@ -47,6 +55,12 @@ export function getQuizText(selectedQuizPattern: I.AnswerSelection, correctAnswe
 
     case 'CAPITAL_TO_COUNTRY':
       return capitalToCountry(correctAnswer);
+
+    case 'COUNTRY_TO_SECOND_CAPITAL':
+      return countryToSecondCapital(correctAnswer)
+
+    case 'SECOND_CAPITAL_TO_COUNTRY':
+      return secondCapitalToCountry(correctAnswer)
 
     case 'COUNTRY_TO_FLAG':
       return countryToFlag(correctAnswer);
