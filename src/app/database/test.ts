@@ -1,6 +1,21 @@
 import * as I from '../models/quiz.d';
-import { countries } from './countries';
-export const COUNTRIES = <Array<I.Country>>countries;
+import { COUNTRIES } from './countries';
+export const countries = COUNTRIES.map(c => {
+  return {
+    countryCode: c.countryCode,
+    nameJp: c.nameJp,
+    nameJpS: c.nameJpS,
+    nameJpB: c.nameJpB,
+    nameJpBAbbr: <string>c.nameJpBAbbr,
+    capitalJp: c.capitalJp,
+    secondCapitalJp: c.secondCapitalJp,
+    regionCode: c.regionCode,
+    isIsland: c.isIsland === 'true',
+    landLocked: <I.LandLocked>c.landLocked,
+    lat: parseFloat(c.lat),
+    lon: parseFloat(c.lon)
+  }
+});
 
 export const regionCodes = [
   'Europe',
@@ -25,7 +40,6 @@ export function filterDuplicateValues(str: Array<string>): Array<string> {
 };
 
 export const focusedSuffixPatterns = [
-  '',
   '国',
   '王国',
   '公国',
@@ -42,6 +56,7 @@ export const focusedSuffixPatterns = [
   '合衆国',
 ];
 export const excludedSuffixPatterns = [
+  '',
   '民主共和国',
   '民主人民共和国',
   '東方共和国',

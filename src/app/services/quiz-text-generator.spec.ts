@@ -1,8 +1,8 @@
-import { countries } from '../database/countries';
+import { COUNTRIES } from '../database/countries';
 import * as QuizTextGenerator from './quiz-text-generator';
 
-const japan = countries.find(c => c.countryCode === 'JP');
-const usa = countries.find(c => c.countryCode === 'US');
+const japan = COUNTRIES.find(c => c.countryCode === 'JP');
+const usa = COUNTRIES.find(c => c.countryCode === 'US');
 
 
 // describe('countryToCapital', () => {

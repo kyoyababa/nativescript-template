@@ -1,39 +1,54 @@
 import * as _ from 'lodash';
 import * as I from '../models/quiz.d';
-import { countries } from './countries';
-export const COUNTRIES = <Array<I.Country>>countries;
+import { COUNTRIES } from './countries';
+export const countries = COUNTRIES.map(c => {
+  return {
+    countryCode: c.countryCode,
+    nameJp: c.nameJp,
+    nameJpS: c.nameJpS,
+    nameJpB: c.nameJpB,
+    nameJpBAbbr: <string>c.nameJpBAbbr,
+    capitalJp: c.capitalJp,
+    secondCapitalJp: c.secondCapitalJp,
+    regionCode: c.regionCode,
+    isIsland: c.isIsland === 'true',
+    landLocked: <I.LandLocked>c.landLocked,
+    lat: parseFloat(c.lat),
+    lon: parseFloat(c.lon)
+  }
+});
 
 
 export function getRandomCountry(isLandLocked?: boolean): I.Country {
-  return <I.Country>_.sample(COUNTRIES);
+  return <I.Country>_.sample(countries);
 }
 
 export function getRandomSecondCapitalCountry(): I.Country {
-  const secondCapitalCountries = COUNTRIES.filter(c => c.secondCapitalJp !== '');
+  const secondCapitalCountries = countries.filter(c => c.secondCapitalJp !== '');
   return <I.Country>_.sample(secondCapitalCountries);
 }
 
 export function getRandomLockedCountry(): I.Country {
   const isLandLocked = (c: I.Country) => c.landLocked === 'Single' || c.landLocked === 'Double';
-  const landLockedCountries = COUNTRIES.filter(c => isLandLocked(c));
+  const landLockedCountries = countries.filter(c => isLandLocked(c));
   return <I.Country>_.sample(landLockedCountries);
 }
 
 export function getRandomLockedSubCountry(): I.Country {
   const isLandLockedSub = (c: I.Country) => c.landLocked === 'Sub';
-  const landLockedSubCountries = COUNTRIES.filter(c => isLandLockedSub(c));
+  const landLockedSubCountries = countries.filter(c => isLandLockedSub(c));
   return <I.Country>_.sample(landLockedSubCountries);
 }
 
 export function getRandomLockedDoubleCountry(): I.Country {
   const isLandLockedDouble = (c: I.Country) => c.landLocked === 'Double';
-  const landLockedDoubleCountries = COUNTRIES.filter(c => isLandLockedDouble(c));
+  const landLockedDoubleCountries = countries.filter(c => isLandLockedDouble(c));
   return <I.Country>_.sample(landLockedDoubleCountries);
 }
 
 export function getRandomKanjiAbbribiatableCountry(): I.Country {
   const isKanjiAbbribiatable = (c: I.Country) => c.nameJpBAbbr !== '';
-  const kanjiAbbribiatableCountries = COUNTRIES.filter(c => isKanjiAbbribiatable(c));
+  const kanjiAbbribiatableCountries = countries.filter(c => isKanjiAbbribiatable(c));
   return <I.Country>_.sample(kanjiAbbribiatableCountries);
 }
 
@@ -54,14 +69,14 @@ export function getRandomSuffixableCountry(): any {
     '独立国',
     '合衆国',
   ];
-  const focusedCountries = COUNTRIES.filter(c => {
+  const focusedCountries = countries.filter(c => {
     return focusedSuffixes.some(s => c.nameJp.replace(c.nameJpS, '') === s);
   });
   return _.sample(focusedCountries);
 }
 
 export function getSimilarCountries(country: I.Country): Array<I.Country> {
-  const sameRegionCountries = COUNTRIES.filter(c => {
+  const sameRegionCountries = countries.filter(c => {
     return c.countryCode !== country.countryCode && c.regionCode === country.regionCode;
   });
   return _.shuffle(sameRegionCountries);
@@ -77,7 +92,7 @@ export function getSimilarCapitalCountries(country: I.Country): Array<I.Country>
 }
 
 export function getSimilarSecondCapitalCountries(country: I.Country): Array<I.Country> {
-  const sameRegionCountries = COUNTRIES.filter(c => {
+  const sameRegionCountries = countries.filter(c => {
     return c.countryCode !== country.countryCode && c.regionCode === country.regionCode && c.secondCapitalJp;
   });
   return _.shuffle(sameRegionCountries);
@@ -106,7 +121,7 @@ export function getSimilarUnlockeddoubleCountries(country: I.Country): Array<I.C
 
 export function getSimilarKanjiAbbrCountries(country: I.Country): Array<I.Country> {
   const knownDuplicates = ['公', '瑞', '波'];
-  const sameRegionCountries = COUNTRIES.filter(c => {
+  const sameRegionCountries = countries.filter(c => {
     const isDuplicateChar = knownDuplicates.some(d => d === country.nameJpBAbbr) && knownDuplicates.some(d => d === c.nameJpBAbbr);
     return c.countryCode !== country.countryCode && c.nameJpBAbbr !== '' && !isDuplicateChar;
   });

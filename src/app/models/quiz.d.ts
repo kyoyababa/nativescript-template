@@ -7,11 +7,13 @@ export interface Country {
   capitalJp: string;
   secondCapitalJp: string;
   regionCode: string;
-  isIsland: 'true' | 'false';
-  landLocked: '' | 'Single' | 'Double' | 'Sub';
-  lat: string; // 0.0000000
-  lon: string; // 0.0000000
+  isIsland: boolean;
+  landLocked: LandLocked;
+  lat: number;
+  lon: number;
 }
+
+export type LandLocked = '' | 'Single' | 'Double' | 'Sub';
 
 export interface QuizModel {
   answerSelectionPattern: 'TEXT' | 'IMAGE';

@@ -1,10 +1,10 @@
-import { countries } from '../database/countries';
+import { COUNTRIES } from '../database/countries';
 import * as QuizAnswerSelectionsGenerator from './quiz-answer-selections-generator';
 
-const jp = countries.find(c => c.countryCode === 'JP');
-const az = countries.find(c => c.countryCode === 'AZ');
-const af = countries.find(c => c.countryCode === 'AF');
-const ab = countries.find(c => c.countryCode === 'AB');
+const jp = COUNTRIES.find(c => c.countryCode === 'JP');
+const az = COUNTRIES.find(c => c.countryCode === 'AZ');
+const af = COUNTRIES.find(c => c.countryCode === 'AF');
+const ab = COUNTRIES.find(c => c.countryCode === 'AB');
 
 
 // describe('getAnswerSelections', () => {

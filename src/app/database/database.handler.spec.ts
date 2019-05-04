@@ -75,7 +75,7 @@ describe('DatabaseHandlerの正解データ生成において', () => {
     //     });
     //   });
     // });
-    //
+
     // describe('getRandomKanjiAbbribiatableCountry', () => {
     //   describe('10回実行したとき', () => {
     //     const actual = DatabaseHandler.getRandomKanjiAbbribiatableCountry();
@@ -136,7 +136,7 @@ describe('DatabaseHandlerの正解データ生成において', () => {
 });
 
 describe('無作為に抽出した10個の国データのうち、', () => {
-  _.sampleSize(DatabaseHandler.COUNTRIES, 10).forEach(c => {
+  _.sampleSize(DatabaseHandler.countries, 10).forEach(c => {
     describe(`${c.nameJp} のデータに対して`, () => {
       // describe('getSimilarCountries を実行したとき', () => {
       //   const actual = DatabaseHandler.getSimilarCountries(c);
@@ -172,7 +172,7 @@ describe('無作為に抽出した10個の国データのうち、', () => {
 });
 
 describe('無作為に抽出した10個の第二首都データを持つ国データのうち、', () => {
-  _.sampleSize(DatabaseHandler.COUNTRIES.filter(c => c.secondCapitalJp !== ''), 10).forEach(c => {
+  _.sampleSize(DatabaseHandler.countries.filter(c => c.secondCapitalJp !== ''), 10).forEach(c => {
     describe(`${c.nameJp} のデータに対して`, () => {
       // describe('getSimilarSecondCapitalCountries を実行したとき', () => {
       //   const actual = DatabaseHandler.getSimilarSecondCapitalCountries(c);
@@ -198,7 +198,7 @@ describe('無作為に抽出した10個の第二首都データを持つ国デ�
 });
 
 describe('無作為に抽出した10個のlandLockedがSingleまたはDoubleの国データのうち、', () => {
-  _.sampleSize(DatabaseHandler.COUNTRIES.filter(c => c.landLocked === 'Single' || c.landLocked === 'Double'), 10).forEach(c => {
+  _.sampleSize(DatabaseHandler.countries.filter(c => c.landLocked === 'Single' || c.landLocked === 'Double'), 10).forEach(c => {
     describe(`${c.nameJp} のデータに対して`, () => {
       // describe('getSimilarUnlockedCountries を実行したとき', () => {
       //   const actual = DatabaseHandler.getSimilarUnlockedCountries(c);
@@ -224,7 +224,7 @@ describe('無作為に抽出した10個のlandLockedがSingleまたはDoubleの�
 });
 
 describe('無作為に抽出した10個のlandLockedがSubの国データのうち、', () => {
-  _.sampleSize(DatabaseHandler.COUNTRIES.filter(c => c.landLocked === 'Sub'), 10).forEach(c => {
+  _.sampleSize(DatabaseHandler.countries.filter(c => c.landLocked === 'Sub'), 10).forEach(c => {
     describe(`${c.nameJp} のデータに対して`, () => {
       // describe('getSimilarUnlockedsubCountries を実行したとき', () => {
       //   const actual = DatabaseHandler.getSimilarUnlockedsubCountries(c);
@@ -249,7 +249,7 @@ describe('無作為に抽出した10個のlandLockedがSubの国データのう�
 });
 
 describe('landLockedがDoubleの国データのうち、', () => {
-  DatabaseHandler.COUNTRIES.filter(c => c.landLocked === 'Double').forEach(c => {
+  DatabaseHandler.countries.filter(c => c.landLocked === 'Double').forEach(c => {
     describe(`${c.nameJp} のデータに対して`, () => {
       // describe('getSimilarUnlockeddoubleCountries を実行したとき', () => {
       //   const actual = DatabaseHandler.getSimilarUnlockeddoubleCountries(c);
@@ -274,7 +274,7 @@ describe('landLockedがDoubleの国データのうち、', () => {
 });
 
 describe('無作為に抽出した10個の漢字略称を持つ国データのうち、', () => {
-  _.sampleSize(DatabaseHandler.COUNTRIES.filter(c => c.nameJpBAbbr !== ''), 10).forEach(c => {
+  _.sampleSize(DatabaseHandler.countries.filter(c => c.nameJpBAbbr !== ''), 10).forEach(c => {
     describe(`${c.nameJp} のデータに対して`, () => {
       // describe('getSimilarKanjiAbbrCountries を実行したとき', () => {
       //   const actual = DatabaseHandler.getSimilarKanjiAbbrCountries(c);
@@ -312,7 +312,7 @@ describe('無作為に抽出したnameJpとnameJpSとの差分が特定のsuffix
     '独立国',
     '合衆国',
   ];
-  const targetCountries = DatabaseHandler.COUNTRIES.filter(c => {
+  const targetCountries = DatabaseHandler.countries.filter(c => {
     return focusedSuffixes.some(s => c.nameJp.replace(c.nameJpS, '') === s);
   });
   const sampleCountries = _.sampleSize(targetCountries, 10);

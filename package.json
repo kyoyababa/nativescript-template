@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i -e 's/\\[/export const COUNTRIES = [/' src/app/database/countries.ts"
   },
   "nativescript": {
     "id": "org.nativescript.TestApp",
@@ -40,6 +41,7 @@
     "@types/lodash": "^4.14.123",
     "@types/mocha": "^5.2.6",
     "@types/node": "~8.9.4",
+    "csvtojson": "^2.0.8",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",
