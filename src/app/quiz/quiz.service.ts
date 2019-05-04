@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import * as I from '../models/quiz.d';
 import * as DatabaseHandler from '../database/database.handler';
 import * as QuizTextGenerator from '../services/quiz-text-generator';
@@ -20,7 +21,7 @@ export function selectQuizPattern(): I.AnswerSelection {
     'COUNTRY_NAME_SUFFIX'
   ];
 
-  return DatabaseHandler.getRandom(quizPatterns);
+  return <I.AnswerSelection>_.sample(quizPatterns);
 }
 
 function getCorrectAnswer(selectedQuizPattern: I.AnswerSelection): I.Country {

@@ -1,39 +1,40 @@
+import * as _ from 'lodash';
 import * as I from '../models/quiz.d';
 import { countries } from './countries';
 export const COUNTRIES = <Array<I.Country>>countries;
 
 
 export function getRandomCountry(isLandLocked?: boolean): I.Country {
-  return getRandom(COUNTRIES);
+  return <I.Country>_.sample(COUNTRIES);
 }
 
 export function getRandomSecondCapitalCountry(): I.Country {
   const secondCapitalCountries = COUNTRIES.filter(c => c.secondCapitalJp !== '');
-  return getRandom(secondCapitalCountries);
+  return <I.Country>_.sample(secondCapitalCountries);
 }
 
 export function getRandomLockedCountry(): I.Country {
   const isLandLocked = (c: I.Country) => c.landLocked === 'Single' || c.landLocked === 'Double';
   const landLockedCountries = COUNTRIES.filter(c => isLandLocked(c));
-  return getRandom(landLockedCountries);
+  return <I.Country>_.sample(landLockedCountries);
 }
 
 export function getRandomLockedSubCountry(): I.Country {
   const isLandLockedSub = (c: I.Country) => c.landLocked === 'Sub';
   const landLockedSubCountries = COUNTRIES.filter(c => isLandLockedSub(c));
-  return getRandom(landLockedSubCountries);
+  return <I.Country>_.sample(landLockedSubCountries);
 }
 
 export function getRandomLockedDoubleCountry(): I.Country {
   const isLandLockedDouble = (c: I.Country) => c.landLocked === 'Double';
   const landLockedDoubleCountries = COUNTRIES.filter(c => isLandLockedDouble(c));
-  return getRandom(landLockedDoubleCountries);
+  return <I.Country>_.sample(landLockedDoubleCountries);
 }
 
 export function getRandomKanjiAbbribiatableCountry(): I.Country {
   const isKanjiAbbribiatable = (c: I.Country) => c.nameJpBAbbr !== '';
   const kanjiAbbribiatableCountries = COUNTRIES.filter(c => isKanjiAbbribiatable(c));
-  return getRandom(kanjiAbbribiatableCountries);
+  return <I.Country>_.sample(kanjiAbbribiatableCountries);
 }
 
 export function getRandomSuffixableCountry(): any {
@@ -56,7 +57,7 @@ export function getRandomSuffixableCountry(): any {
   const focusedCountries = COUNTRIES.filter(c => {
     return focusedSuffixes.some(s => c.nameJp.replace(c.nameJpS, '') === s);
   });
-  return getRandom(focusedCountries);
+  return _.sample(focusedCountries);
 }
 
 export function getSimilarCountries(country: I.Country): Array<I.Country> {
@@ -152,9 +153,4 @@ export function fisherYatesShuffle(array: Array<any>): Array<any> {
   }
 
   return array;
-}
-
-export function getRandom(array: Array<any>): any {
-  if (!array || !array.length) return;
-  return array[Math.floor(Math.random() * array.length)];
 }

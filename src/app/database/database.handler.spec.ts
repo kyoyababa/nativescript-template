@@ -3,133 +3,135 @@ import * as DatabaseHandler from './database.handler';
 
 describe('DatabaseHandlerの正解データ生成において', () => {
   for (let i = 0; i < 100; i++) {
-    // describe('getRandomCountry', () => {
-    //   describe('100回実行したとき', () => {
-    //     it('ランダムな国データが返されること', () => {
-    //       const actual = DatabaseHandler.getRandomCountry();
-    //       expect(actual.nameJpS).toBeDefined();
-    //       expect(actual.nameJpS).not.toBe('');
-    //     });
-    //   });
-    // });
+    describe('getRandomCountry', () => {
+      describe('100回実行したとき', () => {
+        it('ランダムな国データが返されること', () => {
+          const actual = DatabaseHandler.getRandomCountry();
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJpS).not.toBe('');
+        });
+      });
+    });
 
-    // describe('getRandomSecondCapitalCountry', () => {
-    //   describe('100回実行したとき', () => {
-    //     const actual = DatabaseHandler.getRandomSecondCapitalCountry();
-    //
-    //     it('ランダムな国データが返されること', () => {
-    //       expect(actual.nameJpS).toBeDefined();
-    //       expect(actual.nameJpS).not.toBe('');
-    //     });
-    //
-    //     it('secondCapitalJp が定義されていること', () => {
-    //       expect(actual.secondCapitalJp).toBeDefined();
-    //       expect(actual.secondCapitalJp).not.toBe('');
-    //     });
-    //   });
-    // });
+    describe('getRandomSecondCapitalCountry', () => {
+      describe('100回実行したとき', () => {
+        const actual = DatabaseHandler.getRandomSecondCapitalCountry();
 
-    // describe('getRandomLockedCountry', () => {
-    //   describe('100回実行したとき', () => {
-    //     const actual = DatabaseHandler.getRandomLockedCountry();
-    //
-    //     it('ランダムな国データが返されること', () => {
-    //       expect(actual.nameJpS).toBeDefined();
-    //       expect(actual.nameJpS).not.toBe('');
-    //     });
-    //
-    //     it('返された国データが内陸国であること', () => {
-    //       const isLandLocked = actual.landLocked === 'Single' || actual.landLocked === 'Double';
-    //       expect(isLandLocked).toBe(true);
-    //     });
-    //   });
-    // });
+        it('ランダムな国データが返されること', () => {
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJpS).not.toBe('');
+        });
 
-    // describe('getRandomLockedSubCountry', () => {
-    //   describe('100回実行したとき', () => {
-    //     const actual = DatabaseHandler.getRandomLockedSubCountry();
-    //
-    //     it('ランダムな国データが返されること', () => {
-    //       expect(actual.nameJpS).toBeDefined();
-    //       expect(actual.nameJpS).not.toBe('');
-    //     });
-    //
-    //     it('返された国データが準内陸国であること', () => {
-    //       expect(actual.landLocked).toBe('Sub');
-    //     });
-    //   });
-    // });
+        it('secondCapitalJp が定義されていること', () => {
+          expect(actual.secondCapitalJp).toBeDefined();
+          expect(actual.secondCapitalJp).not.toBe('');
+        });
+      });
+    });
 
-    // describe('getRandomLockedDoubleCountry', () => {
-    //   describe('100回実行したとき', () => {
-    //     const actual = DatabaseHandler.getRandomLockedDoubleCountry();
-    //
-    //     it('ランダムな国データが返されること', () => {
-    //       expect(actual.nameJpS).toBeDefined();
-    //       expect(actual.nameJpS).not.toBe('');
-    //     });
-    //
-    //     it('返された国データが二重内陸国であること', () => {
-    //       expect(actual.landLocked).toBe('Double');
-    //     });
-    //   });
-    // });
+    describe('getRandomLockedCountry', () => {
+      describe('100回実行したとき', () => {
+        const actual = DatabaseHandler.getRandomLockedCountry();
 
-    // describe('getRandomKanjiAbbribiatableCountry', () => {
-    //   describe('100回実行したとき', () => {
-    //     const actual = DatabaseHandler.getRandomKanjiAbbribiatableCountry();
-    //
-    //     it('ランダムな国データが返されること', () => {
-    //       expect(actual.nameJpS).toBeDefined();
-    //       expect(actual.nameJpS).not.toBe('');
-    //     });
-    //
-    //     it('返された国データの漢字略称が存在すること', () => {
-    //       expect(actual.nameJpBAbbr).toBeDefined();
-    //       expect(actual.nameJpBAbbr).not.toBe('');
-    //     });
-    //   });
-    // });
+        it('ランダムな国データが返されること', () => {
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJpS).not.toBe('');
+        });
 
-    // describe('getRandomSuffixableCountry', () => {
-    //   describe('100回実行したとき', () => {
-    //     const actual = DatabaseHandler.getRandomSuffixableCountry();
-    //
-    //     it('ランダムな国データが返されること', () => {
-    //       expect(actual.nameJpS).toBeDefined();
-    //       expect(actual.nameJpS).not.toBe('');
-    //     });
-    //
-    //     it('返された国データの正式名称と略称が異なること', () => {
-    //       expect(actual.nameJp).not.toBe('');
-    //       // TODO
-    //       expect(actual.nameJp).not.toBe(actual.nameJpS);
-    //     });
-    //
-    //     it('返された国データの正式名称と略称の差分が、想定されている文字列であること', () => {
-    //       const focusedSuffixes = [
-    //         '',
-    //         '国',
-    //         '王国',
-    //         '公国',
-    //         '大公国',
-    //         '共和国',
-    //         '自治共和国',
-    //         '連合共和国',
-    //         '連邦共和国',
-    //         '人民共和国',
-    //         '連邦',
-    //         '連合',
-    //         '諸島',
-    //         '独立国',
-    //         '合衆国',
-    //       ];
-    //       const suffixPatterns = focusedSuffixes.map(s => actual.nameJpS + s);
-    //       const isValidCountry = suffixPatterns.some(p => p === actual.nameJp);
-    //       expect(isValidCountry).toBe(true);
-    //     });
-    //   });
-    // });
+        it('返された国データが内陸国であること', () => {
+          const isLandLocked = actual.landLocked === 'Single' || actual.landLocked === 'Double';
+          expect(isLandLocked).toBe(true);
+        });
+      });
+    });
+
+    describe('getRandomLockedSubCountry', () => {
+      describe('100回実行したとき', () => {
+        const actual = DatabaseHandler.getRandomLockedSubCountry();
+
+        it('ランダムな国データが返されること', () => {
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJpS).not.toBe('');
+        });
+
+        it('返された国データが準内陸国であること', () => {
+          expect(actual.landLocked).toBe('Sub');
+        });
+      });
+    });
+
+    describe('getRandomLockedDoubleCountry', () => {
+      describe('100回実行したとき', () => {
+        const actual = DatabaseHandler.getRandomLockedDoubleCountry();
+
+        it('ランダムな国データが返されること', () => {
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJpS).not.toBe('');
+        });
+
+        it('返された国データが二重内陸国であること', () => {
+          expect(actual.landLocked).toBe('Double');
+        });
+      });
+    });
+
+    describe('getRandomKanjiAbbribiatableCountry', () => {
+      describe('100回実行したとき', () => {
+        const actual = DatabaseHandler.getRandomKanjiAbbribiatableCountry();
+
+        it('ランダムな国データが返されること', () => {
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJpS).not.toBe('');
+        });
+
+        it('返された国データの漢字略称が存在すること', () => {
+          expect(actual.nameJpBAbbr).toBeDefined();
+          expect(actual.nameJpBAbbr).not.toBe('');
+        });
+      });
+    });
+
+    describe('getRandomSuffixableCountry', () => {
+      describe('100回実行したとき', () => {
+        const actual = DatabaseHandler.getRandomSuffixableCountry();
+
+        it('ランダムな国データが返されること', () => {
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJpS).not.toBe('');
+        });
+
+        it('返された国データの正式名称と略称が異なること', () => {
+          expect(actual.nameJp).toBeDefined();
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJp).not.toBe('');
+          expect(actual.nameJpS).not.toBe('');
+          expect(actual.nameJp).not.toBe(actual.nameJpS);
+        });
+
+        it('返された国データの正式名称と略称の差分が、想定されている文字列であること', () => {
+          const focusedSuffixes = [
+            '',
+            '国',
+            '王国',
+            '公国',
+            '大公国',
+            '共和国',
+            '自治共和国',
+            '連合共和国',
+            '連邦共和国',
+            '人民共和国',
+            '連邦',
+            '連合',
+            '諸島',
+            '独立国',
+            '合衆国',
+          ];
+          const suffixPatterns = focusedSuffixes.map(s => actual.nameJpS + s);
+          const isValidCountry = suffixPatterns.some(p => p === actual.nameJp);
+          expect(isValidCountry).toBe(true);
+        });
+      });
+    });
   }
 });
 
