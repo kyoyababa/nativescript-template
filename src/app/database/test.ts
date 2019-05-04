@@ -1,6 +1,4 @@
 import * as I from '../models/quiz.d';
-import { COUNTRIES } from './countries';
-export const countries = COUNTRIES;
 
 export const regionCodes = [
   'Europe',

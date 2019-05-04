@@ -1,5 +1,5 @@
 import * as Test from './test';
-
+import { COUNTRIES } from './countries';
 
 describe('checkCountriesDataValid', () => {
   const numberRegexp = /^[\-0-9.]*$/;
@@ -7,43 +7,43 @@ describe('checkCountriesDataValid', () => {
   const katakanaOrKanjiRegexp = /^[ァ-ヴー一-龠・＝]*$/;
   const kanjiRegexp = /^[一-龠]*$/;
 
-  describe(`Test.countries データにおいて`, () => {
+  describe(`COUNTRIES データにおいて`, () => {
     it('countryCode はいずれも重複がないこと', () => {
-      expect(Test.filterDuplicateValues(Test.countries.map(c => c.countryCode)).length).toBe(0);
+      expect(Test.filterDuplicateValues(COUNTRIES.map(c => c.countryCode)).length).toBe(0);
     });
 
     it('nameJp はいずれも重複がないこと', () => {
-      expect(Test.filterDuplicateValues(Test.countries.map(c => c.nameJp)).length).toBe(0);
+      expect(Test.filterDuplicateValues(COUNTRIES.map(c => c.nameJp)).length).toBe(0);
     });
 
     it('nameJpS はいずれも重複がないこと', () => {
-      expect(Test.filterDuplicateValues(Test.countries.map(c => c.nameJpS)).length).toBe(0);
+      expect(Test.filterDuplicateValues(COUNTRIES.map(c => c.nameJpS)).length).toBe(0);
     });
 
     it('nameJpB はいずれも既知の重複以外の重複がないこと', () => {
-      const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.nameJpB));
+      const duplicates = Test.filterDuplicateValues(COUNTRIES.map(c => c.nameJpB));
       const knownDuplicates = ['公果'];
       expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
     });
 
     it('nameJpBAbbr はいずれも既知の重複以外の重複がないこと', () => {
-      const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.nameJpBAbbr));
+      const duplicates = Test.filterDuplicateValues(COUNTRIES.map(c => c.nameJpBAbbr));
       const knownDuplicates = ['公', '瑞', '波'];
       expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
     });
 
     it('capitalJp はいずれも重複がないこと', () => {
-      const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.capitalJp));
+      const duplicates = Test.filterDuplicateValues(COUNTRIES.map(c => c.capitalJp));
       const knownDuplicates = ['ニコシア'];
       expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
     });
 
     it('secondCapitalJp はいずれも重複がないこと', () => {
-      expect(Test.filterDuplicateValues(Test.countries.map(c => c.secondCapitalJp)).length).toBe(0);
+      expect(Test.filterDuplicateValues(COUNTRIES.map(c => c.secondCapitalJp)).length).toBe(0);
     });
   });
 
-  Test.countries.forEach(c => {
+  COUNTRIES.forEach(c => {
     describe(`${c.nameJp} のデータにおいて`, () => {
       // it('countryCode が２文字の半角英字（大文字）であること', () => {
       //   expect(c.countryCode.length).toBe(2);
