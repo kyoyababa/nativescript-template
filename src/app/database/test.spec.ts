@@ -8,39 +8,39 @@ describe('checkCountriesDataValid', () => {
   const kanjiRegexp = /^[一-龠]*$/;
 
   describe(`Test.countries データにおいて`, () => {
-    // it('countryCode はいずれも重複がないこと', () => {
-    //   expect(Test.filterDuplicateValues(Test.countries.map(c => c.countryCode)).length).toBe(0);
-    // });
-    //
-    // it('nameJp はいずれも重複がないこと', () => {
-    //   expect(Test.filterDuplicateValues(Test.countries.map(c => c.nameJp)).length).toBe(0);
-    // });
-    //
-    // it('nameJpS はいずれも重複がないこと', () => {
-    //   expect(Test.filterDuplicateValues(Test.countries.map(c => c.nameJpS)).length).toBe(0);
-    // });
-    //
-    // it('nameJpB はいずれも既知の重複以外の重複がないこと', () => {
-    //   const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.nameJpB));
-    //   const knownDuplicates = ['公果'];
-    //   expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
-    // });
-    //
-    // it('nameJpBAbbr はいずれも既知の重複以外の重複がないこと', () => {
-    //   const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.nameJpBAbbr));
-    //   const knownDuplicates = ['公', '瑞', '波'];
-    //   expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
-    // });
-    //
-    // it('capitalJp はいずれも重複がないこと', () => {
-    //   const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.capitalJp));
-    //   const knownDuplicates = ['ニコシア'];
-    //   expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
-    // });
-    //
-    // it('secondCapitalJp はいずれも重複がないこと', () => {
-    //   expect(Test.filterDuplicateValues(Test.countries.map(c => c.secondCapitalJp)).length).toBe(0);
-    // });
+    it('countryCode はいずれも重複がないこと', () => {
+      expect(Test.filterDuplicateValues(Test.countries.map(c => c.countryCode)).length).toBe(0);
+    });
+
+    it('nameJp はいずれも重複がないこと', () => {
+      expect(Test.filterDuplicateValues(Test.countries.map(c => c.nameJp)).length).toBe(0);
+    });
+
+    it('nameJpS はいずれも重複がないこと', () => {
+      expect(Test.filterDuplicateValues(Test.countries.map(c => c.nameJpS)).length).toBe(0);
+    });
+
+    it('nameJpB はいずれも既知の重複以外の重複がないこと', () => {
+      const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.nameJpB));
+      const knownDuplicates = ['公果'];
+      expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
+    });
+
+    it('nameJpBAbbr はいずれも既知の重複以外の重複がないこと', () => {
+      const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.nameJpBAbbr));
+      const knownDuplicates = ['公', '瑞', '波'];
+      expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
+    });
+
+    it('capitalJp はいずれも重複がないこと', () => {
+      const duplicates = Test.filterDuplicateValues(Test.countries.map(c => c.capitalJp));
+      const knownDuplicates = ['ニコシア'];
+      expect(duplicates.filter(d => knownDuplicates.indexOf(d) < 0).length).toBe(0);
+    });
+
+    it('secondCapitalJp はいずれも重複がないこと', () => {
+      expect(Test.filterDuplicateValues(Test.countries.map(c => c.secondCapitalJp)).length).toBe(0);
+    });
   });
 
   Test.countries.forEach(c => {
@@ -82,13 +82,18 @@ describe('checkCountriesDataValid', () => {
       //   expect(Test.regionCodes.indexOf(c.regionCode) >= 0).toBe(true);
       // });
 
+      // it('isIsland が "true" または "false" のいずれかであること', () => {
+      //   const isIsland = ['true', 'false'];
+      //   expect(isIsland.indexOf(c.isIsland) >= 0).toBe(true);
+      // });
+
       // it('landLocked が I.LandLocked 型のいずれかであること', () => {
       //   expect(Test.landLockedPatterns.indexOf(c.landLocked) >= 0).toBe(true);
       // });
 
-      // it('latとlon が数値であること', () => {
-      //   expect(isNaN(c.lat)).toBe(false);
-      //   expect(isNaN(c.lon)).toBe(false);
+      // it('latとlon が 半角数字の浮動小数点型であること', () => {
+      //   expect(c.lat.match(numberRegexp) !== null).toBe(true);
+      //   expect(c.lon.match(numberRegexp) !== null).toBe(true);
       // });
 
       // it('正式国名から短縮国名を除くと、想定した接尾辞または空文字のみが残ること', () => {

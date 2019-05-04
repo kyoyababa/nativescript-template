@@ -1,21 +1,6 @@
 import * as I from '../models/quiz.d';
 import { COUNTRIES } from './countries';
-export const countries = COUNTRIES.map(c => {
-  return {
-    countryCode: c.countryCode,
-    nameJp: c.nameJp,
-    nameJpS: c.nameJpS,
-    nameJpB: c.nameJpB,
-    nameJpBAbbr: <string>c.nameJpBAbbr,
-    capitalJp: c.capitalJp,
-    secondCapitalJp: c.secondCapitalJp,
-    regionCode: c.regionCode,
-    isIsland: c.isIsland === 'true',
-    landLocked: <I.LandLocked>c.landLocked,
-    lat: parseFloat(c.lat),
-    lon: parseFloat(c.lon)
-  }
-});
+export const countries = COUNTRIES;
 
 export const regionCodes = [
   'Europe',
