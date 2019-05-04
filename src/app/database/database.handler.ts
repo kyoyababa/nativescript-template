@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from '../util/lodash.util';
 import * as I from '../models/quiz.d';
 import { COUNTRIES } from './countries';
 export const countries = COUNTRIES.map(c => {

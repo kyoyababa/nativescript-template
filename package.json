@@ -1,7 +1,9 @@
 {
   "scripts": {
-    "test": "karma start",
-    "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i -e 's/\\[/export const COUNTRIES = [/' src/app/database/countries.ts && rm src/app/database/countries.ts-e"
+    "test": "npm run json && karma start",
+    "clean": "tns clean-app ios && tns clean-app android && rm -rf src/**/*.js && rm -rf src/**/*.css && rm -rf hooks && rm -rf node_modules && rm -rf platforms && rm -rf src/app/database/countries.ts",
+    "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i -e 's/\\[/export const COUNTRIES = [/' src/app/database/countries.ts && rm src/app/database/countries.ts-e",
+    "start": "tns preview"
   },
   "nativescript": {
     "id": "org.nativescript.TestApp",
@@ -25,7 +27,6 @@
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
-    "lodash": "^4.17.11",
     "nativescript-angular": "~7.1.0",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-unit-test-runner": "^0.3.4",
@@ -38,9 +39,6 @@
     "@angular/compiler-cli": "~7.1.0",
     "@nativescript/schematics": "~0.5.0",
     "@ngtools/webpack": "~7.1.0",
-    "@types/jasmine": "^3.3.12",
-    "@types/jest": "^24.0.12",
-    "@types/karma": "^3.0.2",
     "@types/lodash": "^4.14.123",
     "@types/mocha": "^5.2.6",
     "@types/node": "~8.9.4",
@@ -50,11 +48,12 @@
     "karma": "~3.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
-    "karma-jasmine": "~1.1.2",
+    "karma-jasmine": "^1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-nativescript-launcher": "0.4.0",
     "karma-typescript-preprocessor": "^0.4.0",
     "karma-webpack": "^3.0.5",
+    "lodash": "^4.17.11",
     "nativescript-dev-sass": "^1.6.0",
     "nativescript-dev-typescript": "~0.7.0",
     "nativescript-dev-webpack": "~0.18.0",

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from '../util/lodash.util';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 import { Observable } from 'rxjs';
 

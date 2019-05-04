@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import * as _ from '../util/lodash.util';
 import * as I from '../models/quiz.d';
 import * as DatabaseHandler from '../database/database.handler';
 import * as QuizTextGenerator from '../services/quiz-text-generator';
