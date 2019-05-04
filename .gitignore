@@ -31,3 +31,6 @@ typings/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Json Database
+src/app/database/countries.ts

@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test": "karma start",
-    "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i -e 's/\\[/export const COUNTRIES = [/' src/app/database/countries.ts"
+    "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i -e 's/\\[/export const COUNTRIES = [/' src/app/database/countries.ts && rm src/app/database/countries.ts-e"
   },
   "nativescript": {
     "id": "org.nativescript.TestApp",
