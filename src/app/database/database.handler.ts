@@ -64,7 +64,7 @@ export function getSimilarCountries(country: I.Country): Array<I.Country> {
   const sameRegionCountries = COUNTRIES.filter(c => {
     return c.countryCode !== country.countryCode && c.regionCode === country.regionCode;
   });
-  return fisherYatesShuffle(sameRegionCountries);
+  return _.shuffle(sameRegionCountries);
 }
 
 export function getSimilarCapitalCountries(country: I.Country): Array<I.Country> {
@@ -73,35 +73,35 @@ export function getSimilarCapitalCountries(country: I.Country): Array<I.Country>
     const isDuplicateChar = knownDuplicates.some(d => d === country.capitalJp) && knownDuplicates.some(d => d === c.capitalJp);
     return c.capitalJp !== '' && !isDuplicateChar;
   });
-  return fisherYatesShuffle(sameRegionCountries);
+  return _.shuffle(sameRegionCountries);
 }
 
 export function getSimilarSecondCapitalCountries(country: I.Country): Array<I.Country> {
   const sameRegionCountries = COUNTRIES.filter(c => {
     return c.countryCode !== country.countryCode && c.regionCode === country.regionCode && c.secondCapitalJp;
   });
-  return fisherYatesShuffle(sameRegionCountries);
+  return _.shuffle(sameRegionCountries);
 }
 
 export function getSimilarUnlockedCountries(country: I.Country): Array<I.Country> {;
   const sameRegionCountries = getSimilarCountries(country).filter(c => {
     return c.landLocked !== 'Single' && c.landLocked !== 'Double';
   });
-  return fisherYatesShuffle(sameRegionCountries);
+  return _.shuffle(sameRegionCountries);
 }
 
 export function getSimilarUnlockedsubCountries(country: I.Country): Array<I.Country> {
   const sameRegionCountries = getSimilarCountries(country).filter(c => {
     return c.landLocked !== 'Sub';
   });
-  return fisherYatesShuffle(sameRegionCountries);
+  return _.shuffle(sameRegionCountries);
 }
 
 export function getSimilarUnlockeddoubleCountries(country: I.Country): Array<I.Country> {
   const sameRegionCountries = getSimilarCountries(country).filter(c => {
     return c.landLocked !== 'Double';
   });
-  return fisherYatesShuffle(sameRegionCountries);
+  return _.shuffle(sameRegionCountries);
 }
 
 export function getSimilarKanjiAbbrCountries(country: I.Country): Array<I.Country> {
@@ -110,7 +110,7 @@ export function getSimilarKanjiAbbrCountries(country: I.Country): Array<I.Countr
     const isDuplicateChar = knownDuplicates.some(d => d === country.nameJpBAbbr) && knownDuplicates.some(d => d === c.nameJpBAbbr);
     return c.countryCode !== country.countryCode && c.nameJpBAbbr !== '' && !isDuplicateChar;
   });
-  return fisherYatesShuffle(sameRegionCountries);
+  return _.shuffle(sameRegionCountries);
 }
 
 export function getDummySuffixCountries(country: I.Country): Array<I.Country> {
@@ -131,26 +131,11 @@ export function getDummySuffixCountries(country: I.Country): Array<I.Country> {
     '独立国',
     '合衆国',
   ].filter(s => s !== correctSuffix);
-  const dummySuffixPatterns = fisherYatesShuffle(focusedSuffixPatterns);
+  const dummySuffixPatterns = _.shuffle(focusedSuffixPatterns);
 
   return [
     { ...country, nameJp: country.nameJpS + dummySuffixPatterns[0] },
     { ...country, nameJp: country.nameJpS + dummySuffixPatterns[1] },
     { ...country, nameJp: country.nameJpS + dummySuffixPatterns[2] },
   ];
-}
-
-export function fisherYatesShuffle(array: Array<any>): Array<any> {
-  let n = array.length;
-  let t: any;
-  let i: number;
-
-  while (n) {
-    i = Math.floor(Math.random() * n--);
-    t = array[n];
-    array[n] = array[i];
-    array[i] = t;
-  }
-
-  return array;
 }

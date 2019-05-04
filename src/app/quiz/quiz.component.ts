@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 import { Observable } from 'rxjs';
 
@@ -41,7 +42,7 @@ export class QuizComponent implements OnInit {
 
     this.answerSelectionPattern = quizModel.answerSelectionPattern;
     this.quizImage = <string>quizModel.quizImage;
-    this.answerSelections = DatabaseHandler.fisherYatesShuffle(quizModel.answerSelections);
+    this.answerSelections = _.shuffle(quizModel.answerSelections);
 
     this.animateQuizText(quizModel.quizText);
   }
