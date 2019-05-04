@@ -25,7 +25,7 @@ export interface AnswerOfCountry extends Country {
 }
 
 export interface AnswerHistory {
-  correct: boolean;
+  isCorrect: boolean;
 }
 
 export type AnswerSelection = 'COUNTRY_TO_CAPITAL'

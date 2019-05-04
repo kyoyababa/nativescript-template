@@ -69,6 +69,14 @@ export class QuizComponent implements OnInit {
     }, 100);
   }
 
+  getAnswerImageSrc(type: 'CORRECT' | 'INCORRECT'): string {
+    return QuizService.getAnswerImageSrc(type);
+  }
+
+  getAnswerCountDisplay(): string {
+    return QuizService.getAnswerCountDisplay([]);
+  }
+
   getAnswerText(answer: I.AnswerOfCountry): string {
     return QuizService.getAnswerText(answer, <I.AnswerSelection>this.selectedQuizPattern);
   }
@@ -89,7 +97,7 @@ export class QuizComponent implements OnInit {
   }
 
   goToNext(): void {
-    this.answers.push({ correct: this.isCorrect() });
+    this.answers.push({ isCorrect: this.isCorrect() });
     this.resetModelsAndStartNextQuiz();
   }
 

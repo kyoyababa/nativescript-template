@@ -9,9 +9,10 @@
       <AbsoluteLayout class="answers">
         <FlexboxLayout>
           <StackLayout *ngFor="let answer of answers">
-            <Label *ngIf="answer.correct" class="answer-correct" text="○"></Label>
-            <Label *ngIf="!answer.correct" class="answer-incorrect" text="×"></Label>
+            <Image *ngIf="answer.isCorrect" [src]="getAnswerImageSrc('CORRECT')"></Image>
+            <Image *ngIf="!answer.isCorrect" [src]="getAnswerImageSrc('INCORRECT')"></Image>
           </StackLayout>
+          <Label text="{{getAnswerCountDisplay()}}"></Label>
         </FlexboxLayout>
       </AbsoluteLayout>
     </StackLayout>

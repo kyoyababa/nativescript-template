@@ -89,6 +89,21 @@ function getQuizImageSrc(country: I.Country): string {
   return `~/app/images/flags/${country.countryCode}@3x.png`;
 }
 
+export function getAnswerImageSrc(type: 'CORRECT' | 'INCORRECT'): string {
+  switch(type) {
+    case 'CORRECT':
+      return `~/app/images/answer/icon-correct.png`;
+    case 'INCORRECT':
+      return `~/app/images/answer/icon-incorrect.png`;
+  }
+}
+
+export function getAnswerCountDisplay(answersHistory: Array<I.AnswerHistory>): string {
+  if (answersHistory.length === 0) return '';
+  const correctAnswersLength = answersHistory.filter(h => h.isCorrect).length;
+  return `${correctAnswersLength}/${answersHistory.length}`;
+}
+
 export function getAnswerText(answer: I.AnswerOfCountry, selectedQuizPattern: I.AnswerSelection): string {
   switch(selectedQuizPattern) {
     case 'COUNTRY_TO_CAPITAL':
