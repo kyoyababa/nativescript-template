@@ -1,3 +1,5 @@
+export type DisplayMode = 'PRETITLE' | 'DISPLAY' | 'RESULT';
+
 export interface Country {
   countryCode: string;
   nameJp: string;

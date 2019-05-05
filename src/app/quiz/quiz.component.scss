@@ -103,7 +103,7 @@ StackLayout.answerSelections {
   Button {
     display: inline-block;
     padding: 10;
-    border-radius: 10;
+    border-radius: 6;
     background-color: #5478CC;
     color: #FFFFFF;
     font-size: 20;
@@ -111,6 +111,10 @@ StackLayout.answerSelections {
     animation-name: button-fadein;
     animation-duration: 500ms;
     animation-fill-mode: forwards;
+
+    &.selected {
+      background-color: darken(#5478CC, 15%);
+    }
   }
 }
 

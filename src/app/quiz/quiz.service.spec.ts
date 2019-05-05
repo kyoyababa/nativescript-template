@@ -1,4 +1,28 @@
-import { getAnswerImageSrc, getAnswerCountDisplay, getQuizTextAndAnswerSelections } from './quiz.service';
+import { shouldShow, getAnswerImageSrc, getAnswerCountDisplay, getQuizTextAndAnswerSelections } from './quiz.service';
+
+
+describe('shouldShow', () => {
+  const dataTable = [
+    { target: 'PRETITLE', current: 'PRETITLE', expected: true },
+    { target: 'PRETITLE', current: 'DISPLAY', expected: false },
+    { target: 'PRETITLE', current: 'RESULT', expected: false },
+    { target: 'DISPLAY', current: 'PRETITLE', expected: false },
+    { target: 'DISPLAY', current: 'DISPLAY', expected: true },
+    { target: 'DISPLAY', current: 'RESULT', expected: false },
+    { target: 'RESULT', current: 'PRETITLE', expected: false },
+    { target: 'RESULT', current: 'DISPLAY', expected: false },
+    { target: 'RESULT', current: 'RESULT', expected: true }
+  ]
+
+  dataTable.forEach(d => {
+    describe(`対象のDOMが ${d.target} であるとき`, () => {
+      it(`${d.current} のモードの場合は表示され ${d.expected ? 'る' : 'ない'} こと`, () => {
+        const actual = shouldShow(d.target, d.current);
+        expect(actual).toBe(d.expected);
+      });
+    });
+  });
+});
 
 
 describe('getAnswerImageSrc', () => {

@@ -90,6 +90,10 @@ function getQuizImageSrc(country: I.Country): string {
   return `~/app/images/flags/${country.countryCode}@3x.png`;
 }
 
+export function shouldShow(target: I.DisplayMode, currentDisplayMode: I.DisplayMode): boolean {
+  return target === currentDisplayMode;
+}
+
 export function getAnswerImageSrc(type: 'CORRECT' | 'INCORRECT'): string {
   switch(type) {
     case 'CORRECT':

@@ -1,13 +1,13 @@
 <ActionBar title="{{getActionBarTitle()}}"></ActionBar>
 
 <StackLayout>
-  <FlexboxLayout *ngIf="isPreTitleShown()" class="pretitle">
+  <FlexboxLayout *ngIf="shouldShow('PRETITLE')" class="pretitle">
     <StackLayout class="view">
       <Label text="{{getActionBarTitle()}}"></Label>
     </StackLayout>
   </FlexboxLayout>
 
-  <FlexboxLayout *ngIf="isDisplayShown()" flexDirection="column">
+  <FlexboxLayout *ngIf="shouldShow('DISPLAY')" flexDirection="column">
     <StackLayout class="display">
       <StackLayout class="question">
         <Label textWrap="true" text="{{quizText}}"></Label>
@@ -28,7 +28,12 @@
     <StackLayout>
       <StackLayout class="answerSelections" *ngIf="shouldShowAnswerSelectionsPattern('TEXT')">
         <StackLayout *ngFor="let answer of answerSelections">
-          <Button text="{{getAnswerText(answer)}}" (tap)="judgement(answer)"></Button>
+          <Button
+            isEnabled="{{isAnswerButtonEnabled()}}"
+            text="{{getAnswerText(answer)}}"
+            [ngClass]="{'selected': isAnswerSelectedAs(answer)}"
+            (tap)="judgement(answer)">
+          </Button>
         </StackLayout>
       </StackLayout>
 
@@ -37,12 +42,17 @@
           <Image [src]="getAnswerText(answer)" (tap)="judgement(answer)"></Image>
         </StackLayout>
       </FlexboxLayout>
-
-      <AbsoluteLayout class="controller" *ngIf="isAnswerSelected">
-        <Label *ngIf="isCorrect()" text="correct"></Label>
-        <Label *ngIf="!isCorrect()" text="incorrect"></Label>
-        <Button text="go to next" (tap)="goToNext()"></Button>
-      </AbsoluteLayout>
     </StackLayout>
+  </FlexboxLayout>
+
+  <FlexboxLayout *ngIf="shouldShow('RESULT')" class="result">
+    <StackLayout>
+      <Label text="{{resultText}}"></Label>
+      <Label textWrap="true" text="{{quizText}}"></Label>
+      <Image *ngIf="quizImage" [src]="quizImage"></Image>
+      <Label text="{{getAnswerText(selectedAnswer)}}"></Label>
+      <Image [src]="getAnswerText(selectedAnswer)"></Image>
+    </StackLayout>
+    <Button text="{{goToNextButtonLabel}}" (tap)="goToNext()"></Button>
   </FlexboxLayout>
 </StackLayout>

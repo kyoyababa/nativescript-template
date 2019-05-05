@@ -15,16 +15,24 @@ import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selectio
   styleUrls: ['./app/quiz/quiz.component.css']
 })
 export class QuizComponent implements OnInit {
-  displayMode: 'PRETITLE' | 'DISPLAY' = 'PRETITLE';
+  displayMode: 'PRETITLE' | 'DISPLAY' | 'RESULT' = 'PRETITLE';
   currentQuizNumber = 1;
   selectedQuizPattern: I.AnswerSelection | null = null;
   answerSelectionPattern: 'TEXT' | 'IMAGE' | null = null;
   quizText = '';
   quizImage = '';
-  answerSelections: Array<I.AnswerOfCountry> = Array(4);
+  answerSelections: Array<I.AnswerOfCountry> = [];
   isAnswerSelected = false;
   selectedAnswer: I.AnswerOfCountry | null = null;
   answers: Array<I.AnswerHistory> = [];
+
+  get goToNextButtonLabel(): string {
+    return '次へ';
+  }
+
+  get resultText(): string {
+    return this.isCorrect() ? '正解' : '不正解';
+  }
 
   constructor(
   ) {
@@ -43,7 +51,6 @@ export class QuizComponent implements OnInit {
 
     this.answerSelectionPattern = quizModel.answerSelectionPattern;
     this.quizImage = <string>quizModel.quizImage;
-    this.answerSelections = [];
 
     setTimeout(() => {
       this.displayMode = 'DISPLAY';
@@ -51,20 +58,16 @@ export class QuizComponent implements OnInit {
 
       setTimeout(() => {
         this.animateQuizText(quizModel.quizText);
-      }, 100 * 4);
-    }, 1500 + 500);
+      }, 100 * 4 + 500);
+    }, 1500 + 250);
   }
 
   getActionBarTitle(): string {
     return `Q.${this.currentQuizNumber}`;
   }
 
-  isPreTitleShown(): boolean {
-    return this.displayMode === 'PRETITLE';
-  }
-
-  isDisplayShown(): boolean {
-    return this.displayMode === 'DISPLAY';
+  shouldShow(target: I.DisplayMode): boolean {
+    return QuizService.shouldShow(target, this.displayMode);
   }
 
   private animateAnswerSelections(answerSelections: Array<I.AnswerOfCountry>): void {
@@ -84,22 +87,19 @@ export class QuizComponent implements OnInit {
   private animateQuizText(quizText: string): void {
     let currentQuizTextLength = 0;
 
-    setTimeout(() => {
-      const animation = setInterval(() => {
-        this.quizText = quizText.slice(0, currentQuizTextLength);
+    const animation = setInterval(() => {
+      this.quizText = quizText.slice(0, currentQuizTextLength);
 
-        if (currentQuizTextLength === quizText.length) {
-          clearInterval(animation);
-        }
+      if (currentQuizTextLength === quizText.length || this.isAnswerSelected) {
+        clearInterval(animation);
+      }
 
-        if (this.isAnswerSelected) {
-          clearInterval(animation);
-          this.quizText = quizText;
-        }
+      if (this.isAnswerSelected) {
+        this.quizText = quizText;
+      }
 
-        currentQuizTextLength++;
-      }, 80);
-    }, 500);
+      currentQuizTextLength++;
+    }, 80);
   }
 
   getAnswerImageSrc(type: 'CORRECT' | 'INCORRECT'): string {
@@ -118,15 +118,21 @@ export class QuizComponent implements OnInit {
     return this.answerSelectionPattern === answerSelectionPattern;
   }
 
-  judgement(answer: I.AnswerOfCountry): void {
-    if (this.isAnswerSelected) return;
-    if (this.answerSelections.length < 4) return;
+  isAnswerButtonEnabled(): boolean {
+    return !this.isAnswerSelected && this.answerSelections.length === 4;
+  }
 
+  isAnswerSelectedAs(answer: I.AnswerOfCountry): boolean {
+    if (!answer || !this.selectedAnswer) return false;
+    return this.getAnswerText(answer) === this.getAnswerText(this.selectedAnswer);
+  }
+
+  judgement(answer: I.AnswerOfCountry): void {
     this.isAnswerSelected = true;
     this.selectedAnswer = answer;
   }
 
-  isCorrect(): boolean {
+  private isCorrect(): boolean {
     return Boolean(this.selectedAnswer && this.selectedAnswer.isCorrect);
   }
 
@@ -142,7 +148,7 @@ export class QuizComponent implements OnInit {
     this.answerSelectionPattern = null;
     this.quizText = '';
     this.quizImage = '';
-    this.answerSelections = Array(4);
+    this.answerSelections = [];
     this.isAnswerSelected = false;
     this.selectedAnswer = null;
     this.setQuizAndAnswerSelections();
