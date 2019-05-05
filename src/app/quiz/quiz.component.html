@@ -29,7 +29,6 @@
       <StackLayout class="answerSelections" *ngIf="shouldShowAnswerSelectionsPattern('TEXT')">
         <StackLayout *ngFor="let answer of answerSelections">
           <Button
-            isEnabled="{{isAnswerButtonEnabled()}}"
             text="{{getAnswerText(answer)}}"
             [ngClass]="{'selected': isAnswerSelectedAs(answer)}"
             (tap)="judgement(answer)">
@@ -39,24 +38,27 @@
 
       <FlexboxLayout class="answerSelections" *ngIf="shouldShowAnswerSelectionsPattern('IMAGE')">
         <StackLayout *ngFor="let answer of answerSelections">
-          <Image [src]="getAnswerText(answer)" (tap)="judgement(answer)"></Image>
+          <Image
+            [src]="getAnswerText(answer)"
+            [ngClass]="{'selected': isAnswerSelectedAs(answer)}"
+            (tap)="judgement(answer)">
+          </Image>
         </StackLayout>
       </FlexboxLayout>
     </StackLayout>
   </FlexboxLayout>
 
-  <FlexboxLayout *ngIf="shouldShow('RESULT')" class="result">
+  <StackLayout *ngIf="shouldShow('RESULT')" class="result">
     <StackLayout>
       <Label class="resultText" text="{{resultText}}"></Label>
       <Label class="quizText" textWrap="true" text="{{quizText}}"></Label>
       <Image class="quizImage" *ngIf="quizImage" [src]="quizImage"></Image>
-      <StackLayout>
-        <Image [src]="getAnswerImageSrc()"></Image>
-
+      <FlexboxLayout>
+        <Image class="correctness" [src]="getAnswerImageSrc()"></Image>
         <Label *ngIf="shouldShowAnswerSelectionsPattern('TEXT')" text="{{getAnswerText(selectedAnswer)}}"></Label>
         <Image *ngIf="shouldShowAnswerSelectionsPattern('IMAGE')" [src]="getAnswerText(selectedAnswer)"></Image>
-      </StackLayout>
+      </FlexboxLayout>
     </StackLayout>
     <Button text="{{goToNextButtonLabel}}" (tap)="goToNext()"></Button>
-  </FlexboxLayout>
+  </StackLayout>
 </StackLayout>

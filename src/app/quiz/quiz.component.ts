@@ -119,7 +119,7 @@ export class QuizComponent implements OnInit {
     return this.answerSelectionPattern === answerSelectionPattern;
   }
 
-  isAnswerButtonEnabled(): boolean {
+  private isAnswerButtonEnabled(): boolean {
     return !this.isAnswerSelected && this.answerSelections.length === 4;
   }
 
@@ -129,8 +129,15 @@ export class QuizComponent implements OnInit {
   }
 
   judgement(answer: I.AnswerOfCountry): void {
+    if (!this.isAnswerButtonEnabled()) return;
+
     this.isAnswerSelected = true;
     this.selectedAnswer = answer;
+
+    setTimeout(() => {
+      // TODO: loading animation
+      this.displayMode = 'RESULT';
+    }, 500)
   }
 
   private isCorrect(): boolean {

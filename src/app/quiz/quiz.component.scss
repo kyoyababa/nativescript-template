@@ -51,7 +51,7 @@ ActionBar {
     position: relative;
     height: 200;
     padding: 10;
-    background-color: lighten(desaturate(#5478CC, 100%), 30%);
+    background-color: lighten(desaturate(#5478CC, 100%), 20%);
 
     > Label {
       min-height: 50;
@@ -113,6 +113,7 @@ StackLayout.answerSelections {
 
       &.selected {
         background-color: darken(#5478CC, 15%);
+        animation: none;
       }
     }
   }
@@ -130,29 +131,90 @@ FlexboxLayout.answerSelections {
       margin: 10;
       border-radius: 10;
       background-color: lighten(#5478CC, 15%);
+      animation-name: button-fadein;
+      animation-duration: 500ms;
+      animation-fill-mode: forwards;
+
+      &.selected {
+        background-color: darken(#5478CC, 15%);
+        animation: none;
+      }
     }
   }
 }
 
+@keyframes result-fadein {
+  0% {
+    opacity: 0;
+    transform: translate(0, 40);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
 .result {
-  animation-name: pretitle-fadein;
+  padding: 20;
+  animation-name: result-fadein;
   animation-duration: 1500ms;
   animation-fill-mode: forwards;
 
   > StackLayout {
-    padding: 20 40;
+    padding: 20;
     border-width: 6;
     border-color: #5478CC;
 
     > .resultText {
+      text-align: center;
       font-size: 80;
       font-weight: bold;
       color: #5478CC;
+
+      + * {
+        margin-top: 20;
+      }
+    }
+
+    > .quizText {
+      color: lighten(desaturate(#5478CC, 100%), 2.5%);
+    }
+
+    > .quizImage {
+      margin-top: 0;
+      width: 100;
+
+      + FlexboxLayout {
+        margin-top: 0;
+      }
+    }
+
+    > FlexboxLayout {
+      justify-content: center;
+      align-items: center;
+      margin-top: 10;
+
+      > .correctness {
+        width: 30;
+        height: 30;
+
+        + Image {
+          width: 100;
+          margin-left: 5;
+        }
+      }
+
+      > Label {
+        margin-left: 5;
+        color: lighten(desaturate(#5478CC, 100%), 2.5%);
+      }
     }
   }
 
   > Button {
     display: inline-block;
+    margin-top: 20;
     padding: 10;
     border-radius: 6;
     background-color: #5478CC;
