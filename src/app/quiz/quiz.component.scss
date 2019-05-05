@@ -67,19 +67,22 @@ ActionBar {
       right: 0;
       bottom: 0;
       left: 0;
-
-      .answer-true {
-        color: red;
-      }
-
-      .answer-false {
-        color: green;
-      }
     }
   }
 
   + * {
     margin-top: 10;
+  }
+}
+
+@keyframes button-fadein {
+  0% {
+    opacity: 0;
+    transform: translate(0, 40);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
   }
 }
 
@@ -100,6 +103,9 @@ StackLayout.answerSelections {
     color: #FFFFFF;
     font-size: 20;
     font-weight: bold;
+    animation-name: button-fadein;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
   }
 }
 

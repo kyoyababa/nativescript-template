@@ -21,7 +21,7 @@ export class QuizComponent implements OnInit {
   answerSelectionPattern: 'TEXT' | 'IMAGE' | null = null;
   quizText = '';
   quizImage = '';
-  answerSelections: Array<I.Country> = Array(4);
+  answerSelections: Array<I.AnswerOfCountry> = Array(4);
   isAnswerSelected = false;
   selectedAnswer: I.AnswerOfCountry | null = null;
   answers: Array<I.AnswerHistory> = [];
@@ -43,11 +43,15 @@ export class QuizComponent implements OnInit {
 
     this.answerSelectionPattern = quizModel.answerSelectionPattern;
     this.quizImage = <string>quizModel.quizImage;
-    this.answerSelections = _.shuffle(quizModel.answerSelections);
+    this.answerSelections = [];
 
     setTimeout(() => {
       this.displayMode = 'DISPLAY';
-      this.animateQuizText(quizModel.quizText);
+      this.animateAnswerSelections(_.shuffle(quizModel.answerSelections));
+
+      setTimeout(() => {
+        this.animateQuizText(quizModel.quizText);
+      }, 100 * 4);
     }, 1500);
   }
 
@@ -61,6 +65,20 @@ export class QuizComponent implements OnInit {
 
   isDisplayShown(): boolean {
     return this.displayMode === 'DISPLAY';
+  }
+
+  private animateAnswerSelections(answerSelections: Array<I.AnswerOfCountry>): void {
+    let currentAnswerSelectionNumber = 0;
+
+    const animation = setInterval(() => {
+      this.answerSelections.push(answerSelections[currentAnswerSelectionNumber]);
+
+      if (currentAnswerSelectionNumber === answerSelections.length - 1) {
+        clearInterval(animation);
+      }
+
+      currentAnswerSelectionNumber++;
+    }, 100);
   }
 
   private animateQuizText(quizText: string): void {
@@ -102,6 +120,7 @@ export class QuizComponent implements OnInit {
 
   judgement(answer: I.AnswerOfCountry): void {
     if (this.isAnswerSelected) return;
+    if (this.answerSelections.length < 4) return;
 
     this.isAnswerSelected = true;
     this.selectedAnswer = answer;

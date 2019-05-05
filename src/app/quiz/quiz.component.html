@@ -13,7 +13,7 @@
         <Label textWrap="true" text="{{quizText}}"></Label>
         <Image *ngIf="quizImage" [src]="quizImage"></Image>
 
-        <AbsoluteLayout class="answers">
+        <!-- <AbsoluteLayout class="answers">
           <FlexboxLayout>
             <StackLayout *ngFor="let answer of answers">
               <Image *ngIf="answer.isCorrect" [src]="getAnswerImageSrc('CORRECT')"></Image>
@@ -21,7 +21,7 @@
             </StackLayout>
             <Label text="{{getAnswerCountDisplay()}}"></Label>
           </FlexboxLayout>
-        </AbsoluteLayout>
+        </AbsoluteLayout> -->
       </StackLayout>
     </StackLayout>
 
