@@ -54,12 +54,16 @@ ActionBar {
     background-color: lighten(desaturate(#5478CC, 100%), 30%);
 
     Label {
+      min-height: 50;
       font-size: 20px;
       font-weight: bold;
     }
 
     Image {
       width: 120;
+      animation-name: button-fadein;
+      animation-duration: 500ms;
+      animation-fill-mode: forwards;
     }
 
     .answers {
@@ -78,8 +82,9 @@ ActionBar {
 @keyframes button-fadein {
   0% {
     opacity: 0;
-    transform: translate(0, 40);
+    transform: translate(0, 30);
   }
+
   100% {
     opacity: 1;
     transform: translate(0, 0);

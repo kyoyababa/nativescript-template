@@ -52,7 +52,7 @@ export class QuizComponent implements OnInit {
       setTimeout(() => {
         this.animateQuizText(quizModel.quizText);
       }, 100 * 4);
-    }, 1500);
+    }, 1500 + 500);
   }
 
   getActionBarTitle(): string {
