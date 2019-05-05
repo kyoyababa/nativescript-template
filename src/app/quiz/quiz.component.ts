@@ -67,7 +67,7 @@ export class QuizComponent implements OnInit {
       }
 
       currentQuizTextLength++;
-    }, 100);
+    }, 80);
   }
 
   getAnswerImageSrc(type: 'CORRECT' | 'INCORRECT'): string {
