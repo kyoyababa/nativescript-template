@@ -1,3 +1,21 @@
+.pretitle {
+  height: 450;
+  justify-content: center;
+  align-items: center;
+
+  > StackLayout {
+    padding: 20 40;
+    border-width: 6;
+    border-color: #5478CC;
+
+    > Label {
+      font-size: 80;
+      font-weight: bold;
+      color: #5478CC;
+    }
+  }
+}
+
 .display {
   display: block;
   height: 200;

@@ -15,6 +15,7 @@ import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selectio
   styleUrls: ['./app/quiz/quiz.component.css']
 })
 export class QuizComponent implements OnInit {
+  displayMode: 'PRETITLE' | 'DISPLAY' = 'PRETITLE';
   currentQuizNumber = 1;
   selectedQuizPattern: I.AnswerSelection | null = null;
   answerSelectionPattern: 'TEXT' | 'IMAGE' | null = null;
@@ -44,30 +45,43 @@ export class QuizComponent implements OnInit {
     this.quizImage = <string>quizModel.quizImage;
     this.answerSelections = _.shuffle(quizModel.answerSelections);
 
-    this.animateQuizText(quizModel.quizText);
+    setTimeout(() => {
+      this.displayMode = 'DISPLAY';
+      this.animateQuizText(quizModel.quizText);
+    }, 1500);
   }
 
   getActionBarTitle(): string {
     return `Q.${this.currentQuizNumber}`;
   }
 
+  isPreTitleShown(): boolean {
+    return this.displayMode === 'PRETITLE';
+  }
+
+  isDisplayShown(): boolean {
+    return this.displayMode === 'DISPLAY';
+  }
+
   private animateQuizText(quizText: string): void {
     let currentQuizTextLength = 0;
 
-    const animation = setInterval(() => {
-      this.quizText = quizText.slice(0, currentQuizTextLength);
+    setTimeout(() => {
+      const animation = setInterval(() => {
+        this.quizText = quizText.slice(0, currentQuizTextLength);
 
-      if (currentQuizTextLength === quizText.length) {
-        clearInterval(animation);
-      }
+        if (currentQuizTextLength === quizText.length) {
+          clearInterval(animation);
+        }
 
-      if (this.isAnswerSelected) {
-        clearInterval(animation);
-        this.quizText = quizText;
-      }
+        if (this.isAnswerSelected) {
+          clearInterval(animation);
+          this.quizText = quizText;
+        }
 
-      currentQuizTextLength++;
-    }, 80);
+        currentQuizTextLength++;
+      }, 80);
+    }, 500);
   }
 
   getAnswerImageSrc(type: 'CORRECT' | 'INCORRECT'): string {
@@ -104,6 +118,7 @@ export class QuizComponent implements OnInit {
 
   private resetModelsAndStartNextQuiz(): void {
     this.currentQuizNumber++;
+    this.displayMode = 'PRETITLE'
     this.selectedQuizPattern = null;
     this.answerSelectionPattern = null;
     this.quizText = '';
