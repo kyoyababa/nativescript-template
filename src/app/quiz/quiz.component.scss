@@ -1,3 +1,27 @@
+ActionBar {
+  font-weight: bold;
+  color: #5478CC;
+}
+
+@keyframes pretitle-fadein {
+  0% {
+    opacity: 0;
+    transform: translate(0, 40);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  75% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, -40);
+  }
+}
+
 .pretitle {
   height: 450;
   justify-content: center;
@@ -7,6 +31,9 @@
     padding: 20 40;
     border-width: 6;
     border-color: #5478CC;
+    animation-name: pretitle-fadein;
+    animation-duration: 1500ms;
+    animation-fill-mode: forwards;
 
     > Label {
       font-size: 80;
