@@ -102,8 +102,9 @@ export class QuizComponent implements OnInit {
     }, 80);
   }
 
-  getAnswerImageSrc(type: 'CORRECT' | 'INCORRECT'): string {
-    return QuizService.getAnswerImageSrc(type);
+  getAnswerImageSrc(): string {
+    if (!this.isAnswerSelected || !this.selectedAnswer) return '';
+    return QuizService.getAnswerImageSrc(this.selectedAnswer.isCorrect);
   }
 
   getAnswerCountDisplay(): string {

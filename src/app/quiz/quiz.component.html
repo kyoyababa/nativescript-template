@@ -2,7 +2,7 @@
 
 <StackLayout>
   <FlexboxLayout *ngIf="shouldShow('PRETITLE')" class="pretitle">
-    <StackLayout class="view">
+    <StackLayout>
       <Label text="{{getActionBarTitle()}}"></Label>
     </StackLayout>
   </FlexboxLayout>
@@ -47,11 +47,15 @@
 
   <FlexboxLayout *ngIf="shouldShow('RESULT')" class="result">
     <StackLayout>
-      <Label text="{{resultText}}"></Label>
-      <Label textWrap="true" text="{{quizText}}"></Label>
-      <Image *ngIf="quizImage" [src]="quizImage"></Image>
-      <Label text="{{getAnswerText(selectedAnswer)}}"></Label>
-      <Image [src]="getAnswerText(selectedAnswer)"></Image>
+      <Label class="resultText" text="{{resultText}}"></Label>
+      <Label class="quizText" textWrap="true" text="{{quizText}}"></Label>
+      <Image class="quizImage" *ngIf="quizImage" [src]="quizImage"></Image>
+      <StackLayout>
+        <Image [src]="getAnswerImageSrc()"></Image>
+
+        <Label *ngIf="shouldShowAnswerSelectionsPattern('TEXT')" text="{{getAnswerText(selectedAnswer)}}"></Label>
+        <Image *ngIf="shouldShowAnswerSelectionsPattern('IMAGE')" [src]="getAnswerText(selectedAnswer)"></Image>
+      </StackLayout>
     </StackLayout>
     <Button text="{{goToNextButtonLabel}}" (tap)="goToNext()"></Button>
   </FlexboxLayout>

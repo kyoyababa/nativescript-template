@@ -26,16 +26,16 @@ describe('shouldShow', () => {
 
 
 describe('getAnswerImageSrc', () => {
-  describe('CORRECT が渡されたとき', () => {
+  describe('正解だったとき', () => {
     it('正解を示す画像が表示されること', () => {
-      const actual = getAnswerImageSrc('CORRECT');
+      const actual = getAnswerImageSrc(true);
       expect(actual).toBe('~/app/images/answer/icon-correct.png');
     });
   });
 
-  describe('INCORRECT が渡されたとき', () => {
+  describe('不正解だったとき', () => {
     it('不正解を示す画像が表示されること', () => {
-      const actual = getAnswerImageSrc('INCORRECT');
+      const actual = getAnswerImageSrc(false);
       expect(actual).toBe('~/app/images/answer/icon-incorrect.png');
     });
   });

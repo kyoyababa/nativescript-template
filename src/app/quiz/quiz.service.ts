@@ -94,13 +94,9 @@ export function shouldShow(target: I.DisplayMode, currentDisplayMode: I.DisplayM
   return target === currentDisplayMode;
 }
 
-export function getAnswerImageSrc(type: 'CORRECT' | 'INCORRECT'): string {
-  switch(type) {
-    case 'CORRECT':
-      return `~/app/images/answer/icon-correct.png`;
-    case 'INCORRECT':
-      return `~/app/images/answer/icon-incorrect.png`;
-  }
+export function getAnswerImageSrc(isCorrect: boolean): string {
+  const iconType = isCorrect ? 'correct' : 'incorrect';
+  return `~/app/images/answer/icon-${iconType}.png`;
 }
 
 export function getAnswerCountDisplay(answersHistory: Array<I.AnswerHistory>): string {

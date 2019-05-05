@@ -47,31 +47,31 @@ ActionBar {
   display: block;
   height: 200;
 
-  .question {
+  > .question {
     position: relative;
     height: 200;
     padding: 10;
     background-color: lighten(desaturate(#5478CC, 100%), 30%);
 
-    Label {
+    > Label {
       min-height: 50;
       font-size: 20px;
       font-weight: bold;
     }
 
-    Image {
+    > Image {
       width: 120;
       animation-name: button-fadein;
       animation-duration: 500ms;
       animation-fill-mode: forwards;
     }
 
-    .answers {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
+    // .answers {
+    //   position: absolute;
+    //   right: 0;
+    //   bottom: 0;
+    //   left: 0;
+    // }
   }
 
   + * {
@@ -98,22 +98,22 @@ StackLayout.answerSelections {
     + StackLayout {
       margin-top: 10;
     }
-  }
 
-  Button {
-    display: inline-block;
-    padding: 10;
-    border-radius: 6;
-    background-color: #5478CC;
-    color: #FFFFFF;
-    font-size: 20;
-    font-weight: bold;
-    animation-name: button-fadein;
-    animation-duration: 500ms;
-    animation-fill-mode: forwards;
+    > Button {
+      display: inline-block;
+      padding: 10;
+      border-radius: 6;
+      background-color: #5478CC;
+      color: #FFFFFF;
+      font-size: 20;
+      font-weight: bold;
+      animation-name: button-fadein;
+      animation-duration: 500ms;
+      animation-fill-mode: forwards;
 
-    &.selected {
-      background-color: darken(#5478CC, 15%);
+      &.selected {
+        background-color: darken(#5478CC, 15%);
+      }
     }
   }
 }
@@ -123,11 +123,41 @@ FlexboxLayout.answerSelections {
   justify-content: center;
   align-items: center;
 
-  Image {
-    width: 130;
-    height: 110;
-    margin: 10;
-    border-radius: 10;
-    background-color: lighten(#5478CC, 15%);
+  > StackLayout {
+    > Image {
+      width: 130;
+      height: 110;
+      margin: 10;
+      border-radius: 10;
+      background-color: lighten(#5478CC, 15%);
+    }
+  }
+}
+
+.result {
+  animation-name: pretitle-fadein;
+  animation-duration: 1500ms;
+  animation-fill-mode: forwards;
+
+  > StackLayout {
+    padding: 20 40;
+    border-width: 6;
+    border-color: #5478CC;
+
+    > .resultText {
+      font-size: 80;
+      font-weight: bold;
+      color: #5478CC;
+    }
+  }
+
+  > Button {
+    display: inline-block;
+    padding: 10;
+    border-radius: 6;
+    background-color: #5478CC;
+    color: #FFFFFF;
+    font-size: 20;
+    font-weight: bold;
   }
 }
