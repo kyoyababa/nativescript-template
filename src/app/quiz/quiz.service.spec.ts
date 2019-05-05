@@ -1,4 +1,4 @@
-import { shouldShow, getAnswerImageSrc, getAnswerCountDisplay, getQuizTextAndAnswerSelections } from './quiz.service';
+import { shouldShow, getAnswerImageSrc, getQuizTextAndAnswerSelections } from './quiz.service';
 
 
 describe('shouldShow', () => {
@@ -37,64 +37,6 @@ describe('getAnswerImageSrc', () => {
     it('不正解を示す画像が表示されること', () => {
       const actual = getAnswerImageSrc(false);
       expect(actual).toBe('~/app/images/answer/icon-incorrect.png');
-    });
-  });
-});
-
-
-describe('getAnswerCountDisplay', () => {
-  describe('０問目（まだ１問目に回答する前）のとき', () => {
-    it('空文字が返されること', () => {
-      const actual = getAnswerCountDisplay([]);
-      expect(actual).toBe('');
-    });
-  });
-
-  function generateAnswersHistoryArray(boolList) {
-    return boolList.map(b => {
-      return { isCorrect: b }
-    });
-  }
-
-  describe('１問目に回答し、正解だった場合', () => {
-    it('1/1 が返されること', () => {
-      const answersHistory = generateAnswersHistoryArray([true]);
-      const actual = getAnswerCountDisplay(answersHistory);
-      expect(actual).toBe('1/1');
-    });
-  });
-
-  describe('１〜３問目に回答し、４〜６問目が不正解だった場合', () => {
-    it('3/6 が返されること', () => {
-      const answersHistory = generateAnswersHistoryArray([true, true, true, false, false, false]);
-      const actual = getAnswerCountDisplay(answersHistory);
-      expect(actual).toBe('3/6');
-    });
-  });
-
-  describe('１・３・６・７・９・１２問目に回答し、２・４・５・８・１０・１１・１３問目が不正解だった場合', () => {
-    it('3/6 が返されること', () => {
-      const answersHistory = generateAnswersHistoryArray([
-        true, false, true, false, false, true, true, false, true, false, false, true, false
-      ]);
-      const actual = getAnswerCountDisplay(answersHistory);
-      expect(actual).toBe('6/13');
-    });
-  });
-
-  describe('２０問すべてに正解している場合', () => {
-    it('20/20 が返されること', () => {
-      const answersHistory = generateAnswersHistoryArray(Array(20).fill(true));
-      const actual = getAnswerCountDisplay(answersHistory);
-      expect(actual).toBe('20/20');
-    });
-  });
-
-  describe('２０問すべてに不正解の場合', () => {
-    it('0/20 が返されること', () => {
-      const answersHistory = generateAnswersHistoryArray(Array(20).fill(false));
-      const actual = getAnswerCountDisplay(answersHistory);
-      expect(actual).toBe('0/20');
     });
   });
 });

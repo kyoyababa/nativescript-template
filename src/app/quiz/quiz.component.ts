@@ -107,10 +107,6 @@ export class QuizComponent implements OnInit {
     return QuizService.getAnswerImageSrc(this.selectedAnswer.isCorrect);
   }
 
-  getAnswerCountDisplay(): string {
-    return QuizService.getAnswerCountDisplay([]);
-  }
-
   getAnswerText(answer: I.AnswerOfCountry): string {
     return QuizService.getAnswerText(answer, <I.AnswerSelection>this.selectedQuizPattern);
   }
@@ -119,13 +115,13 @@ export class QuizComponent implements OnInit {
     return this.answerSelectionPattern === answerSelectionPattern;
   }
 
-  private isAnswerButtonEnabled(): boolean {
-    return !this.isAnswerSelected && this.answerSelections.length === 4;
-  }
-
   isAnswerSelectedAs(answer: I.AnswerOfCountry): boolean {
     if (!answer || !this.selectedAnswer) return false;
     return this.getAnswerText(answer) === this.getAnswerText(this.selectedAnswer);
+  }
+
+  private isAnswerButtonEnabled(): boolean {
+    return !this.isAnswerSelected && this.answerSelections.length === 4;
   }
 
   judgement(answer: I.AnswerOfCountry): void {

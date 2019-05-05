@@ -1,25 +1,9 @@
+@import '../../app.variables.scss';
+@import './quiz.component.animation.scss';
+
 ActionBar {
   font-weight: bold;
-  color: #5478CC;
-}
-
-@keyframes pretitle-fadein {
-  0% {
-    opacity: 0;
-    transform: translate(0, 40);
-  }
-  25% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-  75% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(0, -40);
-  }
+  color: $color-primary;
 }
 
 .pretitle {
@@ -29,16 +13,16 @@ ActionBar {
 
   > StackLayout {
     padding: 20 40;
-    border-width: 6;
-    border-color: #5478CC;
-    animation-name: pretitle-fadein;
+    border-width: $bdwidth-normal;
+    border-color: $color-primary;
+    animation-name: pretitle-appearance;
     animation-duration: 1500ms;
     animation-fill-mode: forwards;
 
     > Label {
-      font-size: 80;
+      font-size: $fontsize-heading;
       font-weight: bold;
-      color: #5478CC;
+      color: $color-primary;
     }
   }
 }
@@ -51,11 +35,11 @@ ActionBar {
     position: relative;
     height: 200;
     padding: 10;
-    background-color: lighten(desaturate(#5478CC, 100%), 20%);
+    background-color: $bgcolor-card;
 
     > Label {
       min-height: 50;
-      font-size: 20px;
+      font-size: $fontsize-normal;
       font-weight: bold;
     }
 
@@ -65,29 +49,10 @@ ActionBar {
       animation-duration: 500ms;
       animation-fill-mode: forwards;
     }
-
-    // .answers {
-    //   position: absolute;
-    //   right: 0;
-    //   bottom: 0;
-    //   left: 0;
-    // }
   }
 
   + * {
     margin-top: 10;
-  }
-}
-
-@keyframes button-fadein {
-  0% {
-    opacity: 0;
-    transform: translate(0, 30);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
   }
 }
 
@@ -102,17 +67,17 @@ StackLayout.answerSelections {
     > Button {
       display: inline-block;
       padding: 10;
-      border-radius: 6;
-      background-color: #5478CC;
-      color: #FFFFFF;
-      font-size: 20;
+      border-radius: $bdradius-normal;
+      background-color: $color-primary;
+      color: $color-darkbg;
+      font-size: $fontsize-normal;
       font-weight: bold;
       animation-name: button-fadein;
       animation-duration: 500ms;
       animation-fill-mode: forwards;
 
       &.selected {
-        background-color: darken(#5478CC, 15%);
+        background-color: $color-active;
         animation: none;
       }
     }
@@ -129,29 +94,17 @@ FlexboxLayout.answerSelections {
       width: 130;
       height: 110;
       margin: 10;
-      border-radius: 10;
-      background-color: lighten(#5478CC, 15%);
+      border-radius: $bdradius-normal;
+      background-color: $color-primary;
       animation-name: button-fadein;
       animation-duration: 500ms;
       animation-fill-mode: forwards;
 
       &.selected {
-        background-color: darken(#5478CC, 15%);
+        background-color: $color-active;
         animation: none;
       }
     }
-  }
-}
-
-@keyframes result-fadein {
-  0% {
-    opacity: 0;
-    transform: translate(0, 40);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
   }
 }
 
@@ -163,14 +116,14 @@ FlexboxLayout.answerSelections {
 
   > StackLayout {
     padding: 20;
-    border-width: 6;
-    border-color: #5478CC;
+    border-width: $bdwidth-normal;
+    border-color: $color-primary;
 
     > .resultText {
       text-align: center;
-      font-size: 80;
+      font-size: $fontsize-heading;
       font-weight: bold;
-      color: #5478CC;
+      color: $color-primary;
 
       + * {
         margin-top: 20;
@@ -178,12 +131,12 @@ FlexboxLayout.answerSelections {
     }
 
     > .quizText {
-      color: lighten(desaturate(#5478CC, 100%), 2.5%);
+      color: $color-midpriority;
     }
 
     > .quizImage {
-      margin-top: 0;
       width: 100;
+      margin-top: 0;
 
       + FlexboxLayout {
         margin-top: 0;
@@ -207,7 +160,7 @@ FlexboxLayout.answerSelections {
 
       > Label {
         margin-left: 5;
-        color: lighten(desaturate(#5478CC, 100%), 2.5%);
+        color: $color-midpriority;
       }
     }
   }
@@ -216,10 +169,10 @@ FlexboxLayout.answerSelections {
     display: inline-block;
     margin-top: 20;
     padding: 10;
-    border-radius: 6;
-    background-color: #5478CC;
-    color: #FFFFFF;
-    font-size: 20;
+    border-radius: $bdradius-normal;
+    background-color: $color-primary;
+    color: $color-darkbg;
+    font-size: $fontsize-normal;
     font-weight: bold;
   }
 }

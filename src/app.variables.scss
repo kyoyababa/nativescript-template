@@ -1,0 +1,28 @@
+/*
+ * Base Color
+ */
+$color-primary: #5478CC;
+$color-active: darken($color-primary, 10%);
+$color-midpriority: lighten(desaturate($color-primary, 100%), 2.5%);
+$color-darkbg: #FFFFFF;
+
+/*
+ * Background-only Color
+ */
+$bgcolor-card: lighten(desaturate($color-primary, 100%), 20%);
+
+/*
+ * Border Width
+ */
+$bdwidth-normal: 6;
+
+/*
+ * Border Radius
+ */
+$bdradius-normal: 6;
+
+/*
+ * Font Size
+ */
+$fontsize-normal: 20;
+$fontsize-heading: 80;

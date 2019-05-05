@@ -12,16 +12,6 @@
       <StackLayout class="question">
         <Label textWrap="true" text="{{quizText}}"></Label>
         <Image *ngIf="quizImage" [src]="quizImage"></Image>
-
-        <!-- <AbsoluteLayout class="answers">
-          <FlexboxLayout>
-            <StackLayout *ngFor="let answer of answers">
-              <Image *ngIf="answer.isCorrect" [src]="getAnswerImageSrc('CORRECT')"></Image>
-              <Image *ngIf="!answer.isCorrect" [src]="getAnswerImageSrc('INCORRECT')"></Image>
-            </StackLayout>
-            <Label text="{{getAnswerCountDisplay()}}"></Label>
-          </FlexboxLayout>
-        </AbsoluteLayout> -->
       </StackLayout>
     </StackLayout>
 

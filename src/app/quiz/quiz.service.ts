@@ -99,12 +99,6 @@ export function getAnswerImageSrc(isCorrect: boolean): string {
   return `~/app/images/answer/icon-${iconType}.png`;
 }
 
-export function getAnswerCountDisplay(answersHistory: Array<I.AnswerHistory>): string {
-  if (answersHistory.length === 0) return '';
-  const correctAnswersLength = answersHistory.filter(h => h.isCorrect).length;
-  return `${correctAnswersLength}/${answersHistory.length}`;
-}
-
 export function getAnswerText(answer: I.AnswerOfCountry, selectedQuizPattern: I.AnswerSelection): string {
   switch(selectedQuizPattern) {
     case 'COUNTRY_TO_CAPITAL':
