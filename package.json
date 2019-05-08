@@ -2,7 +2,7 @@
   "scripts": {
     "clean": "tns clean-app ios && tns clean-app android && rm -rf src/**/*.js && rm -rf src/**/*.css && rm -rf hooks && rm -rf platforms && rm -rf src/app/database/countries.ts",
     "clean-install": "rm -rf node_modules && npm i",
-    "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i -e 's/\\[/export const COUNTRIES = [/' src/app/database/countries.ts && rm src/app/database/countries.ts-e",
+    "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i '.bak' '1s/^/export const COUNTRIES = /g' src/app/database/countries.ts",
     "start": "npm run json && tns preview",
     "test": "npm run json && karma start"
   },

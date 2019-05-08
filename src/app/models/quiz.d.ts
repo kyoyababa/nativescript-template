@@ -13,6 +13,10 @@ export interface Country {
   landLocked: LandLocked;
   lat: number;
   lon: number;
+  population: number;
+  area: number;
+  borders: Array<string>;
+  regionalBlocks: Array<string>;
 }
 
 export type LandLocked = '' | 'Single' | 'Double' | 'Sub';

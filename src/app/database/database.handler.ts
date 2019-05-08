@@ -7,14 +7,18 @@ export const countries = COUNTRIES.map(c => {
     nameJp: c.nameJp,
     nameJpS: c.nameJpS,
     nameJpB: c.nameJpB,
-    nameJpBAbbr: <string>c.nameJpBAbbr,
+    nameJpBAbbr: c.nameJpBAbbr,
     capitalJp: c.capitalJp,
     secondCapitalJp: c.secondCapitalJp,
     regionCode: c.regionCode,
     isIsland: c.isIsland === 'true',
     landLocked: <I.LandLocked>c.landLocked,
     lat: parseFloat(c.lat),
-    lon: parseFloat(c.lon)
+    lon: parseFloat(c.lon),
+    population: parseInt(c.population, 10),
+    area: parseInt(c.area, 10),
+    borders: c.borders.filter(b => b !== ''),
+    regionalBlocks: c.regionalBlocks.filter(b => b !== "")
   }
 });
 

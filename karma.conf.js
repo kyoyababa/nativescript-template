@@ -20,13 +20,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/**/*.spec.ts',
-      'node_modules/lodash/lodash.min.js'
+      'node_modules/lodash/lodash.min.js',
+      'src/**/*.spec.ts'
     ],
 
 
     // list of files to exclude
     exclude: [
+      'src/**/*.js'
     ],
 
 

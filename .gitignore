@@ -34,3 +34,4 @@ typings/
 
 # Json Database
 src/app/database/countries.ts
+src/app/database/countries.ts.bak
