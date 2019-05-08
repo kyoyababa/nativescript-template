@@ -47,11 +47,11 @@ describe('checkCountriesDataValid', () => {
     //   expect(Test.filterDuplicateValues(COUNTRIES.map(c => c.secondCapitalJp)).length).toBe(0);
     // });
 
-    it('capitalJp と secondCapitalJp が重複した値であるデータがないこと', () => {
-      const sameCapitalsCountries = COUNTRIES.filter(c => c.capitalJp === c.secondCapitalJp);
-      const knownDuplicates = [''];
-      expect(sameCapitalsCountries.filter(c => knownDuplicates.indexOf(c.capitalJp) < 0).length).toBe(0);
-    });
+    // it('capitalJp と secondCapitalJp が重複した値であるデータがないこと', () => {
+    //   const sameCapitalsCountries = COUNTRIES.filter(c => c.capitalJp === c.secondCapitalJp);
+    //   const knownDuplicates = [''];
+    //   expect(sameCapitalsCountries.filter(c => knownDuplicates.indexOf(c.capitalJp) < 0).length).toBe(0);
+    // });
   });
 
   COUNTRIES.forEach(c => {
@@ -126,10 +126,10 @@ describe('checkCountriesDataValid', () => {
       //   expect(c.borders.filter(b => typeof b === 'string').length).toBe(15);
       // });
 
-      it('regionalBlocks は3個の文字列の配列であること', () => {
-        expect(c.regionalBlocks.length).toBe(3);
-        expect(c.regionalBlocks.filter(b => typeof b === 'string').length).toBe(3);
-      });
+      // it('regionalBlocks は3個の文字列の配列であること', () => {
+      //   expect(c.regionalBlocks.length).toBe(3);
+      //   expect(c.regionalBlocks.filter(b => typeof b === 'string').length).toBe(3);
+      // });
     });
   });
 });
