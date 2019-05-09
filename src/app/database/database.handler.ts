@@ -18,7 +18,7 @@ export const countries = COUNTRIES.map(c => {
     population: parseInt(c.population, 10),
     area: parseInt(c.area, 10),
     borders: c.borders.filter(b => b !== ''),
-    regionalBlocks: c.regionalBlocks.filter(b => b !== "")
+    regionalBlocks: <Array<I.RegionalBlocks>>c.regionalBlocks.filter(b => b !== '')
   }
 });
 
@@ -56,7 +56,7 @@ export function getRandomKanjiAbbribiatableCountry(): I.Country {
   return <I.Country>_.sample(kanjiAbbribiatableCountries);
 }
 
-export function getRandomSuffixableCountry(): any {
+export function getRandomSuffixableCountry(): I.Country {
   const focusedSuffixes = [
     '国',
     '王国',
@@ -77,6 +77,16 @@ export function getRandomSuffixableCountry(): any {
     return focusedSuffixes.some(s => c.nameJp.replace(c.nameJpS, '') === s);
   });
   return _.sample(focusedCountries);
+}
+
+export function getRandomRegionalBlocksCountry(): I.Country {
+  const sampledCountry = _.sample(countries.filter(c => c.regionalBlocks.length > 0));
+  sampledCountry.regionalBlocks = [sampleRandomRegionalBlockOf(sampledCountry.regionalBlocks)];
+  return sampledCountry;
+}
+
+function sampleRandomRegionalBlockOf(regionalBlocks: Array<I.RegionalBlocks>): I.RegionalBlocks {
+  return _.sample(regionalBlocks);
 }
 
 export function getSimilarCountries(country: I.Country): Array<I.Country> {
@@ -157,4 +167,14 @@ export function getDummySuffixCountries(country: I.Country): Array<I.Country> {
     { ...country, nameJp: country.nameJpS + dummySuffixPatterns[1] },
     { ...country, nameJp: country.nameJpS + dummySuffixPatterns[2] },
   ];
+}
+
+// TODO(baba):
+export function getSimilarRegionalBlocks(country: I.Country): Array<I.Country> {
+  return [];
+}
+
+// TODO(baba):
+export function getSimilarRegionalBlocksCountries(country: I.Country): Array<I.Country> {
+  return [];
 }

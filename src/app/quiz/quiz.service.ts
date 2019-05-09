@@ -18,7 +18,9 @@ export function selectQuizPattern(): I.AnswerSelection {
     'IS_LAND_LOCKED_DOUBLE',
     'COUNTRY_TO_KANJI_ABBR',
     'KANJI_ABBR_TO_COUNTRY',
-    'COUNTRY_NAME_SUFFIX'
+    'COUNTRY_NAME_SUFFIX',
+    'COUNTRY_TO_REGIONAL_BLOCK',
+    'REGIONAL_BLOCK_TO_COUNTRY'
   ];
 
   return <I.AnswerSelection>_.sample(quizPatterns);
@@ -51,6 +53,10 @@ function getCorrectAnswer(selectedQuizPattern: I.AnswerSelection): I.Country {
 
     case 'COUNTRY_NAME_SUFFIX':
       return DatabaseHandler.getRandomSuffixableCountry();
+
+    case 'COUNTRY_TO_REGIONAL_BLOCK':
+    case 'REGIONAL_BLOCK_TO_COUNTRY':
+      return DatabaseHandler.getRandomRegionalBlocksCountry();
   }
 }
 
@@ -83,6 +89,12 @@ function getWrongAnswerSelections(selectedQuizPattern: I.AnswerSelection, correc
 
     case 'COUNTRY_NAME_SUFFIX':
       return DatabaseHandler.getDummySuffixCountries(correctAnswer);
+
+    case 'COUNTRY_TO_REGIONAL_BLOCK':
+      return DatabaseHandler.getSimilarRegionalBlocks(correctAnswer);
+
+    case 'REGIONAL_BLOCK_TO_COUNTRY':
+      return DatabaseHandler.getSimilarRegionalBlocksCountries(correctAnswer);
   }
 }
 
@@ -111,6 +123,7 @@ export function getAnswerText(answer: I.AnswerOfCountry, selectedQuizPattern: I.
     case 'IS_LAND_LOCKED_SUB':
     case 'IS_LAND_LOCKED_DOUBLE':
     case 'KANJI_ABBR_TO_COUNTRY':
+    case 'REGIONAL_BLOCK_TO_COUNTRY':
       return answer.nameJpS;
 
     case 'COUNTRY_TO_SECOND_CAPITAL':
@@ -124,6 +137,9 @@ export function getAnswerText(answer: I.AnswerOfCountry, selectedQuizPattern: I.
 
     case 'COUNTRY_NAME_SUFFIX':
       return answer.nameJp;
+
+    case 'COUNTRY_TO_REGIONAL_BLOCK':
+      return answer.regionalBlocks[0];
   }
 }
 

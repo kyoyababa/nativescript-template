@@ -62,4 +62,6 @@ export type AnswerSelection = 'COUNTRY_TO_CAPITAL'
                             | 'IS_LAND_LOCKED_DOUBLE'
                             | 'COUNTRY_TO_KANJI_ABBR'
                             | 'KANJI_ABBR_TO_COUNTRY'
-                            | 'COUNTRY_NAME_SUFFIX';
+                            | 'COUNTRY_NAME_SUFFIX'
+                            | 'COUNTRY_TO_REGIONAL_BLOCK'
+                            | 'REGIONAL_BLOCK_TO_COUNTRY';

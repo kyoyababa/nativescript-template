@@ -132,6 +132,42 @@ describe('DatabaseHandlerの正解データ生成において', () => {
     //     });
     //   });
     // });
+
+    // describe('getRandomRegionalBlocksCountry', () => {
+    //   describe('10回実行したとき', () => {
+    //     const actual = DatabaseHandler.getRandomRegionalBlocksCountry();
+    //
+    //     it('ランダムな国データが返されること', () => {
+    //       expect(actual.nameJpS).toBeDefined();
+    //       expect(actual.nameJpS).not.toBe('');
+    //     });
+    //
+    //     it('返された国データに、regionalBlocksがひとつだけ存在していること', () => {
+    //       expect(actual.regionalBlocks.length).toBe(1);
+    //     });
+    //
+    //     it('regionalBlocks の値はRegionalBlocksタイプに指定されている文字列であること', () => {
+    //       const regionalBlocksType = [
+    //         '',
+    //         'UN',
+    //         'SAARC',
+    //         'AU',
+    //         'CEFTA',
+    //         'AL',
+    //         'USAN',
+    //         'EEU',
+    //         'CARICOM',
+    //         'EU',
+    //         'CAIS',
+    //         'ASEAN',
+    //         'NAFTA',
+    //         'EFTA',
+    //         'PA'
+    //       ];
+    //       expect(regionalBlocksType.some(b => b === actual.regionalBlocks[0])).toBeTruthy();
+    //     });
+    //   });
+    // });
   }
 });
 
@@ -296,26 +332,7 @@ describe('DatabaseHandlerの正解データ生成において', () => {
 // });
 
 // describe('無作為に抽出したnameJpとnameJpSとの差分が特定のsuffixとなる10個の国データのうち、', () => {
-//   const focusedSuffixes = [
-//     '国',
-//     '王国',
-//     '公国',
-//     '大公国',
-//     '共和国',
-//     '自治共和国',
-//     '連合共和国',
-//     '連邦共和国',
-//     '人民共和国',
-//     '連邦',
-//     '連合',
-//     '諸島',
-//     '独立国',
-//     '合衆国',
-//   ];
-//   const targetCountries = DatabaseHandler.countries.filter(c => {
-//     return focusedSuffixes.some(s => c.nameJp.replace(c.nameJpS, '') === s);
-//   });
-//   const sampleCountries = _.sampleSize(targetCountries, 10);
+//   const sampleCountries = Array(10).fill(DatabaseHandler.getRandomSuffixableCountry());
 //
 //   sampleCountries.forEach(c => {
 //     describe(`${c.nameJp} のデータに対して`, () => {
@@ -335,6 +352,10 @@ describe('DatabaseHandlerの正解データ生成において', () => {
 //             expect(a.landLocked).toBe(c.landLocked);
 //             expect(a.lat).toBe(c.lat);
 //             expect(a.lon).toBe(c.lon);
+//             expect(a.population).toBe(c.population);
+//             expect(a.area).toBe(c.area);
+//             expect(a.borders).toEqual(c.borders);
+//             expect(a.regionalBlocks).toEqual(c.regionalBlocks);
 //           });
 //
 //           it(`nameJp に ${c.nameJp} と異なる値が入っていること`, () => {
@@ -344,6 +365,22 @@ describe('DatabaseHandlerの正解データ生成において', () => {
 //           });
 //
 //           it('nameJp データと国名略称の差分が、想定されている文字列であること', () => {
+//             const focusedSuffixes = [
+//               '国',
+//               '王国',
+//               '公国',
+//               '大公国',
+//               '共和国',
+//               '自治共和国',
+//               '連合共和国',
+//               '連邦共和国',
+//               '人民共和国',
+//               '連邦',
+//               '連合',
+//               '諸島',
+//               '独立国',
+//               '合衆国',
+//             ];
 //             const suffixPatterns = focusedSuffixes.map(s => a.nameJpS + s);
 //             const isValidCountry = suffixPatterns.some(p => p === a.nameJp);
 //             expect(isValidCountry).toBe(true);
@@ -353,3 +390,62 @@ describe('DatabaseHandlerの正解データ生成において', () => {
 //     });
 //   });
 // });
+
+describe('無作為に抽出したregionalBlockを持つ10個の国データのうち、', () => {
+  const sampleCountries = Array(10).fill(DatabaseHandler.getRandomRegionalBlocksCountry());
+
+  sampleCountries.forEach(c => {
+    describe(`${c.nameJp} のデータに対して`, () => {
+      describe('getSimilarRegionalBlocks を実行したとき', () => {
+        const actual = DatabaseHandler.getSimilarRegionalBlocks(c);
+
+        it('返り値が３つの国データであること', () => {
+          expect(actual.length).toBe(3);
+        });
+
+        actual.forEach(a => {
+          it(`regionalBlocks 以外は ${c.regionalBlocks} と同じ値が入っていること`, () => {
+            expect(a.countryCode).toBe(c.countryCode);
+            expect(a.nameJp).toBe(c.nameJp);
+            expect(a.nameJpS).toBe(c.nameJpS);
+            expect(a.nameJpB).toBe(c.nameJpB);
+            expect(a.nameJpBAbbr).toBe(c.nameJpBAbbr);
+            expect(a.capitalJp).toBe(c.capitalJp);
+            expect(a.secondCapitalJp).toBe(c.secondCapitalJp);
+            expect(a.regionCode).toBe(c.regionCode);
+            expect(a.isIsland).toBe(c.isIsland);
+            expect(a.landLocked).toBe(c.landLocked);
+            expect(a.lat).toBe(c.lat);
+            expect(a.lon).toBe(c.lon);
+            expect(a.population).toBe(c.population);
+            expect(a.area).toBe(c.area);
+            expect(a.borders).toEqual(c.borders);
+          });
+
+          it(`regionalBlocks の値には、${c.regionalBlocks[0]} が含まれないこと`, () => {
+            expect(a.regionalBlocks.some(b => b === c.regionalBlocks[0])).toBeFalsy();
+          });
+        });
+      });
+
+      describe('getSimilarRegionalBlocksCountries を実行したとき', () => {
+        const actual = DatabaseHandler.getSimilarRegionalBlocksCountries(c);
+
+        it('返り値が３つの国データであること', () => {
+          expect(actual.length).toBe(3);
+        });
+
+        actual.forEach(a => {
+          it(`${c.nameJpS}とは異なる国が返されていること`, () => {
+            const isValidCountryCode = typeof a.countryCode !== 'undefined' && a.countryCode !== '' && a.countryCode !== c.countryCode;
+            expect(isValidCountryCode).toBe(true);
+          });
+
+          it(`regionalBlocks に "${c.regionalBlocks[0]}" が含まれていない国が返されていること`, () => {
+            expect(a.regionalBlocks.some(b => b === c.regionalBlocks[0])).toBeFalsy();
+          });
+        });
+      });
+    });
+  });
+});

@@ -48,6 +48,16 @@ export function countryNameSuffix(country: I.Country): string {
   return `「${country.nameJpS}」の正式名称はどれ？`;
 }
 
+export function countryToRegionalBlock(country: I.Country): string {
+  return `次のうち、「${country.nameJpS}」が加盟しているのはどれ？`;
+}
+
+export function regionalBlockToCountry(country: I.Country): string {
+  const regionalBlock = country.regionalBlocks[0];
+  return `次のうち、${regionalBlock}に加盟している国はどれ？`;
+}
+
+
 export function getQuizText(selectedQuizPattern: I.AnswerSelection, correctAnswer: I.Country): string {
   switch (selectedQuizPattern) {
     case 'COUNTRY_TO_CAPITAL':
@@ -85,5 +95,11 @@ export function getQuizText(selectedQuizPattern: I.AnswerSelection, correctAnswe
 
     case 'COUNTRY_NAME_SUFFIX':
       return countryNameSuffix(correctAnswer);
+
+    case 'COUNTRY_TO_REGIONAL_BLOCK':
+      return countryToRegionalBlock(correctAnswer);
+
+    case 'REGIONAL_BLOCK_TO_COUNTRY':
+      return regionalBlockToCountry(correctAnswer);
   }
 }
