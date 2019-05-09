@@ -1,5 +1,20 @@
 export type DisplayMode = 'PRETITLE' | 'DISPLAY' | 'RESULT';
 
+export type RegionalBlocks = 'UN'
+                           | 'SAARC'
+                           | 'AU'
+                           | 'CEFTA'
+                           | 'AL'
+                           | 'USAN'
+                           | 'EEU'
+                           | 'CARICOM'
+                           | 'EU'
+                           | 'CAIS'
+                           | 'ASEAN'
+                           | 'NAFTA'
+                           | 'EFTA'
+                           | 'PA';
+
 export interface Country {
   countryCode: string;
   nameJp: string;
@@ -16,7 +31,7 @@ export interface Country {
   population: number;
   area: number;
   borders: Array<string>;
-  regionalBlocks: Array<string>;
+  regionalBlocks: Array<RegionalBlocks>;
 }
 
 export type LandLocked = '' | 'Single' | 'Double' | 'Sub';

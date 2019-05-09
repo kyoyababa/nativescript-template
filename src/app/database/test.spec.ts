@@ -126,9 +126,29 @@ describe('checkCountriesDataValid', () => {
       //   expect(c.borders.filter(b => typeof b === 'string').length).toBe(15);
       // });
 
-      // it('regionalBlocks は3個の文字列の配列であること', () => {
+      // it('regionalBlocks は3個のRegionalBlocksタイプに指定されている文字列の配列であること', () => {
       //   expect(c.regionalBlocks.length).toBe(3);
-      //   expect(c.regionalBlocks.filter(b => typeof b === 'string').length).toBe(3);
+      //
+      //   const regionalBlocksType = [
+      //     '',
+      //     'UN',
+      //     'SAARC',
+      //     'AU',
+      //     'CEFTA',
+      //     'AL',
+      //     'USAN',
+      //     'EEU',
+      //     'CARICOM',
+      //     'EU',
+      //     'CAIS',
+      //     'ASEAN',
+      //     'NAFTA',
+      //     'EFTA',
+      //     'PA'
+      //   ];
+      //   c.regionalBlocks.forEach(b => {
+      //     expect(regionalBlocksType.indexOf(b) >= 0).toBeTruthy();
+      //   });
       // });
     });
   });
