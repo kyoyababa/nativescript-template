@@ -3,6 +3,7 @@ import * as I from '../models/quiz.d';
 import * as DatabaseHandler from '../database/database.handler';
 import * as QuizTextGenerator from '../services/quiz-text-generator';
 import * as QuizAnswerSelectionsGenerator from '../services/quiz-answer-selections-generator';
+import { convertRegionalBlockCodeToName } from '../services/regional-blocks.service';
 
 
 export function selectQuizPattern(): I.AnswerSelection {
@@ -139,7 +140,7 @@ export function getAnswerText(answer: I.AnswerOfCountry, selectedQuizPattern: I.
       return answer.nameJp;
 
     case 'COUNTRY_TO_REGIONAL_BLOCK':
-      return answer.regionalBlocks[0];
+      return convertRegionalBlockCodeToName(answer.regionalBlocks[0]);
   }
 }
 

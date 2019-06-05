@@ -1,6 +1,7 @@
 import * as _ from '../util/lodash.util';
 import * as I from '../models/quiz.d';
 import { COUNTRIES } from './countries';
+import { RegionalBlocks } from '../services/regional-blocks.service';
 export const countries = COUNTRIES.map(c => {
   return {
     countryCode: c.countryCode,
@@ -81,12 +82,8 @@ export function getRandomSuffixableCountry(): I.Country {
 
 export function getRandomRegionalBlocksCountry(): I.Country {
   const sampledCountry = _.sample(countries.filter(c => c.regionalBlocks.length > 0));
-  sampledCountry.regionalBlocks = [sampleRandomRegionalBlockOf(sampledCountry.regionalBlocks)];
+  sampledCountry.regionalBlocks = _.shuffle(sampledCountry.regionalBlocks);
   return sampledCountry;
-}
-
-function sampleRandomRegionalBlockOf(regionalBlocks: Array<I.RegionalBlocks>): I.RegionalBlocks {
-  return _.sample(regionalBlocks);
 }
 
 export function getSimilarCountries(country: I.Country): Array<I.Country> {
@@ -169,12 +166,23 @@ export function getDummySuffixCountries(country: I.Country): Array<I.Country> {
   ];
 }
 
-// TODO(baba):
 export function getSimilarRegionalBlocks(country: I.Country): Array<I.Country> {
-  return [];
+  const unmatchedRegionalBlocks = RegionalBlocks.filter(b => !country.regionalBlocks.some(_b => _b === b.code));
+  const dummyRegionalBlocks = _.shuffle(unmatchedRegionalBlocks);
+
+  return [
+    { ...country, regionalBlocks: [dummyRegionalBlocks[0]] },
+    { ...country, regionalBlocks: [dummyRegionalBlocks[1]] },
+    { ...country, regionalBlocks: [dummyRegionalBlocks[2]] }
+  ];
 }
 
-// TODO(baba):
 export function getSimilarRegionalBlocksCountries(country: I.Country): Array<I.Country> {
-  return [];
+  const sameRegionCountries = getSimilarCountries(country).filter(c => {
+    return c.regionCode === country.regionCode && c.regionalBlocks.filter(b => {
+      return !country.regionalBlocks.some(_b => _b === b);
+    }).length === 0;
+  });
+
+  return _.shuffle(sameRegionCountries);
 }

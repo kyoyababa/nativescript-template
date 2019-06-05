@@ -1,4 +1,5 @@
 import * as I from '../models/quiz.d';
+import { convertRegionalBlockCodeToName } from './regional-blocks.service';
 
 export function countryToCapital(country: I.Country): string {
   return `「${country.nameJpS}」の首都はどこ？`;
@@ -53,7 +54,7 @@ export function countryToRegionalBlock(country: I.Country): string {
 }
 
 export function regionalBlockToCountry(country: I.Country): string {
-  const regionalBlock = country.regionalBlocks[0];
+  const regionalBlock = convertRegionalBlockCodeToName(country.regionalBlocks[0]);
   return `次のうち、${regionalBlock}に加盟している国はどれ？`;
 }
 

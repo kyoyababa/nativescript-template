@@ -133,41 +133,42 @@ describe('DatabaseHandlerの正解データ生成において', () => {
     //   });
     // });
 
-    // describe('getRandomRegionalBlocksCountry', () => {
-    //   describe('10回実行したとき', () => {
-    //     const actual = DatabaseHandler.getRandomRegionalBlocksCountry();
-    //
-    //     it('ランダムな国データが返されること', () => {
-    //       expect(actual.nameJpS).toBeDefined();
-    //       expect(actual.nameJpS).not.toBe('');
-    //     });
-    //
-    //     it('返された国データに、regionalBlocksがひとつだけ存在していること', () => {
-    //       expect(actual.regionalBlocks.length).toBe(1);
-    //     });
-    //
-    //     it('regionalBlocks の値はRegionalBlocksタイプに指定されている文字列であること', () => {
-    //       const regionalBlocksType = [
-    //         '',
-    //         'UN',
-    //         'SAARC',
-    //         'AU',
-    //         'CEFTA',
-    //         'AL',
-    //         'USAN',
-    //         'EEU',
-    //         'CARICOM',
-    //         'EU',
-    //         'CAIS',
-    //         'ASEAN',
-    //         'NAFTA',
-    //         'EFTA',
-    //         'PA'
-    //       ];
-    //       expect(regionalBlocksType.some(b => b === actual.regionalBlocks[0])).toBeTruthy();
-    //     });
-    //   });
-    // });
+    describe('getRandomRegionalBlocksCountry', () => {
+      describe('10回実行したとき', () => {
+        const actual = DatabaseHandler.getRandomRegionalBlocksCountry();
+
+        it('ランダムな国データが返されること', () => {
+          expect(actual.nameJpS).toBeDefined();
+          expect(actual.nameJpS).not.toBe('');
+        });
+
+        it('返された国データに、regionalBlocksがひとつ以上存在していること', () => {
+          expect(actual.regionalBlocks.length).toBeGreaterThan(0);
+        });
+
+        it('regionalBlocks の値はRegionalBlocksタイプに指定されている文字列であること', () => {
+          const regionalBlocksType = [
+            '',
+            'UN',
+            'SAARC',
+            'AU',
+            'CEFTA',
+            'AL',
+            'USAN',
+            'EEU',
+            'CARICOM',
+            'EU',
+            'CAIS',
+            'ASEAN',
+            'NAFTA',
+            'EFTA',
+            'PA'
+          ];
+          const matchedRegionalBlocksLength = actual.regionalBlocks.filter(b => regionalBlocksType.indexOf(b) >= 0).length;
+          expect(matchedRegionalBlocksLength).toBe(actual.regionalBlocks.length);
+        });
+      });
+    });
   }
 });
 
@@ -422,27 +423,47 @@ describe('無作為に抽出したregionalBlockを持つ10個の国データの�
             expect(a.borders).toEqual(c.borders);
           });
 
-          it(`regionalBlocks の値には、${c.regionalBlocks[0]} が含まれないこと`, () => {
-            expect(a.regionalBlocks.some(b => b === c.regionalBlocks[0])).toBeFalsy();
+          it(`regionalBlocks の値には、${c.nameJpS} が実際に持つ値とは異なる値がひとつだけ含まれていること`, () => {
+            const dummyRegionalBlocks = a.regionalBlocks;
+            expect(dummyRegionalBlocks.length).toBe(1);
+            expect(dummyRegionalBlocks[0]).toBeTruthy();
+            expect(c.regionalBlocks.some((b: string) => dummyRegionalBlocks[0] === b)).toBeFalsy();
           });
+        });
+
+        it(`値として含まれている regionalBlocks はそれぞれ異なる値であること`, () => {
+          const filterDuplicateValues = (str: Array<string>): Array<string> => {
+            return str.filter((x: string, i: number, self: Array<string>) => {
+              return x !== "" && self.indexOf(x) !== self.lastIndexOf(x);
+            });
+          };
+          const dummyRegionalBlocks = actual.map(a => a.regionalBlocks[0]);
+          expect(filterDuplicateValues(dummyRegionalBlocks).length).toBe(3);
         });
       });
 
       describe('getSimilarRegionalBlocksCountries を実行したとき', () => {
         const actual = DatabaseHandler.getSimilarRegionalBlocksCountries(c);
 
-        it('返り値が３つの国データであること', () => {
-          expect(actual.length).toBe(3);
+        it('返り値が３つ以上の国データであること', () => {
+          expect(actual.length >= 3).toBeTruhy();
         });
 
         actual.forEach(a => {
+          it(`任意の${c.regionCode}リージョンの国が返されること`, () => {
+            expect(a.regionCode).toBe(c.regionCode);
+          });
+
           it(`${c.nameJpS}とは異なる国が返されていること`, () => {
             const isValidCountryCode = typeof a.countryCode !== 'undefined' && a.countryCode !== '' && a.countryCode !== c.countryCode;
             expect(isValidCountryCode).toBe(true);
           });
 
-          it(`regionalBlocks に "${c.regionalBlocks[0]}" が含まれていない国が返されていること`, () => {
-            expect(a.regionalBlocks.some(b => b === c.regionalBlocks[0])).toBeFalsy();
+          it(`regionalBlocks の値には、${c.nameJpS} が実際に持つ値とは異なる値が含まれているか、ひとつもregionalBlocksを持たないこと`, () => {
+            const dummyRegionalBlocks = a.regionalBlocks;
+            const hasRegionalBlocks = a.regionalBlocks.length > 0;
+            const hasDifferentRegionalBlocks = !c.regionalBlocks.some((b: string) => dummyRegionalBlocks[0] === b);
+            expect(!hasRegionalBlocks || hasDifferentRegionalBlocks).toBeTruthy();
           });
         });
       });
