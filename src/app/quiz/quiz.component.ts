@@ -3,6 +3,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angula
 import { Observable } from 'rxjs';
 
 import * as QuizService from './quiz.service';
+import * as SettingsService from '../services/settings.service';
 import * as I from '../models/quiz.d';
 import * as DatabaseHandler from '../database/database.handler';
 import * as QuizTextGenerator from '../services/quiz-text-generator';
@@ -25,6 +26,10 @@ export class QuizComponent implements OnInit {
   isAnswerSelected = false;
   selectedAnswer: I.AnswerOfCountry | null = null;
   answers: Array<I.AnswerHistory> = [];
+
+  get answerHistoryFromStorage(): Array<SettingsService.AnswerHistoryItem> {
+    return SettingsService.getAnswerHistory();
+  }
 
   get goToNextButtonLabel(): string {
     return '次へ';
@@ -143,6 +148,11 @@ export class QuizComponent implements OnInit {
   goToNext(): void {
     this.answers.push({ isCorrect: this.isCorrect() });
     this.resetModelsAndStartNextQuiz();
+  }
+
+  private pushAnswerToStorage(): void {
+    const correctAnswerCountry = this.answerSelections.find((s: I.AnswerOfCountry) => s.isCorrect).countryCode;
+    SettingsService.pushAnswer(<I.AnswerSelection>this.selectedQuizPattern, correctAnswerCountry, this.isCorrect());
   }
 
   private resetModelsAndStartNextQuiz(): void {

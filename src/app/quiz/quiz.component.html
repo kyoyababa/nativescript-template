@@ -1,6 +1,11 @@
 <ActionBar title="{{getActionBarTitle()}}"></ActionBar>
 
 <StackLayout>
+  <!-- TODO: this is for debug, should be removed. -->
+  <StackLayout>
+    <Label textWrap="true" text="{{answerHistory | json}}"></Label>
+  </StackLayout>
+
   <FlexboxLayout *ngIf="shouldShow('PRETITLE')" class="pretitle">
     <StackLayout>
       <Label text="{{getActionBarTitle()}}"></Label>

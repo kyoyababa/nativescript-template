@@ -1,7 +1,7 @@
 import * as appSettings from "tns-core-modules/application-settings";
 import * as I from '../models/quiz.d';
 
-interface AnswerHistoryItem {
+export interface AnswerHistoryItem {
   quizPattern: I.AnswerSelection;
   correctAnswerCountry: string;
   isCorrected: boolean;
@@ -25,12 +25,12 @@ const answerHistoryStorageName = 'ANSWER_HISTORY';
  * |"COUNTRY_TO_SECOND_CAPITAL"  |"CN"                    |"true"         |"EEE MMM DD yyyy hh:mm:ss ..."  |
  */
 
-function getAnswerHistory(): Array<AnswerHistoryItem> {
+export function getAnswerHistory(): Array<AnswerHistoryItem> {
   const answerHistoryItems = JSON.parse(appSettings.getString(answerHistoryStorageName, '[]'));
   return convertAnswerHistoryItemsRawToItems(answerHistoryItems);
 }
 
-function pushAnswer(quizPattern: I.AnswerSelection, correctAnswerCountry: string, isCorrected: boolean): void {
+export function pushAnswer(quizPattern: I.AnswerSelection, correctAnswerCountry: string, isCorrected: boolean): void {
   const newAnswerHistoryItems = getAnswerHistory().concat({
     quizPattern,
     correctAnswerCountry,
