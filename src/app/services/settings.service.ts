@@ -27,7 +27,22 @@ const answerHistoryStorageName = 'ANSWER_HISTORY';
 
 function getAnswerHistory(): Array<AnswerHistoryItem> {
   const answerHistoryItems = JSON.parse(appSettings.getString(answerHistoryStorageName, '[]'));
-  return answerHistoryItems.map((i: AnswerHistoryItemRaw) => {
+  return convertAnswerHistoryItemsRawToItems(answerHistoryItems);
+}
+
+function pushAnswer(quizPattern: I.AnswerSelection, correctAnswerCountry: string, isCorrected: boolean): void {
+  const newAnswerHistoryItems = getAnswerHistory().concat({
+    quizPattern,
+    correctAnswerCountry,
+    isCorrected,
+    createdAt: new Date()
+  });
+  const newAnswerHistoryItemsRaw = convertAnswerHistoryItemsToRaw(newAnswerHistoryItems);
+  appSettings.setString(answerHistoryStorageName, JSON.stringify(newAnswerHistoryItemsRaw));
+}
+
+function convertAnswerHistoryItemsRawToItems(answerHistoryItemsRaw: Array<AnswerHistoryItemRaw>): Array<AnswerHistoryItem> {
+  return answerHistoryItemsRaw.map(i => {
     return {
       quizPattern: i.quizPattern,
       correctAnswerCountry: i.correctAnswerCountry,
@@ -37,20 +52,13 @@ function getAnswerHistory(): Array<AnswerHistoryItem> {
   });
 }
 
-function pushAnswer(quizPattern: I.AnswerSelection, correctAnswerCountry: string, isCorrected: boolean): void {
-  const newAnswerHistoryItems: Array<AnswerHistoryItem> = getAnswerHistory().concat({
-    quizPattern,
-    correctAnswerCountry,
-    isCorrected,
-    createdAt: new Date()
-  });
-  const newAnswerHistoryItemsRaw: Array<AnswerHistoryItemRaw> = newAnswerHistoryItems.map(i => {
+function convertAnswerHistoryItemsToRaw(answerHistoryItems: Array<AnswerHistoryItem>): Array<AnswerHistoryItemRaw> {
+  return answerHistoryItems.map(i => {
     return {
-      quizPattern,
-      correctAnswerCountry,
-      isCorrected: <'true' | 'false'>isCorrected.toString(),
-      createdAt: new Date().toString()
+      quizPattern: i.quizPattern,
+      correctAnswerCountry: i.correctAnswerCountry,
+      isCorrected: <'true' | 'false'>i.isCorrected.toString(),
+      createdAt: i.createdAt.toString()
     }
-  })
-  appSettings.setString(answerHistoryStorageName, JSON.stringify(newAnswerHistoryItemsRaw));
+  });
 }
