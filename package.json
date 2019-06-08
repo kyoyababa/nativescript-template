@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "clean": "tns clean-app ios && tns clean-app android && rm -rf src/**/*.js && rm -rf src/**/*.css && rm -rf hooks && rm -rf platforms && rm -rf src/app/database/countries.ts",
+    "clean": "tns clean-app ios && tns clean-app android && rm -rf src/**/*.js && rm -rf src/**/*.css && rm -rf hooks && rm -rf platforms && rm -rf src/app/database/countries.ts && tns plugin add nativescript-dev-sass && tns plugin add nativescript-dev-typescript && tns plugin add nativescript-dev-webpack && tns plugin add nativescript-tslib",
     "clean-install": "rm -rf node_modules && npm i",
     "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i '.bak' '1s/^/export const COUNTRIES = /g' src/app/database/countries.ts",
-    "start": "npm run json && tns preview",
+    "start": "npm run json && tns run ios",
     "test": "karma start"
   },
   "nativescript": {
@@ -54,9 +54,9 @@
     "karma-typescript-preprocessor": "^0.4.0",
     "karma-webpack": "^3.0.5",
     "lodash": "^4.17.11",
-    "nativescript-dev-sass": "^1.6.0",
-    "nativescript-dev-typescript": "~0.7.0",
-    "nativescript-dev-webpack": "~0.18.0",
+    "nativescript-dev-sass": "^1.7.0",
+    "nativescript-dev-typescript": "^0.7.9",
+    "nativescript-dev-webpack": "^0.18.5",
     "nativescript-tslib": "^1.9.1-r1",
     "webpack": "^4.28.3"
   },
