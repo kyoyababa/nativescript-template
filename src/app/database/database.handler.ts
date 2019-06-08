@@ -178,10 +178,24 @@ export function getSimilarRegionalBlocks(country: I.Country): Array<I.Country> {
 }
 
 export function getSimilarRegionalBlocksCountries(country: I.Country): Array<I.Country> {
+  const regionalBlocksComparison = country.regionalBlocks;
+
   const sameRegionCountries = getSimilarCountries(country).filter(c => {
-    return c.regionCode === country.regionCode && c.regionalBlocks.filter(b => {
-      return !country.regionalBlocks.some(_b => _b === b);
-    }).length === 0;
+    const regionalBlocks = c.regionalBlocks;
+
+    let isMatched = false;
+
+    regionalBlocksComparison.forEach(b => {
+      if (regionalBlocks.indexOf(b) >= 0) {
+        isMatched = true;
+      }
+    });
+
+    if (!isMatched) {
+      return true;
+    } else {
+      return false;
+    }
   });
 
   return _.shuffle(sameRegionCountries);

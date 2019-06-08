@@ -4,7 +4,7 @@
     "clean-install": "rm -rf node_modules && npm i",
     "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i '.bak' '1s/^/export const COUNTRIES = /g' src/app/database/countries.ts",
     "start": "npm run json && tns preview",
-    "test": "npm run json && karma start"
+    "test": "karma start"
   },
   "nativescript": {
     "id": "org.nativescript.TestApp",
