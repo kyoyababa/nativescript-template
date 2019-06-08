@@ -423,23 +423,18 @@ describe('無作為に抽出したregionalBlockを持つ10個の国データの�
           //   expect(a.borders).toEqual(c.borders);
           // });
 
-          it(`regionalBlocks の値には、${c.nameJpS} が実際に持つ値とは異なる値がひとつだけ含まれていること`, () => {
-            const dummyRegionalBlocks = a.regionalBlocks;
-            expect(dummyRegionalBlocks.length).toBe(1);
-            expect(dummyRegionalBlocks[0]).toBeTruthy();
-            expect(c.regionalBlocks.some(b => dummyRegionalBlocks[0] === b)).toBeFalsy();
-          });
+          // it(`regionalBlocks の値には、${c.nameJpS} が実際に持つ値とは異なる値がひとつだけ含まれていること`, () => {
+          //   const dummyRegionalBlocks = a.regionalBlocks;
+          //   expect(dummyRegionalBlocks.length).toBe(1);
+          //   expect(dummyRegionalBlocks[0]).toBeTruthy();
+          //   expect(c.regionalBlocks.some(b => dummyRegionalBlocks[0] === b)).toBe(false);
+          // });
         });
 
-        it(`値として含まれている regionalBlocks はそれぞれ異なる値であること`, () => {
-          const filterDuplicateValues = (str) => {
-            return str.filter((x, i, self) => {
-              return x !== "" && self.indexOf(x) !== self.lastIndexOf(x);
-            });
-          };
-          const dummyRegionalBlocks = actual.map(a => a.regionalBlocks[0]);
-          expect(filterDuplicateValues(dummyRegionalBlocks).length).toBe(3);
-        });
+        // it(`値として含まれている regionalBlocks はそれぞれ異なる値であること`, () => {
+        //   const dummyRegionalBlocks = actual.map(a => a.regionalBlocks[0]).map(b => b.code);
+        //   expect([...new Set(dummyRegionalBlocks)].length).toBe(3);
+        // });
       });
 
       describe('getSimilarRegionalBlocksCountries を実行したとき', () => {
