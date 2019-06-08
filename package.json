@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "clean": "tns clean-app ios && tns clean-app android && rm -rf src/**/*.js && rm -rf src/**/*.css && rm -rf hooks && rm -rf platforms && rm -rf src/app/database/countries.ts && tns plugin add nativescript-dev-sass && tns plugin add nativescript-dev-typescript && tns plugin add nativescript-dev-webpack && tns plugin add nativescript-tslib",
+    "clean": "tns clean-app ios && tns clean-app android && rm -rf src/**/*.js && rm -rf src/**/*.css && rm -rf hooks && rm -rf platforms && rm -rf src/app/database/countries.ts",
     "clean-install": "rm -rf node_modules && npm i",
     "json": "csvtojson src/app/database/countries.csv > src/app/database/countries.ts && sed -i '.bak' '1s/^/export const COUNTRIES = /g' src/app/database/countries.ts",
     "start": "npm run json && tns run ios",
