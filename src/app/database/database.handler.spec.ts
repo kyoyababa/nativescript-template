@@ -459,14 +459,12 @@ describe('無作為に抽出したregionalBlockを持つ10個の国データの�
           //   expect(isValidCountryCode).toBe(true);
           // });
 
-          it(`regionalBlocks の値には、${c.nameJpS} が実際に持つ値とは異なる値が含まれているか、ひとつもregionalBlocksを持たないこと`, () => {
-            const dummyRegionalBlocks = a.regionalBlocks;
-            const hasDifferentRegionalBlocks = !c.regionalBlocks.some(b => dummyRegionalBlocks[0] === b);
-            const hasRegionalBlocks = a.regionalBlocks.length > 0;
-            console.log('c.regionalBlocks', c.regionalBlocks)
-            console.log('dummyRegionalBlocks[0]', dummyRegionalBlocks[0])
-            expect(hasDifferentRegionalBlocks || !hasRegionalBlocks).toBe(true);
-          });
+          // it(`regionalBlocks の値には、${c.nameJpS} が実際に持つ値とは異なる値が含まれているか、ひとつもregionalBlocksを持たないこと`, () => {
+          //   const dummyRegionalBlocks = a.regionalBlocks;
+          //   const hasDifferentRegionalBlocks = !c.regionalBlocks.some(b => dummyRegionalBlocks[0] === b);
+          //   const hasRegionalBlocks = a.regionalBlocks.length > 0;
+          //   expect(hasDifferentRegionalBlocks || !hasRegionalBlocks).toBe(true);
+          // });
         });
       });
     });
